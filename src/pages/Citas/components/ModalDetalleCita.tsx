@@ -9,10 +9,12 @@ import { transicionesAtom } from '@/lib/store';
 import type { Cita, CitaEditInput } from '@/lib/types';
 import { ResumenCita } from './ResumenCita';
 import { LineaTiempo } from './LineaTiempo';
+import { PanelAccesoCita } from './PanelAccesoCita';
 
 const TABS = [
   { id: 'resumen', label: 'Resumen' },
   { id: 'historial', label: 'Historial' },
+  { id: 'acceso', label: 'Acceso' },
 ];
 
 interface Props {
@@ -53,7 +55,7 @@ export function ModalDetalleCita({ cita, onClose, onEditarCita, onCancelarCita, 
         style={{
           backgroundColor: '#FFFFFF', borderRadius: 12,
           boxShadow: '0 8px 24px rgba(0,0,0,0.20)', overflow: 'hidden',
-          width: 680, maxHeight: '85vh', display: 'flex', flexDirection: 'column',
+          width: 680, maxHeight: '80vh', display: 'flex', flexDirection: 'column',
         }}
       >
         <ModalHeader
@@ -75,6 +77,9 @@ export function ModalDetalleCita({ cita, onClose, onEditarCita, onCancelarCita, 
             )}
             {activeTab === 'historial' && (
               <LineaTiempo transiciones={transicionesCita} cita={cita} />
+            )}
+            {activeTab === 'acceso' && (
+              <PanelAccesoCita cita={cita} />
             )}
           </div>
         </Tabs>
