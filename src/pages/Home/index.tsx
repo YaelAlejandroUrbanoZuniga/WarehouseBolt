@@ -1,21 +1,17 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCalendarDay, faTruck, faCircleCheck, faClock,
-  faCalendarWeek, faDatabase, faChartSimple, faListCheck,
+  faCalendarWeek, faDatabase, faChartSimple,
 } from '@fortawesome/free-solid-svg-icons';
 import type { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
 import { colores } from '@/kit/tokens/colores';
 import { PLANTA_NOMBRE } from '@/lib/constants';
 import { Tarjeta } from '@/kit/componentes/Tarjeta/Tarjeta';
-import { InsigniaEstado } from '@/components/InsigniaEstado';
 import { EmptyState } from '@/kit/componentes/EmptyState/EmptyState';
 import { LoadingState } from '@/kit/componentes/LoadingState/LoadingState';
 import { BarraProgreso } from './components/BarraProgreso';
-import { formatearDuracion } from '@/lib/tiempo';
+import { CardActividadPatio } from './components/CardActividadPatio';
 import { useHome } from './useHome';
 
 interface KpiDef {
@@ -26,7 +22,6 @@ interface KpiDef {
 }
 
 export default function HomePage() {
-  const navigate = useNavigate();
   const {
     citasHoy, citasSemana, enPatio, completadasHoy,
     esperaPromedioMin, citasPorEstado, totalCitas, actividadReciente,
@@ -82,7 +77,7 @@ export default function HomePage() {
       </div>
 
       <div className="flex" style={{ gap: 20, marginBottom: 24 }}>
-        <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ flex: 2, minWidth: 0 }}>
           <Tarjeta>
             <div style={{ fontSize: 16, fontWeight: 700, color: colores.texto.principal, margin: '0 0 16px' }}>
               Citas por estado
@@ -101,86 +96,51 @@ export default function HomePage() {
             )}
           </Tarjeta>
         </div>
-        <div style={{ flex: 1, minWidth: 0 }}>
-          <Tarjeta>
-            <div style={{ fontSize: 16, fontWeight: 700, color: colores.texto.principal, margin: '0 0 16px' }}>
-              Resumen de la semana
+
+        <Tarjeta style={{ flex: 1 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+            <div
+              style={{
+                width: 56, height: 56, borderRadius: '50%',
+                backgroundColor: `${colores.status.info}26`,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                marginBottom: 12,
+              }}
+            >
+              <FontAwesomeIcon icon={faCalendarWeek} style={{ color: colores.status.info, fontSize: 22 }} />
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-              <div style={{ fontSize: 14, color: colores.texto.principal, display: 'flex', alignItems: 'center', gap: 8 }}>
-                <FontAwesomeIcon icon={faCalendarWeek} style={{ color: colores.texto.secundario, fontSize: 14 }} />
-                Citas esta semana: {citasSemana}
-              </div>
-              <div style={{ fontSize: 14, color: colores.texto.principal, display: 'flex', alignItems: 'center', gap: 8 }}>
-                <FontAwesomeIcon icon={faDatabase} style={{ color: colores.texto.secundario, fontSize: 14 }} />
-                Total histórico: {totalCitas}
-              </div>
+            <div style={{ fontSize: 30, fontWeight: 700, color: colores.texto.principal, marginBottom: 4 }}>
+              {citasSemana}
             </div>
-          </Tarjeta>
-        </div>
+            <div style={{ fontSize: 13, fontWeight: 500, color: colores.texto.secundario }}>
+              Citas esta semana
+            </div>
+          </div>
+        </Tarjeta>
+
+        <Tarjeta style={{ flex: 1 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+            <div
+              style={{
+                width: 56, height: 56, borderRadius: '50%',
+                backgroundColor: `${colores.nexteer.sidebar}26`,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                marginBottom: 12,
+              }}
+            >
+              <FontAwesomeIcon icon={faDatabase} style={{ color: colores.nexteer.sidebar, fontSize: 22 }} />
+            </div>
+            <div style={{ fontSize: 30, fontWeight: 700, color: colores.texto.principal, marginBottom: 4 }}>
+              {totalCitas}
+            </div>
+            <div style={{ fontSize: 13, fontWeight: 500, color: colores.texto.secundario }}>
+              Total histórico
+            </div>
+          </div>
+        </Tarjeta>
       </div>
 
-      <div className="flex" style={{ gap: 20 }}>
-        <div style={{ flex: 1, minWidth: 0 }}>
-          <h2 style={{ fontSize: 20, fontWeight: 700, color: colores.texto.principal, margin: '0 0 12px' }}>
-            En patio ahora
-          </h2>
-          {enPatio.length === 0 ? (
-            <EmptyState
-              icon={faTruck}
-              title="Patio vacío"
-              description="No hay transportes en el patio en este momento."
-            />
-          ) : (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-              {enPatio.map(cita => {
-                const tiempo = cita.entrada
-                  ? formatearDuracion(cita.entrada.timestamp, ahora)
-                  : '—';
-                return (
-                  <Tarjeta key={cita.id} onClick={() => navigate(`/citas?cita=${cita.id}`)}>
-                    <div className="flex justify-between items-center" style={{ marginBottom: 4 }}>
-                      <span style={{ fontSize: 15, fontWeight: 700, color: colores.texto.principal }}>{cita.folio}</span>
-                      <InsigniaEstado estado={cita.estado} />
-                    </div>
-                    <div style={{ fontSize: 13, color: colores.texto.secundario }}>{cita.empresa}</div>
-                    <div style={{ fontSize: 12, color: colores.texto.secundario }}>En patio: {tiempo}</div>
-                  </Tarjeta>
-                );
-              })}
-            </div>
-          )}
-        </div>
-
-        <div style={{ flex: 1, minWidth: 0 }}>
-          <h2 style={{ fontSize: 20, fontWeight: 700, color: colores.texto.principal, margin: '0 0 12px' }}>
-            Actividad reciente
-          </h2>
-          {actividadReciente.length === 0 ? (
-            <EmptyState
-              icon={faListCheck}
-              title="Sin actividad"
-              description="No hay transiciones registradas."
-            />
-          ) : (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-              {actividadReciente.map(({ transicion, folio }) => {
-                return (
-                  <Tarjeta key={transicion.id}>
-                    <div className="flex justify-between items-center" style={{ marginBottom: 4 }}>
-                      <InsigniaEstado estado={transicion.estado} />
-                      <span style={{ fontSize: 13, fontWeight: 600, color: colores.texto.principal }}>{folio}</span>
-                    </div>
-                    <div style={{ fontSize: 12, color: colores.texto.secundario }}>
-                      {transicion.usuarioNombre} · {format(new Date(transicion.timestamp), "d MMM, HH:mm", { locale: es })}
-                    </div>
-                  </Tarjeta>
-                );
-              })}
-            </div>
-          )}
-        </div>
-      </div>
+      <CardActividadPatio enPatio={enPatio} actividadReciente={actividadReciente} ahora={ahora} />
     </div>
   );
 }
