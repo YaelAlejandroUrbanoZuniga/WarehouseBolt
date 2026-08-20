@@ -51,7 +51,7 @@ export default function HomePage() {
     { label: 'Citas de hoy', valor: citasHoy, icon: faCalendarDay, color: colores.status.info },
     { label: 'En patio', valor: enPatio.length, icon: faTruck, color: colores.status.warning },
     { label: 'Completadas hoy', valor: completadasHoy, icon: faCircleCheck, color: colores.status.active },
-    { label: 'Espera promedio', valor: `${esperaPromedioMin} min`, icon: faClock, color: colores.status.pending },
+    { label: 'Espera antes de descarga', valor: `${esperaPromedioMin} min`, icon: faClock, color: colores.status.pending },
   ];
 
   if (cargando) return <LoadingState mensaje="Cargando inicio..." />;

@@ -209,10 +209,11 @@ export function ResumenCita({ cita, transiciones, onEditarCita, onCancelarCita, 
       </Seccion>
 
       <Seccion titulo="Tiempos">
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '12px 24px', fontSize: 13, color: '#000000' }}>
-          <InfoRow label="En caseta" value={tiempos.tiempoCaseta} />
-          <InfoRow label="En descarga" value={tiempos.tiempoDescarga} />
-          <InfoRow label="Total en patio" value={tiempos.tiempoTotal} />
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px 24px', fontSize: 13, color: '#000000' }}>
+          <InfoRow label="Espera antes de descarga" value={tiempos.tiempoCaseta} />
+          <InfoRow label="Tiempo de descarga" value={tiempos.tiempoDescarga} />
+          <InfoRow label="Tiempo hasta salida" value={tiempos.tiempoSalida} />
+          <InfoRow label="Tiempo total" value={tiempos.tiempoTotal} />
         </div>
       </Seccion>
 

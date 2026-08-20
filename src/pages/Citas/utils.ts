@@ -72,7 +72,7 @@ export function calcularPuntualidad(
 
   const ts = new Date(transicion.timestamp).getTime();
 
-  if (transicionAnterior.estado === 'programada' && transicion.estado === 'en_caseta') {
+  if (transicionAnterior.estado === 'programada' && (transicion.estado === 'en_caseta' || transicion.estado === 'en_planta')) {
     const [h, m] = cita.ventanaInicio.split(':').map(Number);
     const ventanaInicio = new Date(`${cita.fechaProgramada}T${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:00`).getTime();
     const limite = ventanaInicio + MINUTOS_RETRASO * 60000;
@@ -82,18 +82,22 @@ export function calcularPuntualidad(
   }
 
   if (transicionAnterior.estado === 'en_caseta' && transicion.estado === 'en_planta') {
+    return 'a_tiempo';
+  }
+
+  if ((transicionAnterior.estado === 'en_planta' || transicionAnterior.estado === 'en_caseta') && transicion.estado === 'en_descarga') {
     const limite = new Date(transicionAnterior.timestamp).getTime() + MINUTOS_RETRASO * 60000;
     if (ts > limite) return 'tarde';
     return 'a_tiempo';
   }
 
-  if (transicionAnterior.estado === 'en_caseta' && transicion.estado === 'en_descarga') {
+  if (transicionAnterior.estado === 'en_descarga' && transicion.estado === 'saliendo') {
     const limite = new Date(transicionAnterior.timestamp).getTime() + MINUTOS_RETRASO * 60000;
     if (ts > limite) return 'tarde';
     return 'a_tiempo';
   }
 
-  if (transicionAnterior.estado === 'en_descarga' && transicion.estado === 'completada') {
+  if (transicionAnterior.estado === 'saliendo' && transicion.estado === 'completada') {
     const limite = new Date(transicionAnterior.timestamp).getTime() + MINUTOS_RETRASO * 60000;
     if (ts > limite) return 'tarde';
     return 'a_tiempo';
@@ -123,6 +127,7 @@ export function calcDuracion(inicio: string, fin: string): string {
 export interface TiemposCita {
   tiempoCaseta: string;
   tiempoDescarga: string;
+  tiempoSalida: string;
   tiempoTotal: string;
 }
 
@@ -133,15 +138,23 @@ export function calcularTiempos(cita: Cita, transiciones: TransicionEstado[]): T
   };
 
   const tsCaseta = getTs('en_caseta');
+  const tsPlanta = getTs('en_planta');
   const tsDescarga = getTs('en_descarga');
+  const tsSaliendo = getTs('saliendo');
   const tsCompletada = getTs('completada');
+
+  const candidatosInicio = [tsCaseta, tsPlanta].filter((v): v is string => v != null);
+  const inicioEspera = candidatosInicio.length > 0
+    ? candidatosInicio.reduce((a, b) => (a < b ? a : b))
+    : null;
 
   const tsEntradaReal = cita.entrada?.timestamp ?? tsCaseta;
   const tsSalidaReal = cita.salida?.timestamp ?? tsCompletada;
 
-  const tiempoCaseta = tsCaseta && tsDescarga ? calcDuracion(tsCaseta, tsDescarga) : '—';
-  const tiempoDescarga = tsDescarga && tsCompletada ? calcDuracion(tsDescarga, tsCompletada) : '—';
+  const tiempoCaseta = inicioEspera && tsDescarga ? calcDuracion(inicioEspera, tsDescarga) : '—';
+  const tiempoDescarga = tsDescarga && tsSaliendo ? calcDuracion(tsDescarga, tsSaliendo) : '—';
+  const tiempoSalida = tsSaliendo && tsCompletada ? calcDuracion(tsSaliendo, tsCompletada) : '—';
   const tiempoTotal = tsEntradaReal && tsSalidaReal ? calcDuracion(tsEntradaReal, tsSalidaReal) : '—';
 
-  return { tiempoCaseta, tiempoDescarga, tiempoTotal };
+  return { tiempoCaseta, tiempoDescarga, tiempoSalida, tiempoTotal };
 }

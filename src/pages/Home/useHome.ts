@@ -11,11 +11,16 @@ export interface ActividadReciente {
   folio: string;
 }
 
-function calcEsperaCasetaMin(cita: Cita, transiciones: TransicionEstado[]): number | null {
-  const tsCaseta = transiciones.find(t => t.citaId === cita.id && t.estado === 'en_caseta')?.timestamp;
-  const tsDescarga = transiciones.find(t => t.citaId === cita.id && t.estado === 'en_descarga')?.timestamp;
-  if (!tsCaseta || !tsDescarga) return null;
-  return Math.max(0, Math.round((new Date(tsDescarga).getTime() - new Date(tsCaseta).getTime()) / 60000));
+function calcEsperaMin(cita: Cita, transiciones: TransicionEstado[]): number | null {
+  const citaTrans = transiciones.filter(t => t.citaId === cita.id);
+  const tsCaseta = citaTrans.find(t => t.estado === 'en_caseta')?.timestamp;
+  const tsPlanta = citaTrans.find(t => t.estado === 'en_planta')?.timestamp;
+  const tsDescarga = citaTrans.find(t => t.estado === 'en_descarga')?.timestamp;
+  if (!tsDescarga) return null;
+  const candidatos = [tsCaseta, tsPlanta].filter((v): v is string => v != null);
+  if (candidatos.length === 0) return null;
+  const inicio = candidatos.reduce((a, b) => (a < b ? a : b));
+  return Math.max(0, Math.round((new Date(tsDescarga).getTime() - new Date(inicio).getTime()) / 60000));
 }
 
 const ORDEN_ESTADOS: EstadoCita[] = [...FLUJO_PRINCIPAL, 'cancelada'];
@@ -35,7 +40,9 @@ export function useHome() {
     const hace7DiasStr = format(hace7Dias, 'yyyy-MM-dd');
     const citasSemana = citas.filter(c => c.fechaProgramada >= hace7DiasStr && c.fechaProgramada <= hoyStr).length;
 
-    const enPatio = citas.filter(c => c.estado === 'en_caseta' || c.estado === 'en_descarga');
+    const enPatio = citas.filter(c =>
+      c.estado === 'en_caseta' || c.estado === 'en_planta' || c.estado === 'en_descarga' || c.estado === 'saliendo',
+    );
 
     const completadasHoy = citas.filter(c => {
       if (c.estado !== 'completada') return false;
@@ -45,7 +52,7 @@ export function useHome() {
     }).length;
 
     const esperas = citasHoyArr
-      .map(c => calcEsperaCasetaMin(c, transiciones))
+      .map(c => calcEsperaMin(c, transiciones))
       .filter((m): m is number => m !== null);
     const esperaPromedioMin = esperas.length === 0
       ? 0
