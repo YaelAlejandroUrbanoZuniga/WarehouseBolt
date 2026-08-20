@@ -59,21 +59,22 @@ export default function HomePage() {
       <div className="flex" style={{ gap: 20, marginBottom: 24 }}>
         {kpis.map(kpi => (
           <Tarjeta key={kpi.label} style={{ flex: 1 }}>
-            <div className="flex justify-between items-start">
-              <div>
-                <div style={{ fontSize: 13, fontWeight: 500, color: colores.texto.secundario, marginBottom: 8 }}>
-                  {kpi.label}
-                </div>
-                <div style={{ fontSize: 30, fontWeight: 700, color: colores.texto.principal }}>{kpi.valor}</div>
-              </div>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
               <div
                 style={{
-                  width: 40, height: 40, borderRadius: '50%',
+                  width: 56, height: 56, borderRadius: '50%',
                   backgroundColor: `${kpi.color}26`,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  marginBottom: 12,
                 }}
               >
-                <FontAwesomeIcon icon={kpi.icon} style={{ color: kpi.color, fontSize: 16 }} />
+                <FontAwesomeIcon icon={kpi.icon} style={{ color: kpi.color, fontSize: 22 }} />
+              </div>
+              <div style={{ fontSize: 30, fontWeight: 700, color: colores.texto.principal, marginBottom: 4 }}>
+                {kpi.valor}
+              </div>
+              <div style={{ fontSize: 13, fontWeight: 500, color: colores.texto.secundario }}>
+                {kpi.label}
               </div>
             </div>
           </Tarjeta>
