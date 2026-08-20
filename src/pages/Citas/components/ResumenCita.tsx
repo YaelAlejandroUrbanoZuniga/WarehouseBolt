@@ -2,9 +2,9 @@ import { useState, useMemo } from 'react';
 import { useAtomValue } from 'jotai';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight, faPen, faBan, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { ESTADOS, TRANSICIONES_PERMITIDAS } from '@/lib/constants';
+import { TRANSICIONES_PERMITIDAS } from '@/lib/constants';
 import { COLOR_RETRASO } from '@/lib/ui-map';
-import { Insignia } from '@/kit/componentes/Insignia/Insignia';
+import { InsigniaEstado } from '@/components/InsigniaEstado';
 import { CampoTexto } from '@/kit/componentes/CampoTexto/CampoTexto';
 import { Boton } from '@/kit/componentes/Boton/Boton';
 import { ConfirmDialog } from '@/kit/componentes/ConfirmDialog/ConfirmDialog';
@@ -31,7 +31,6 @@ interface Props {
 export function ResumenCita({ cita, transiciones, onEditarCita, onCancelarCita, onBorrarCita, onClose }: Props) {
   const docks = useAtomValue(docksAtom);
   const rolActivo = useAtomValue(rolActivoAtom);
-  const cfg = ESTADOS[cita.estado];
   const esRetraso = cita.subEstado === 'retraso';
 
   const [editando, setEditando] = useState(false);
@@ -121,7 +120,7 @@ export function ResumenCita({ cita, transiciones, onEditarCita, onCancelarCita, 
       <div>
         <div className="flex items-center justify-between" style={{ marginBottom: 8 }}>
           <div className="flex items-center" style={{ gap: 10 }}>
-            <Insignia estado={cfg.insignia}>{cfg.nombre}</Insignia>
+            <InsigniaEstado estado={cita.estado} />
             {esRetraso && (
               <span style={{ fontSize: 12, fontWeight: 600, color: COLOR_RETRASO }}>
                 Retraso detectado

@@ -9,9 +9,9 @@ import type { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { colores } from '@/kit/tokens/colores';
-import { PLANTA_NOMBRE, ESTADOS } from '@/lib/constants';
+import { PLANTA_NOMBRE } from '@/lib/constants';
 import { Tarjeta } from '@/kit/componentes/Tarjeta/Tarjeta';
-import { Insignia } from '@/kit/componentes/Insignia/Insignia';
+import { InsigniaEstado } from '@/components/InsigniaEstado';
 import { EmptyState } from '@/kit/componentes/EmptyState/EmptyState';
 import { LoadingState } from '@/kit/componentes/LoadingState/LoadingState';
 import { BarraProgreso } from './components/BarraProgreso';
@@ -140,7 +140,6 @@ export default function HomePage() {
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               {enPatio.map(cita => {
-                const cfg = ESTADOS[cita.estado];
                 const tiempo = cita.entrada
                   ? calcTiempoTranscurrido(cita.entrada.timestamp, ahora)
                   : '—';
@@ -148,7 +147,7 @@ export default function HomePage() {
                   <Tarjeta key={cita.id} onClick={() => navigate(`/citas?cita=${cita.id}`)}>
                     <div className="flex justify-between items-center" style={{ marginBottom: 4 }}>
                       <span style={{ fontSize: 15, fontWeight: 700, color: colores.texto.principal }}>{cita.folio}</span>
-                      <Insignia estado={cfg.insignia}>{cfg.nombre}</Insignia>
+                      <InsigniaEstado estado={cita.estado} />
                     </div>
                     <div style={{ fontSize: 13, color: colores.texto.secundario }}>{cita.empresa}</div>
                     <div style={{ fontSize: 12, color: colores.texto.secundario }}>En patio: {tiempo}</div>
@@ -172,11 +171,10 @@ export default function HomePage() {
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               {actividadReciente.map(({ transicion, folio }) => {
-                const cfg = ESTADOS[transicion.estado];
                 return (
                   <Tarjeta key={transicion.id}>
                     <div className="flex justify-between items-center" style={{ marginBottom: 4 }}>
-                      <Insignia estado={cfg.insignia}>{cfg.nombre}</Insignia>
+                      <InsigniaEstado estado={transicion.estado} />
                       <span style={{ fontSize: 13, fontWeight: 600, color: colores.texto.principal }}>{folio}</span>
                     </div>
                     <div style={{ fontSize: 12, color: colores.texto.secundario }}>

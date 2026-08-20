@@ -81,6 +81,12 @@ export function calcularPuntualidad(
     return 'a_tiempo';
   }
 
+  if (transicionAnterior.estado === 'en_caseta' && transicion.estado === 'en_planta') {
+    const limite = new Date(transicionAnterior.timestamp).getTime() + MINUTOS_RETRASO * 60000;
+    if (ts > limite) return 'tarde';
+    return 'a_tiempo';
+  }
+
   if (transicionAnterior.estado === 'en_caseta' && transicion.estado === 'en_descarga') {
     const limite = new Date(transicionAnterior.timestamp).getTime() + MINUTOS_RETRASO * 60000;
     if (ts > limite) return 'tarde';

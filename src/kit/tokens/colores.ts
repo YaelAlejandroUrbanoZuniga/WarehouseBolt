@@ -8,6 +8,8 @@ export const colores = {
     active: '#6ABF4B', pending: '#D4A017', warning: '#E3650B',
     error: '#DC0202', info: '#02B3E1', archived: '#6B7280',
     descarga: '#D6336C',
+    enPlanta: '#7048E8',
+    saliendo: '#12B886',
   },
   superficie: {
     card: '#FFFFFF', encabezadoTabla: '#F7F7F7', hoverFila: '#F5F5F5',

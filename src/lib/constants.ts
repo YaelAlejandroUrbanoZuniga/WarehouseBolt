@@ -1,28 +1,30 @@
 import type { Cita, EstadoCita, Rol, SubEstadoCita, TransicionEstado } from './types';
 
-// Incrementar cada vez que el shape de Cita, TransicionEstado o EstadoCita
-// cambie de forma incompatible con datos almacenados en localStorage.
-export const ESQUEMA_VERSION = 2;
+export const ESQUEMA_VERSION = 3;
 
 export const PLANTA_ID = 'planta-69';
 export const PLANTA_NOMBRE = 'Planta 69';
 
-export const ESTADOS: Record<EstadoCita, { nombre: string; insignia: 'active' | 'pending' | 'warning' | 'error' | 'info' | 'archived' }> = {
-  programada:      { nombre: 'Programada',      insignia: 'info' },
-  en_caseta:       { nombre: 'En caseta',       insignia: 'pending' },
-  en_descarga:     { nombre: 'En descarga',     insignia: 'warning' },
-  completada:      { nombre: 'Completada',      insignia: 'active' },
-  cancelada:       { nombre: 'Cancelada',       insignia: 'archived' },
+export const ESTADOS: Record<EstadoCita, { nombre: string }> = {
+  programada:      { nombre: 'Programada' },
+  en_caseta:       { nombre: 'En caseta' },
+  en_planta:       { nombre: 'En planta' },
+  en_descarga:     { nombre: 'En descarga' },
+  saliendo:        { nombre: 'Saliendo' },
+  completada:      { nombre: 'Completada' },
+  cancelada:       { nombre: 'Cancelada' },
 };
 
 export const FLUJO_PRINCIPAL: EstadoCita[] = [
-  'programada', 'en_caseta', 'en_descarga', 'completada',
+  'programada', 'en_caseta', 'en_planta', 'en_descarga', 'saliendo', 'completada',
 ];
 
 export const TRANSICIONES_PERMITIDAS: Record<EstadoCita, EstadoCita[]> = {
-  programada:      ['en_caseta', 'cancelada'],
-  en_caseta:       ['en_descarga', 'cancelada'],
-  en_descarga:     ['completada'],
+  programada:      ['en_caseta', 'en_planta', 'cancelada'],
+  en_caseta:       ['en_planta', 'cancelada'],
+  en_planta:       ['en_descarga', 'cancelada'],
+  en_descarga:     ['saliendo'],
+  saliendo:        ['completada'],
   completada:      [],
   cancelada:       [],
 };
@@ -57,6 +59,15 @@ export function calcularSubEstado(
     const transicionCaseta = citaTransiciones.find(t => t.estado === 'en_caseta');
     if (!transicionCaseta) return undefined;
     const limite = new Date(new Date(transicionCaseta.timestamp).getTime() + MINUTOS_RETRASO * 60000);
+    const tieneSalidaDeCaseta = citaTransiciones.some(t => t.estado === 'en_planta' || t.estado === 'en_descarga');
+    if (!tieneSalidaDeCaseta && ahora > limite) return 'retraso';
+    return undefined;
+  }
+
+  if (cita.estado === 'en_planta') {
+    const transicionPlanta = citaTransiciones.find(t => t.estado === 'en_planta');
+    if (!transicionPlanta) return undefined;
+    const limite = new Date(new Date(transicionPlanta.timestamp).getTime() + MINUTOS_RETRASO * 60000);
     const tieneDescarga = citaTransiciones.some(t => t.estado === 'en_descarga');
     if (!tieneDescarga && ahora > limite) return 'retraso';
     return undefined;

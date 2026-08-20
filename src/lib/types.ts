@@ -1,8 +1,8 @@
 export type Rol = 'coordinador' | 'vigilancia' | 'almacen';
 
 export type EstadoCita =
-  | 'programada' | 'en_caseta' | 'en_descarga'
-  | 'completada' | 'cancelada';
+  | 'programada' | 'en_caseta' | 'en_planta' | 'en_descarga'
+  | 'saliendo' | 'completada' | 'cancelada';
 
 export type SubEstadoCita = 'retraso';
 

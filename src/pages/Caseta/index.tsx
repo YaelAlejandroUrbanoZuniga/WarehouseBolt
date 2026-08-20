@@ -3,11 +3,10 @@ import { useAtomValue } from 'jotai';
 import { faDoorOpen } from '@fortawesome/free-solid-svg-icons';
 import { format } from 'date-fns';
 import { citasAtom } from '@/lib/store';
-import { ESTADOS } from '@/lib/constants';
 import type { Cita, EstadoCita } from '@/lib/types';
 import { TablaDatos } from '@/kit/componentes/TablaDatos/TablaDatos';
 import { Boton } from '@/kit/componentes/Boton/Boton';
-import { Insignia } from '@/kit/componentes/Insignia/Insignia';
+import { InsigniaEstado } from '@/components/InsigniaEstado';
 import { EmptyState } from '@/kit/componentes/EmptyState/EmptyState';
 import { LoadingState } from '@/kit/componentes/LoadingState/LoadingState';
 import type { SortableValue } from '@/kit/hooks/useTableSort';
@@ -81,8 +80,7 @@ export default function CasetaPage() {
       key: 'estado', label: 'Estado', sortable: false, width: '160px',
       render: (row: Record<string, unknown>) => {
         const estado = row.estado as EstadoCita;
-        const cfg = ESTADOS[estado];
-        return <Insignia estado={cfg.insignia}>{cfg.nombre}</Insignia>;
+        return <InsigniaEstado estado={estado} />;
       },
     },
     { key: 'tiempoPatio', label: 'Tiempo en patio', sortable: true, width: '130px' },
