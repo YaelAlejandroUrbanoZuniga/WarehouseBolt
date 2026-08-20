@@ -1,21 +1,15 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useAtomValue } from 'jotai';
 import { useModalTransition } from '@/kit/hooks/useModalTransition';
 import { ModalHeader } from '@/kit/componentes/ModalHeader/ModalHeader';
 import { Tabs } from '@/kit/componentes/Tabs/Tabs';
 import { zIndex } from '@/kit/tokens/layout';
 import { ESTADO_UI } from '@/lib/ui-map';
-import { transicionesAtom } from '@/lib/store';
+import { transicionesAtom, rolActivoAtom } from '@/lib/store';
 import type { Cita, CitaEditInput } from '@/lib/types';
 import { ResumenCita } from './ResumenCita';
 import { LineaTiempo } from './LineaTiempo';
 import { PanelAccesoCita } from './PanelAccesoCita';
-
-const TABS = [
-  { id: 'resumen', label: 'Resumen' },
-  { id: 'historial', label: 'Historial' },
-  { id: 'acceso', label: 'Acceso' },
-];
 
 interface Props {
   cita: Cita | null;
@@ -29,6 +23,24 @@ export function ModalDetalleCita({ cita, onClose, onEditarCita, onCancelarCita, 
   const { requestClose, overlayClass, panelClass } = useModalTransition(onClose);
   const [activeTab, setActiveTab] = useState('resumen');
   const allTransiciones = useAtomValue(transicionesAtom);
+  const rolActivo = useAtomValue(rolActivoAtom);
+
+  const tabs = useMemo(() => {
+    const base = [
+      { id: 'resumen', label: 'Resumen' },
+      { id: 'historial', label: 'Historial' },
+    ];
+    if (rolActivo === 'coordinador') {
+      base.push({ id: 'acceso', label: 'Acceso' });
+    }
+    return base;
+  }, [rolActivo]);
+
+  useEffect(() => {
+    if (!tabs.some(t => t.id === activeTab)) {
+      setActiveTab('resumen');
+    }
+  }, [tabs, activeTab]);
 
   const transicionesCita = useMemo(
     () => allTransiciones.filter(t => t.citaId === cita?.id),
@@ -63,7 +75,7 @@ export function ModalDetalleCita({ cita, onClose, onEditarCita, onCancelarCita, 
           accentColor={accentColor}
           onClose={requestClose}
         />
-        <Tabs tabs={TABS} activeTab={activeTab} onChange={setActiveTab}>
+        <Tabs tabs={tabs} activeTab={activeTab} onChange={setActiveTab}>
           <div style={{ overflowY: 'auto', padding: '20px 32px 24px', flex: 1 }}>
             {activeTab === 'resumen' && (
               <ResumenCita
