@@ -38,6 +38,7 @@ export interface TransicionEstado {
 export interface Cita {
   id: string;
   folio: string;
+  codigoAcceso: string;
   poNumero: string;
   transportistaId: string;
   empresa: string;

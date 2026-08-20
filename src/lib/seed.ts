@@ -79,7 +79,7 @@ export function useSembrarDatos(): void {
     // 3 programadas: 1 hoy, 2 mañana
     const c1Id = uid();
     citasArr.push({
-      id: c1Id, folio: folioPara(hoy(), 1), poNumero: 'PO-4501',
+      id: c1Id, folio: folioPara(hoy(), 1), codigoAcceso: 'DF202608AAAAA', poNumero: 'PO-4501',
       transportistaId: transportistas[0].id, empresa: transportistas[0].empresa,
       origen: 'Celaya', destino: 'Almacén 69',
       fechaProgramada: hoy(), ventanaInicio: '10:00', ventanaFin: '12:00',
@@ -90,7 +90,7 @@ export function useSembrarDatos(): void {
 
     const c2Id = uid();
     citasArr.push({
-      id: c2Id, folio: folioPara(manana(), 1), poNumero: 'PO-4502',
+      id: c2Id, folio: folioPara(manana(), 1), codigoAcceso: 'DF202608AAAAB', poNumero: 'PO-4502',
       transportistaId: transportistas[1].id, empresa: transportistas[1].empresa,
       origen: 'León', destino: 'Almacén 69',
       fechaProgramada: manana(), ventanaInicio: '08:00', ventanaFin: '10:00',
@@ -101,7 +101,7 @@ export function useSembrarDatos(): void {
 
     const c3Id = uid();
     citasArr.push({
-      id: c3Id, folio: folioPara(manana(), 2), poNumero: 'PO-4503',
+      id: c3Id, folio: folioPara(manana(), 2), codigoAcceso: 'DF202608AAAAC', poNumero: 'PO-4503',
       transportistaId: transportistas[2].id, empresa: transportistas[2].empresa,
       origen: 'Querétaro', destino: 'Almacén 69',
       fechaProgramada: manana(), ventanaInicio: '14:00', ventanaFin: '16:00',
@@ -114,7 +114,7 @@ export function useSembrarDatos(): void {
     const c4Id = uid();
     const c4Entrada = subMinutes(now, 20);
     citasArr.push({
-      id: c4Id, folio: folioPara(hoy(), 2), poNumero: 'PO-4504',
+      id: c4Id, folio: folioPara(hoy(), 2), codigoAcceso: 'DF202608AAAAD', poNumero: 'PO-4504',
       transportistaId: transportistas[3].id, empresa: transportistas[3].empresa,
       origen: 'Irapuato', destino: 'Almacén 69',
       fechaProgramada: hoy(), ventanaInicio: '18:00', ventanaFin: '20:00',
@@ -130,12 +130,13 @@ export function useSembrarDatos(): void {
 
     const c5Id = uid();
     const c5Caseta = subMinutes(now, 55);
+    const c5Planta = subMinutes(now, 40);
     citasArr.push({
-      id: c5Id, folio: folioPara(hoy(), 3), poNumero: 'PO-4505',
+      id: c5Id, folio: folioPara(hoy(), 3), codigoAcceso: 'DF202608AAAAE', poNumero: 'PO-4505',
       transportistaId: transportistas[4].id, empresa: transportistas[4].empresa,
       origen: 'San Luis Potosí', destino: 'Almacén 69',
       fechaProgramada: hoy(), ventanaInicio: '07:00', ventanaFin: '09:00',
-      dockId: null, estado: 'en_caseta', plantaId: PLANTA_ID,
+      dockId: null, estado: 'en_planta', plantaId: PLANTA_ID,
       creadoPorNombre: usuarios[0].nombre,
       entrada: {
         operador: 'Roberto Sánchez', placas: 'SLP-456-B',
@@ -144,15 +145,17 @@ export function useSembrarDatos(): void {
     });
     addTransicion(c5Id, 'programada', subMinutes(now, 300));
     addTransicion(c5Id, 'en_caseta', c5Caseta);
+    addTransicion(c5Id, 'en_planta', c5Planta);
 
     const c6Id = uid();
     const c6Caseta = subMinutes(now, 160);
+    const c6Planta = subMinutes(now, 130);
     citasArr.push({
-      id: c6Id, folio: folioPara(hoy(), 4), poNumero: 'PO-4506',
+      id: c6Id, folio: folioPara(hoy(), 4), codigoAcceso: 'DF202608AAAAF', poNumero: 'PO-4506',
       transportistaId: transportistas[0].id, empresa: transportistas[0].empresa,
       origen: 'Aguascalientes', destino: 'Almacén 69',
       fechaProgramada: hoy(), ventanaInicio: '03:00', ventanaFin: '05:00',
-      dockId: null, estado: 'en_caseta', plantaId: PLANTA_ID,
+      dockId: null, estado: 'en_planta', plantaId: PLANTA_ID,
       creadoPorNombre: usuarios[0].nombre,
       entrada: {
         operador: 'Fernando Díaz', placas: 'AGS-789-C',
@@ -161,17 +164,19 @@ export function useSembrarDatos(): void {
     });
     addTransicion(c6Id, 'programada', subMinutes(now, 360));
     addTransicion(c6Id, 'en_caseta', c6Caseta);
+    addTransicion(c6Id, 'en_planta', c6Planta);
 
-    // 1 en_descarga con dockId
+    // 1 en_descarga con dockId — now moves to 'saliendo'
     const c7Id = uid();
     const c7Caseta = subMinutes(now, 90);
     const c7Descarga = subMinutes(now, 60);
+    const c7Saliendo = subMinutes(now, 30);
     citasArr.push({
-      id: c7Id, folio: folioPara(hoy(), 5), poNumero: 'PO-4507',
+      id: c7Id, folio: folioPara(hoy(), 5), codigoAcceso: 'DF202608AAAAG', poNumero: 'PO-4507',
       transportistaId: transportistas[1].id, empresa: transportistas[1].empresa,
       origen: 'CDMX', destino: 'Almacén 69',
       fechaProgramada: hoy(), ventanaInicio: '12:00', ventanaFin: '14:00',
-      dockId: docks[0].id, estado: 'en_descarga', plantaId: PLANTA_ID,
+      dockId: docks[0].id, estado: 'saliendo', plantaId: PLANTA_ID,
       creadoPorNombre: usuarios[0].nombre,
       entrada: {
         operador: 'Arturo Vega', placas: 'MEX-321-D',
@@ -181,6 +186,7 @@ export function useSembrarDatos(): void {
     addTransicion(c7Id, 'programada', subMinutes(now, 400));
     addTransicion(c7Id, 'en_caseta', c7Caseta);
     addTransicion(c7Id, 'en_descarga', c7Descarga);
+    addTransicion(c7Id, 'saliendo', c7Saliendo);
 
     // 1 completada
     const c8Id = uid();
@@ -188,7 +194,7 @@ export function useSembrarDatos(): void {
     const c8Descarga = subMinutes(now, 200);
     const c8Completada = subMinutes(now, 140);
     citasArr.push({
-      id: c8Id, folio: folioPara(hoy(), 6), poNumero: 'PO-4508',
+      id: c8Id, folio: folioPara(hoy(), 6), codigoAcceso: 'DF202608AAAAH', poNumero: 'PO-4508',
       transportistaId: transportistas[2].id, empresa: transportistas[2].empresa,
       origen: 'Monterrey', destino: 'Almacén 69',
       fechaProgramada: hoy(), ventanaInicio: '05:00', ventanaFin: '07:00',
@@ -214,7 +220,7 @@ export function useSembrarDatos(): void {
     const c9Programada = subMinutes(now, 90);
     const c9Cancelada = subMinutes(now, 75);
     citasArr.push({
-      id: c9Id, folio: folioPara(hoy(), 7), poNumero: 'PO-4509',
+      id: c9Id, folio: folioPara(hoy(), 7), codigoAcceso: 'DF202608AAAAJ', poNumero: 'PO-4509',
       transportistaId: transportistas[3].id, empresa: transportistas[3].empresa,
       origen: 'Puebla', destino: 'Almacén 69',
       fechaProgramada: hoy(), ventanaInicio: '11:00', ventanaFin: '13:00',
@@ -228,7 +234,7 @@ export function useSembrarDatos(): void {
     const c10Programada = subMinutes(now, 600);
     const c10Cancelada = subMinutes(now, 180);
     citasArr.push({
-      id: c10Id, folio: folioPara(hoyMasDias(2), 1), poNumero: 'PO-4510',
+      id: c10Id, folio: folioPara(hoyMasDias(2), 1), codigoAcceso: 'DF202608AAAAK', poNumero: 'PO-4510',
       transportistaId: transportistas[4].id, empresa: transportistas[4].empresa,
       origen: 'Toluca', destino: 'Almacén 69',
       fechaProgramada: hoyMasDias(2), ventanaInicio: '09:00', ventanaFin: '11:00',
@@ -241,7 +247,7 @@ export function useSembrarDatos(): void {
     // 1 programada a 3 días en el futuro
     const c11Id = uid();
     citasArr.push({
-      id: c11Id, folio: folioPara(hoyMasDias(3), 1), poNumero: 'PO-4511',
+      id: c11Id, folio: folioPara(hoyMasDias(3), 1), codigoAcceso: 'DF202608AAAAL', poNumero: 'PO-4511',
       transportistaId: transportistas[0].id, empresa: transportistas[0].empresa,
       origen: 'Guanajuato', destino: 'Almacén 69',
       fechaProgramada: hoyMasDias(3), ventanaInicio: '10:00', ventanaFin: '12:00',
@@ -253,7 +259,7 @@ export function useSembrarDatos(): void {
     // 1 programada con ventanaInicio en el pasado (retraso en vivo)
     const c12Id = uid();
     citasArr.push({
-      id: c12Id, folio: folioPara(hoy(), 8), poNumero: 'PO-4512',
+      id: c12Id, folio: folioPara(hoy(), 8), codigoAcceso: 'DF202608AAAAM', poNumero: 'PO-4512',
       transportistaId: transportistas[1].id, empresa: transportistas[1].empresa,
       origen: 'Salamanca', destino: 'Almacén 69',
       fechaProgramada: hoy(), ventanaInicio: '14:00', ventanaFin: '16:00',
@@ -266,7 +272,7 @@ export function useSembrarDatos(): void {
     const c13Id = uid();
     const c13Entrada = subMinutes(now, 45);
     citasArr.push({
-      id: c13Id, folio: folioPara(hoy(), 9), poNumero: 'PO-4513',
+      id: c13Id, folio: folioPara(hoy(), 9), codigoAcceso: 'DF202608AAAAN', poNumero: 'PO-4513',
       transportistaId: transportistas[2].id, empresa: transportistas[2].empresa,
       origen: 'Cortazar', destino: 'Almacén 69',
       fechaProgramada: hoy(), ventanaInicio: '16:00', ventanaFin: '18:00',
@@ -283,7 +289,7 @@ export function useSembrarDatos(): void {
     // 1 programada muy temprano (01:00)
     const c14Id = uid();
     citasArr.push({
-      id: c14Id, folio: folioPara(hoyMasDias(1), 1), poNumero: 'PO-4514',
+      id: c14Id, folio: folioPara(hoyMasDias(1), 1), codigoAcceso: 'DF202608AAAAP', poNumero: 'PO-4514',
       transportistaId: transportistas[3].id, empresa: transportistas[3].empresa,
       origen: 'San Miguel de Allende', destino: 'Almacén 69',
       fechaProgramada: hoyMasDias(1), ventanaInicio: '01:00', ventanaFin: '03:00',
@@ -295,7 +301,7 @@ export function useSembrarDatos(): void {
     // 1 programada muy tarde (23:00)
     const c15Id = uid();
     citasArr.push({
-      id: c15Id, folio: folioPara(hoyMasDias(2), 2), poNumero: 'PO-4515',
+      id: c15Id, folio: folioPara(hoyMasDias(2), 2), codigoAcceso: 'DF202608AAAAQ', poNumero: 'PO-4515',
       transportistaId: transportistas[4].id, empresa: transportistas[4].empresa,
       origen: 'Dolores Hidalgo', destino: 'Almacén 69',
       fechaProgramada: hoyMasDias(2), ventanaInicio: '23:00', ventanaFin: '01:00',
@@ -309,7 +315,7 @@ export function useSembrarDatos(): void {
     // 1 programada, ventana 1h, semana actual, con nota
     const c16Id = uid();
     citasArr.push({
-      id: c16Id, folio: folioPara(hoyMasDias(4), 1), poNumero: 'PO-4516',
+      id: c16Id, folio: folioPara(hoyMasDias(4), 1), codigoAcceso: 'DF202608AAAAR', poNumero: 'PO-4516',
       transportistaId: transportistas[0].id, empresa: transportistas[0].empresa,
       origen: 'Celaya', destino: 'Almacén 69',
       fechaProgramada: hoyMasDias(4), ventanaInicio: '09:00', ventanaFin: '10:00',
@@ -322,7 +328,7 @@ export function useSembrarDatos(): void {
     // 1 programada, ventana 2h, semana siguiente, con nota
     const c17Id = uid();
     citasArr.push({
-      id: c17Id, folio: folioPara(hoyMasDias(8), 1), poNumero: 'PO-4517',
+      id: c17Id, folio: folioPara(hoyMasDias(8), 1), codigoAcceso: 'DF202608AAAAS', poNumero: 'PO-4517',
       transportistaId: transportistas[1].id, empresa: transportistas[1].empresa,
       origen: 'León', destino: 'Almacén 69',
       fechaProgramada: hoyMasDias(8), ventanaInicio: '08:00', ventanaFin: '10:00',
@@ -336,7 +342,7 @@ export function useSembrarDatos(): void {
     const c18Id = uid();
     const c18Entrada = subMinutes(now, 25);
     citasArr.push({
-      id: c18Id, folio: folioPara(hoyMasDias(5), 1), poNumero: 'PO-4518',
+      id: c18Id, folio: folioPara(hoyMasDias(5), 1), codigoAcceso: 'DF202608AAAAT', poNumero: 'PO-4518',
       transportistaId: transportistas[2].id, empresa: transportistas[2].empresa,
       origen: 'Querétaro', destino: 'Almacén 69',
       fechaProgramada: hoyMasDias(5), ventanaInicio: '07:00', ventanaFin: '10:00',
@@ -355,7 +361,7 @@ export function useSembrarDatos(): void {
     const c19Id = uid();
     const c19Entrada = subMinutes(now, 15);
     citasArr.push({
-      id: c19Id, folio: folioPara(hoyMasDias(9), 1), poNumero: 'PO-4519',
+      id: c19Id, folio: folioPara(hoyMasDias(9), 1), codigoAcceso: 'DF202608AAAAU', poNumero: 'PO-4519',
       transportistaId: transportistas[3].id, empresa: transportistas[3].empresa,
       origen: 'Irapuato', destino: 'Almacén 69',
       fechaProgramada: hoyMasDias(9), ventanaInicio: '10:00', ventanaFin: '12:00',
@@ -374,7 +380,7 @@ export function useSembrarDatos(): void {
     const c20Caseta = subMinutes(now, 35);
     const c20Descarga = subMinutes(now, 20);
     citasArr.push({
-      id: c20Id, folio: folioPara(hoyMasDias(6), 1), poNumero: 'PO-4520',
+      id: c20Id, folio: folioPara(hoyMasDias(6), 1), codigoAcceso: 'DF202608AAAAV', poNumero: 'PO-4520',
       transportistaId: transportistas[4].id, empresa: transportistas[4].empresa,
       origen: 'San Luis Potosí', destino: 'Almacén 69',
       fechaProgramada: hoyMasDias(6), ventanaInicio: '09:00', ventanaFin: '10:00',
@@ -396,7 +402,7 @@ export function useSembrarDatos(): void {
     const c21Descarga = subMinutes(now, 150);
     const c21Completada = subMinutes(now, 100);
     citasArr.push({
-      id: c21Id, folio: folioPara(hoyMasDias(7), 1), poNumero: 'PO-4521',
+      id: c21Id, folio: folioPara(hoyMasDias(7), 1), codigoAcceso: 'DF202608AAAAW', poNumero: 'PO-4521',
       transportistaId: transportistas[0].id, empresa: transportistas[0].empresa,
       origen: 'Aguascalientes', destino: 'Almacén 69',
       fechaProgramada: hoyMasDias(7), ventanaInicio: '08:00', ventanaFin: '10:00',
@@ -420,7 +426,7 @@ export function useSembrarDatos(): void {
     const c22Programada = subMinutes(now, 120);
     const c22Cancelada = subMinutes(now, 60);
     citasArr.push({
-      id: c22Id, folio: folioPara(hoyMasDias(10), 1), poNumero: 'PO-4522',
+      id: c22Id, folio: folioPara(hoyMasDias(10), 1), codigoAcceso: 'DF202608AAAAX', poNumero: 'PO-4522',
       transportistaId: transportistas[1].id, empresa: transportistas[1].empresa,
       origen: 'CDMX', destino: 'Almacén 69',
       fechaProgramada: hoyMasDias(10), ventanaInicio: '11:00', ventanaFin: '13:00',
@@ -434,7 +440,7 @@ export function useSembrarDatos(): void {
     // 1 programada, ventana 3h, semana siguiente, con nota
     const c23Id = uid();
     citasArr.push({
-      id: c23Id, folio: folioPara(hoyMasDias(11), 1), poNumero: 'PO-4523',
+      id: c23Id, folio: folioPara(hoyMasDias(11), 1), codigoAcceso: 'DF202608AAAAY', poNumero: 'PO-4523',
       transportistaId: transportistas[2].id, empresa: transportistas[2].empresa,
       origen: 'Monterrey', destino: 'Almacén 69',
       fechaProgramada: hoyMasDias(11), ventanaInicio: '06:00', ventanaFin: '09:00',

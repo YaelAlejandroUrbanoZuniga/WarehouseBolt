@@ -1,6 +1,6 @@
 import type { Cita, EstadoCita, Rol, SubEstadoCita, TransicionEstado } from './types';
 
-export const ESQUEMA_VERSION = 3;
+export const ESQUEMA_VERSION = 4;
 
 export const PLANTA_ID = 'planta-69';
 export const PLANTA_NOMBRE = 'Planta 69';

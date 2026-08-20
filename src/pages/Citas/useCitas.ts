@@ -4,6 +4,7 @@ import { citasAtom, transicionesAtom, transportistasAtom, usuarioActivoAtom } fr
 import { PLANTA_ID, calcularSubEstado, TRANSICIONES_PERMITIDAS } from '@/lib/constants';
 import type { Cita, CitaEditInput, CitaInput, TransicionEstado } from '@/lib/types';
 import { getInicioSemana, getDiasSemana, addSemanas, generarFolio, hayTraslape } from './utils';
+import { generarCodigoAcceso } from '@/lib/codigo-acceso';
 
 const NOTA_RETRASO = 'Retraso detectado automáticamente (30 min sin avance)';
 
@@ -91,9 +92,12 @@ export function useCitas() {
     const transportistaId = input.transportistaId ?? '';
     const empresa = transportistas.find(t => t.id === transportistaId)?.empresa ?? '';
 
+    const codigoAcceso = generarCodigoAcceso(citas);
+
     const nueva: Cita = {
       id,
       folio,
+      codigoAcceso,
       poNumero: input.poNumero,
       transportistaId,
       empresa,

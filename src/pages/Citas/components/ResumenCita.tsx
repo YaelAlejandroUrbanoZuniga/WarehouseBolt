@@ -1,7 +1,7 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { useAtomValue } from 'jotai';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight, faPen, faBan, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight, faPen, faBan, faTrash, faCopy } from '@fortawesome/free-solid-svg-icons';
 import { TRANSICIONES_PERMITIDAS } from '@/lib/constants';
 import { COLOR_RETRASO } from '@/lib/ui-map';
 import { InsigniaEstado } from '@/components/InsigniaEstado';
@@ -115,8 +115,33 @@ export function ResumenCita({ cita, transiciones, onEditarCita, onCancelarCita, 
     );
   }
 
+  const [copiado, setCopiado] = useState(false);
+
+  const copiarCodigo = useCallback(() => {
+    navigator.clipboard.writeText(cita.codigoAcceso).then(() => {
+      setCopiado(true);
+      setTimeout(() => setCopiado(false), 2000);
+    });
+  }, [cita.codigoAcceso]);
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+      <div style={{ marginBottom: 4 }}>
+        <div style={{ fontSize: 12, color: colores.texto.secundario, marginBottom: 4 }}>Código de acceso</div>
+        <div className="flex items-center" style={{ gap: 12 }}>
+          <span style={{ fontFamily: 'monospace', fontSize: 20, fontWeight: 700, color: colores.texto.principal, letterSpacing: 1 }}>
+            {cita.codigoAcceso}
+          </span>
+          <Boton variante="secundario" onClick={copiarCodigo}>
+            <FontAwesomeIcon icon={faCopy} style={{ fontSize: 12, marginRight: 6 }} />
+            {copiado ? 'Copiado' : 'Copiar'}
+          </Boton>
+        </div>
+        <p style={{ fontSize: 12, color: colores.texto.secundario, margin: '6px 0 0' }}>
+          Compártelo al transportista. Lo presentará en caseta el día de la cita.
+        </p>
+      </div>
+
       <div>
         <div className="flex items-center justify-between" style={{ marginBottom: 8 }}>
           <div className="flex items-center" style={{ gap: 10 }}>
