@@ -5,15 +5,8 @@ import { citasAtom, transicionesAtom, docksAtom } from '@/lib/store';
 import { Tarjeta } from '@/kit/componentes/Tarjeta/Tarjeta';
 import { EmptyState } from '@/kit/componentes/EmptyState/EmptyState';
 import { LoadingState } from '@/kit/componentes/LoadingState/LoadingState';
+import { formatearDuracion } from '@/lib/tiempo';
 import type { TransicionEstado } from '@/lib/types';
-
-function calcTiempoTranscurrido(timestamp: string, ahora: Date): string {
-  const diff = ahora.getTime() - new Date(timestamp).getTime();
-  const totalMin = Math.max(0, Math.floor(diff / 60000));
-  const h = Math.floor(totalMin / 60);
-  const m = totalMin % 60;
-  return `${h}h ${m}m`;
-}
 
 interface Props {
   ahora: Date;
@@ -36,7 +29,7 @@ export function PanelOcupacion({ ahora }: Props) {
         const trans = transiciones.find(
           (t: TransicionEstado) => t.citaId === citaEnDock.id && t.estado === 'en_descarga',
         );
-        tiempoDescarga = trans ? calcTiempoTranscurrido(trans.timestamp, ahora) : null;
+        tiempoDescarga = trans ? formatearDuracion(trans.timestamp, ahora) : null;
       }
       return { dock, cita: citaEnDock ?? null, tiempoDescarga };
     });

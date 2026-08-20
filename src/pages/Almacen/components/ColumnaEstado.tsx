@@ -2,6 +2,7 @@ import { type ReactNode } from 'react';
 import { Tarjeta } from '@/kit/componentes/Tarjeta/Tarjeta';
 import { EmptyState } from '@/kit/componentes/EmptyState/EmptyState';
 import { faBoxesPacking } from '@fortawesome/free-solid-svg-icons';
+import { formatearDuracion } from '@/lib/tiempo';
 import type { Cita } from '@/lib/types';
 
 interface Props {
@@ -9,16 +10,6 @@ interface Props {
   citas: Cita[];
   renderCita: (cita: Cita) => ReactNode;
 }
-
-function calcTiempo(timestamp: string, ahora: Date): string {
-  const diff = ahora.getTime() - new Date(timestamp).getTime();
-  const totalMin = Math.max(0, Math.floor(diff / 60000));
-  const h = Math.floor(totalMin / 60);
-  const m = totalMin % 60;
-  return `${h}h ${m}m`;
-}
-
-export { calcTiempo };
 
 export function ColumnaEstado({ titulo, citas, renderCita }: Props) {
   return (
@@ -50,7 +41,7 @@ export function ColumnaEstado({ titulo, citas, renderCita }: Props) {
               </div>
               {cita.entrada && (
                 <div style={{ fontSize: 12, color: '#808285', marginBottom: 12 }}>
-                  En patio: {calcTiempo(cita.entrada.timestamp, new Date())}
+                  En patio: {formatearDuracion(cita.entrada.timestamp, new Date())}
                 </div>
               )}
               {renderCita(cita)}

@@ -15,16 +15,9 @@ import type { SortableValue } from '@/kit/hooks/useTableSort';
 import { ModalRegistroEntrada } from './components/ModalRegistroEntrada';
 import { ModalRegistroSalida } from './components/ModalRegistroSalida';
 import { PanelOcupacion } from './components/PanelOcupacion';
+import { formatearDuracion } from '@/lib/tiempo';
 
 const ESTADOS_EN_PATIO: EstadoCita[] = ['en_caseta', 'en_planta', 'en_descarga', 'saliendo'];
-
-function calcTiempoEnPatio(timestamp: string, ahora: Date): string {
-  const diff = ahora.getTime() - new Date(timestamp).getTime();
-  const totalMin = Math.max(0, Math.floor(diff / 60000));
-  const h = Math.floor(totalMin / 60);
-  const m = totalMin % 60;
-  return `${h}h ${m}m`;
-}
 
 export default function CasetaPage() {
   const [citas, setCitas] = useAtom(citasAtom);
@@ -50,7 +43,7 @@ export default function CasetaPage() {
   const filasEnPatio = useMemo(() => enPatio.map(c => ({
     ...c,
     placas: c.entrada?.placas ?? '—',
-    tiempoPatio: c.entrada ? calcTiempoEnPatio(c.entrada.timestamp, ahora) : '—',
+    tiempoPatio: c.entrada ? formatearDuracion(c.entrada.timestamp, ahora) : '—',
   })), [enPatio, ahora]);
 
   function darAccesoPlanta(cita: Cita) {

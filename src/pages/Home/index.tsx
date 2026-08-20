@@ -15,15 +15,8 @@ import { InsigniaEstado } from '@/components/InsigniaEstado';
 import { EmptyState } from '@/kit/componentes/EmptyState/EmptyState';
 import { LoadingState } from '@/kit/componentes/LoadingState/LoadingState';
 import { BarraProgreso } from './components/BarraProgreso';
+import { formatearDuracion } from '@/lib/tiempo';
 import { useHome } from './useHome';
-
-function calcTiempoTranscurrido(timestamp: string, ahora: Date): string {
-  const diff = ahora.getTime() - new Date(timestamp).getTime();
-  const totalMin = Math.max(0, Math.floor(diff / 60000));
-  const h = Math.floor(totalMin / 60);
-  const m = totalMin % 60;
-  return `${h}h ${m}m`;
-}
 
 interface KpiDef {
   label: string;
@@ -141,7 +134,7 @@ export default function HomePage() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               {enPatio.map(cita => {
                 const tiempo = cita.entrada
-                  ? calcTiempoTranscurrido(cita.entrada.timestamp, ahora)
+                  ? formatearDuracion(cita.entrada.timestamp, ahora)
                   : '—';
                 return (
                   <Tarjeta key={cita.id} onClick={() => navigate(`/citas?cita=${cita.id}`)}>
