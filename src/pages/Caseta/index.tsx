@@ -1,19 +1,22 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
-import { useAtomValue } from 'jotai';
+import { useAtom, useAtomValue } from 'jotai';
 import { faDoorOpen } from '@fortawesome/free-solid-svg-icons';
-import { format } from 'date-fns';
-import { citasAtom } from '@/lib/store';
+import { citasAtom, transicionesAtom, usuarioActivoAtom } from '@/lib/store';
 import type { Cita, EstadoCita } from '@/lib/types';
 import { TablaDatos } from '@/kit/componentes/TablaDatos/TablaDatos';
 import { Boton } from '@/kit/componentes/Boton/Boton';
 import { InsigniaEstado } from '@/components/InsigniaEstado';
+import { PanelEscaneo } from '@/components/PanelEscaneo';
 import { EmptyState } from '@/kit/componentes/EmptyState/EmptyState';
 import { LoadingState } from '@/kit/componentes/LoadingState/LoadingState';
+import { ConfirmDialog } from '@/kit/componentes/ConfirmDialog/ConfirmDialog';
+import { useToast } from '@/kit/componentes/Toast/Toast';
 import type { SortableValue } from '@/kit/hooks/useTableSort';
 import { ModalRegistroEntrada } from './components/ModalRegistroEntrada';
 import { ModalRegistroSalida } from './components/ModalRegistroSalida';
+import { PanelOcupacion } from './components/PanelOcupacion';
 
-const ESTADOS_EN_PATIO: EstadoCita[] = ['en_caseta', 'en_descarga'];
+const ESTADOS_EN_PATIO: EstadoCita[] = ['en_caseta', 'en_planta', 'en_descarga', 'saliendo'];
 
 function calcTiempoEnPatio(timestamp: string, ahora: Date): string {
   const diff = ahora.getTime() - new Date(timestamp).getTime();
@@ -24,10 +27,14 @@ function calcTiempoEnPatio(timestamp: string, ahora: Date): string {
 }
 
 export default function CasetaPage() {
-  const citas = useAtomValue(citasAtom);
+  const [citas, setCitas] = useAtom(citasAtom);
+  const [transiciones, setTransiciones] = useAtom(transicionesAtom);
+  const usuarioActivo = useAtomValue(usuarioActivoAtom);
+  const toast = useToast();
   const [ahora, setAhora] = useState(() => new Date());
   const [entradaCita, setEntradaCita] = useState<Cita | null>(null);
   const [salidaCita, setSalidaCita] = useState<Cita | null>(null);
+  const [confirmarAcceso, setConfirmarAcceso] = useState<Cita | null>(null);
   const [cargando] = useState(false);
 
   useEffect(() => {
@@ -35,21 +42,10 @@ export default function CasetaPage() {
     return () => clearInterval(interval);
   }, []);
 
-  const hoyStr = useMemo(() => format(new Date(), 'yyyy-MM-dd'), []);
-
-  const esperadas = useMemo(
-    () => citas.filter(c => c.estado === 'programada' && c.fechaProgramada === hoyStr),
-    [citas, hoyStr],
-  );
-
   const enPatio = useMemo(
     () => citas.filter(c => ESTADOS_EN_PATIO.includes(c.estado)),
     [citas],
   );
-
-  const filasEsperadas = useMemo(() => esperadas.map(c => ({
-    ...c, ventana: `${c.ventanaInicio} - ${c.ventanaFin}`,
-  })), [esperadas]);
 
   const filasEnPatio = useMemo(() => enPatio.map(c => ({
     ...c,
@@ -57,20 +53,17 @@ export default function CasetaPage() {
     tiempoPatio: c.entrada ? calcTiempoEnPatio(c.entrada.timestamp, ahora) : '—',
   })), [enPatio, ahora]);
 
-  const columnasEsperadas = useMemo(() => [
-    { key: 'folio', label: 'Folio', sortable: true, width: '100px' },
-    { key: 'poNumero', label: 'PO', sortable: true, width: '100px' },
-    { key: 'empresa', label: 'Empresa', sortable: true, width: '1fr' },
-    { key: 'ventana', label: 'Ventana', sortable: true, width: '140px' },
-    {
-      key: 'accion', label: 'Acción', sortable: false, width: '160px',
-      render: (row: Record<string, unknown>) => (
-        <Boton onClick={() => setEntradaCita(citas.find(c => c.id === row.id) ?? null)}>
-          Registrar llegada
-        </Boton>
-      ),
-    },
-  ], [citas]);
+  function darAccesoPlanta(cita: Cita) {
+    const ahoraISO = new Date().toISOString();
+    const nombre = usuarioActivo?.nombre ?? 'Sistema';
+    setCitas(citas.map(c => c.id === cita.id ? { ...c, estado: 'en_planta' as EstadoCita } : c));
+    setTransiciones([
+      ...transiciones,
+      { id: crypto.randomUUID(), citaId: cita.id, estado: 'en_planta' as EstadoCita, usuarioNombre: nombre, timestamp: ahoraISO },
+    ]);
+    toast.success(`Acceso autorizado: ${cita.folio}`);
+    setConfirmarAcceso(null);
+  }
 
   const columnasEnPatio = useMemo(() => [
     { key: 'folio', label: 'Folio', sortable: true, width: '100px' },
@@ -85,14 +78,23 @@ export default function CasetaPage() {
     },
     { key: 'tiempoPatio', label: 'Tiempo en patio', sortable: true, width: '130px' },
     {
-      key: 'accion', label: 'Acción', sortable: false, width: '160px',
+      key: 'accion', label: 'Acción', sortable: false, width: '180px',
       render: (row: Record<string, unknown>) => {
-        if (row.estado !== 'en_descarga') return null;
-        return (
-          <Boton onClick={() => setSalidaCita(citas.find(c => c.id === row.id) ?? null)}>
-            Registrar salida
-          </Boton>
-        );
+        if (row.estado === 'en_caseta') {
+          return (
+            <Boton onClick={() => setConfirmarAcceso(citas.find(c => c.id === row.id) ?? null)}>
+              Dar acceso a planta
+            </Boton>
+          );
+        }
+        if (row.estado === 'saliendo') {
+          return (
+            <Boton onClick={() => setSalidaCita(citas.find(c => c.id === row.id) ?? null)}>
+              Registrar salida
+            </Boton>
+          );
+        }
+        return null;
       },
     },
   ], [citas]);
@@ -111,24 +113,14 @@ export default function CasetaPage() {
   return (
     <div>
       <div style={{ marginBottom: 32 }}>
-        <h2 style={{ fontSize: 20, fontWeight: 700, color: '#000000', margin: '0 0 12px' }}>
-          Esperadas hoy
-        </h2>
-        {esperadas.length === 0 ? (
-          <EmptyState
-            icon={faDoorOpen}
-            title="Sin citas esperadas"
-            description="No hay transportes programados para hoy que no hayan llegado."
-          />
-        ) : (
-          <TablaDatos
-            columnas={columnasEsperadas}
-            filas={filasEsperadas}
-            getValorOrdenable={getValorOrdenable}
-            mensajeVacio="Sin citas esperadas."
-          />
-        )}
+        <PanelEscaneo
+          titulo="Registrar llegada"
+          estadosValidos={['programada']}
+          onCitaEncontrada={cita => setEntradaCita(cita)}
+        />
       </div>
+
+      <PanelOcupacion ahora={ahora} />
 
       <div>
         <h2 style={{ fontSize: 20, fontWeight: 700, color: '#000000', margin: '0 0 12px' }}>
@@ -155,6 +147,15 @@ export default function CasetaPage() {
       )}
       {salidaCita && (
         <ModalRegistroSalida cita={salidaCita} onClose={() => setSalidaCita(null)} />
+      )}
+      {confirmarAcceso && (
+        <ConfirmDialog
+          title="Dar acceso a planta"
+          message={`¿Autorizar el paso de ${confirmarAcceso.folio} (${confirmarAcceso.empresa}) a planta?`}
+          confirmLabel="Autorizar acceso"
+          onCancel={() => setConfirmarAcceso(null)}
+          onConfirm={() => darAccesoPlanta(confirmarAcceso)}
+        />
       )}
     </div>
   );

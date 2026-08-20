@@ -13,7 +13,7 @@ export interface Dock { id: string; nombre: string; activo: boolean; plantaId: s
 export interface Transportista { id: string; empresa: string; }
 
 export interface RegistroEntrada {
-  operador: string;
+  transportista: string;
   placas: string;
   numeroCaja: string;
   sello: string;

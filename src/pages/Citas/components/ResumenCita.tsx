@@ -50,7 +50,7 @@ export function ResumenCita({ cita, transiciones, onEditarCita, onCancelarCita, 
   const tiempos = useMemo(() => calcularTiempos(cita, transiciones), [cita, transiciones]);
 
   const camposAcceso = useMemo(() => [
-    { label: 'Operador', value: cita.entrada?.operador },
+    { label: 'Transportista', value: cita.entrada?.transportista },
     { label: 'Placas', value: cita.entrada?.placas },
     { label: 'Caja entrada', value: cita.entrada?.numeroCaja },
     { label: 'Sello entrada', value: cita.entrada?.sello },

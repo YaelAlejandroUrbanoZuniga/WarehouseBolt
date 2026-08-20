@@ -121,7 +121,7 @@ export function useSembrarDatos(): void {
       dockId: null, estado: 'en_caseta', plantaId: PLANTA_ID,
       creadoPorNombre: usuarios[0].nombre,
       entrada: {
-        operador: 'Juan Pérez', placas: 'GTO-123-A',
+        transportista: 'Juan Pérez', placas: 'GTO-123-A',
         numeroCaja: 'CJ-901', sello: 'SL-5001', timestamp: iso(c4Entrada),
       },
     });
@@ -139,7 +139,7 @@ export function useSembrarDatos(): void {
       dockId: null, estado: 'en_planta', plantaId: PLANTA_ID,
       creadoPorNombre: usuarios[0].nombre,
       entrada: {
-        operador: 'Roberto Sánchez', placas: 'SLP-456-B',
+        transportista: 'Roberto Sánchez', placas: 'SLP-456-B',
         numeroCaja: 'CJ-902', sello: 'SL-5002', timestamp: iso(c5Caseta),
       },
     });
@@ -158,7 +158,7 @@ export function useSembrarDatos(): void {
       dockId: null, estado: 'en_planta', plantaId: PLANTA_ID,
       creadoPorNombre: usuarios[0].nombre,
       entrada: {
-        operador: 'Fernando Díaz', placas: 'AGS-789-C',
+        transportista: 'Fernando Díaz', placas: 'AGS-789-C',
         numeroCaja: 'CJ-903', sello: 'SL-5003', timestamp: iso(c6Caseta),
       },
     });
@@ -179,7 +179,7 @@ export function useSembrarDatos(): void {
       dockId: docks[0].id, estado: 'saliendo', plantaId: PLANTA_ID,
       creadoPorNombre: usuarios[0].nombre,
       entrada: {
-        operador: 'Arturo Vega', placas: 'MEX-321-D',
+        transportista: 'Arturo Vega', placas: 'MEX-321-D',
         numeroCaja: 'CJ-904', sello: 'SL-5004', timestamp: iso(c7Caseta),
       },
     });
@@ -201,7 +201,7 @@ export function useSembrarDatos(): void {
       dockId: docks[1].id, estado: 'completada', plantaId: PLANTA_ID,
       creadoPorNombre: usuarios[0].nombre,
       entrada: {
-        operador: 'Luis Ramírez', placas: 'NL-654-E',
+        transportista: 'Luis Ramírez', placas: 'NL-654-E',
         numeroCaja: 'CJ-905', sello: 'SL-5005', timestamp: iso(c8Caseta),
       },
       salida: {
@@ -279,7 +279,7 @@ export function useSembrarDatos(): void {
       dockId: null, estado: 'en_caseta', plantaId: PLANTA_ID,
       creadoPorNombre: usuarios[0].nombre,
       entrada: {
-        operador: 'Héctor Moreno', placas: 'GTO-222-F',
+        transportista: 'Héctor Moreno', placas: 'GTO-222-F',
         numeroCaja: 'CJ-906', sello: 'SL-5006', timestamp: iso(c13Entrada),
       },
     });
@@ -349,7 +349,7 @@ export function useSembrarDatos(): void {
       dockId: null, estado: 'en_caseta', plantaId: PLANTA_ID,
       creadoPorNombre: usuarios[0].nombre,
       entrada: {
-        operador: 'Mario Ortega', placas: 'QRO-333-G',
+        transportista: 'Mario Ortega', placas: 'QRO-333-G',
         numeroCaja: 'CJ-907', sello: 'SL-5007', timestamp: iso(c18Entrada),
       },
       notas: 'Entrega parcial — segunda parte programada la siguiente semana',
@@ -368,7 +368,7 @@ export function useSembrarDatos(): void {
       dockId: null, estado: 'en_caseta', plantaId: PLANTA_ID,
       creadoPorNombre: usuarios[0].nombre,
       entrada: {
-        operador: 'Sergio Vargas', placas: 'GTO-444-H',
+        transportista: 'Sergio Vargas', placas: 'GTO-444-H',
         numeroCaja: 'CJ-908', sello: 'SL-5008', timestamp: iso(c19Entrada),
       },
     });
@@ -387,7 +387,7 @@ export function useSembrarDatos(): void {
       dockId: docks[2].id, estado: 'en_descarga', plantaId: PLANTA_ID,
       creadoPorNombre: usuarios[0].nombre,
       entrada: {
-        operador: 'Andrés Soto', placas: 'SLP-555-J',
+        transportista: 'Andrés Soto', placas: 'SLP-555-J',
         numeroCaja: 'CJ-909', sello: 'SL-5009', timestamp: iso(c20Caseta),
       },
       notas: 'Documentación adicional: certificado de calidad adjunto por correo',
@@ -409,7 +409,7 @@ export function useSembrarDatos(): void {
       dockId: docks[3].id, estado: 'completada', plantaId: PLANTA_ID,
       creadoPorNombre: usuarios[0].nombre,
       entrada: {
-        operador: 'Pedro Nava', placas: 'AGS-666-K',
+        transportista: 'Pedro Nava', placas: 'AGS-666-K',
         numeroCaja: 'CJ-910', sello: 'SL-5011', timestamp: iso(c21Caseta),
       },
       salida: {

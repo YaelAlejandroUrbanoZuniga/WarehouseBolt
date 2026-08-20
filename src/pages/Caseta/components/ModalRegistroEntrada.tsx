@@ -22,20 +22,20 @@ export function ModalRegistroEntrada({ cita, onClose }: Props) {
   const toast = useToast();
   const { requestClose, overlayClass, panelClass } = useModalTransition(onClose);
 
-  const [operador, setOperador] = useState('');
+  const [transportista, setTransportista] = useState('');
   const [placas, setPlacas] = useState('');
   const [numeroCaja, setNumeroCaja] = useState('');
   const [sello, setSello] = useState('');
-  const [confirmar, setConfirmar] = useState<'en_caseta' | 'en_descarga' | null>(null);
+  const [confirmar, setConfirmar] = useState<'en_caseta' | 'en_planta' | null>(null);
 
-  const camposValidos = operador.trim() && placas.trim() && numeroCaja.trim() && sello.trim();
+  const camposValidos = transportista.trim() && placas.trim() && numeroCaja.trim() && sello.trim();
 
   function ejecutar(siguienteEstado: EstadoCita) {
     const ahora = new Date().toISOString();
     const nombre = usuarioActivo?.nombre ?? 'Sistema';
 
     const entrada: RegistroEntrada = {
-      operador: operador.trim(), placas: placas.trim(),
+      transportista: transportista.trim(), placas: placas.trim(),
       numeroCaja: numeroCaja.trim(), sello: sello.trim(), timestamp: ahora,
     };
 
@@ -45,11 +45,17 @@ export function ModalRegistroEntrada({ cita, onClose }: Props) {
     const nuevasTransiciones = [
       ...transiciones,
       { id: crypto.randomUUID(), citaId: cita.id, estado: 'en_caseta' as EstadoCita, usuarioNombre: nombre, timestamp: ahora },
-      { id: crypto.randomUUID(), citaId: cita.id, estado: siguienteEstado, usuarioNombre: nombre, timestamp: ahora },
     ];
+
+    if (siguienteEstado === 'en_planta') {
+      nuevasTransiciones.push(
+        { id: crypto.randomUUID(), citaId: cita.id, estado: 'en_planta' as EstadoCita, usuarioNombre: nombre, timestamp: ahora },
+      );
+    }
+
     setTransiciones(nuevasTransiciones);
 
-    const desc = siguienteEstado === 'en_caseta' ? 'queda en caseta' : 'pasa directo a rampa';
+    const desc = siguienteEstado === 'en_caseta' ? 'queda en caseta' : 'pasa a planta';
     toast.success(`Entrada registrada: ${cita.folio}`, `El transporte ${desc}.`);
     setConfirmar(null);
     requestClose();
@@ -77,7 +83,7 @@ export function ModalRegistroEntrada({ cita, onClose }: Props) {
         >
           <ModalHeader title={`Registro de entrada — ${cita.folio}`} accentColor="#DC0202" onClose={requestClose} />
           <div style={{ padding: '24px 32px', display: 'flex', flexDirection: 'column', gap: 16 }}>
-            <CampoTexto label="Operador" value={operador} onChange={e => setOperador(e.target.value)} />
+            <CampoTexto label="Transportista" value={transportista} onChange={e => setTransportista(e.target.value)} />
             <CampoTexto label="Placas" value={placas} onChange={e => setPlacas(e.target.value)} />
             <CampoTexto label="Número de caja" value={numeroCaja} onChange={e => setNumeroCaja(e.target.value)} />
             <CampoTexto label="Sello" value={sello} onChange={e => setSello(e.target.value)} />
@@ -86,8 +92,8 @@ export function ModalRegistroEntrada({ cita, onClose }: Props) {
               <Boton variante="secundario" disabled={!camposValidos} onClick={() => setConfirmar('en_caseta')}>
                 Dejar en caseta
               </Boton>
-              <Boton disabled={!camposValidos} onClick={() => setConfirmar('en_descarga')}>
-                Pasa directo a rampa
+              <Boton disabled={!camposValidos} onClick={() => setConfirmar('en_planta')}>
+                Dar acceso a planta
               </Boton>
             </div>
           </div>
@@ -99,7 +105,7 @@ export function ModalRegistroEntrada({ cita, onClose }: Props) {
           title="Confirmar registro de entrada"
           message={confirmar === 'en_caseta'
             ? `Se registrará la entrada de ${cita.folio} y quedará en caseta.`
-            : `Se registrará la entrada de ${cita.folio} y pasará directo a rampa.`}
+            : `Se registrará la entrada de ${cita.folio} y pasará a planta.`}
           confirmLabel="Confirmar"
           onCancel={() => setConfirmar(null)}
           onConfirm={() => ejecutar(confirmar)}
