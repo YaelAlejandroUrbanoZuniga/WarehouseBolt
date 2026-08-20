@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useAtomValue } from 'jotai';
-import { faGauge, faCalendarDays, faDoorOpen, faBoxesPacking } from '@fortawesome/free-solid-svg-icons';
+import { faHouse, faCalendarDays, faDoorOpen, faBoxesPacking } from '@fortawesome/free-solid-svg-icons';
 import { GlobalHeader } from '@/kit/componentes/GlobalHeader/GlobalHeader';
 import { Sidebar } from '@/kit/componentes/Sidebar/Sidebar';
 import type { SidebarNavItem } from '@/kit/componentes/Sidebar/Sidebar';
@@ -19,7 +19,7 @@ interface NavItemConRoles extends SidebarNavItem {
 }
 
 const NAV_ITEMS: NavItemConRoles[] = [
-  { path: '/',        icon: faGauge,        label: 'Tablero',  roles: ['coordinador', 'vigilancia', 'almacen'] },
+  { path: '/',        icon: faHouse,        label: 'Home',     roles: ['coordinador', 'vigilancia', 'almacen'] },
   { path: '/citas',   icon: faCalendarDays, label: 'Citas',    roles: ['coordinador', 'almacen'] },
   { path: '/caseta',  icon: faDoorOpen,     label: 'Caseta',   roles: ['vigilancia'] },
   { path: '/almacen', icon: faBoxesPacking, label: 'Almacén',  roles: ['almacen'] },
