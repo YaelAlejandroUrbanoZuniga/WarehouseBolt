@@ -37,12 +37,20 @@ body { margin: 0; min-width: 1280px; background: #EEEEEE; }
   animation: parpadeo-retraso 1.4s ease-in-out infinite;
 }
 
+@keyframes scan-sweep {
+  0% { top: 0; }
+  100% { top: 100%; }
+}
+.scan-line {
+  animation: scan-sweep 2s linear infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .modal-overlay, .modal-overlay.is-closing,
   .modal-panel, .modal-panel.is-closing,
   .toast-item, .toast-item.is-closing,
   .page-fade, .nexteer-loading-ring,
-  .retraso-parpadeo { animation: none !important; }
+  .retraso-parpadeo, .scan-line { animation: none !important; }
 }
 
 body.citas-fullscreen header,
