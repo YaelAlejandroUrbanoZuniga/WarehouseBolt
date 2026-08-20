@@ -7,6 +7,7 @@ import { CampoTexto } from '@/kit/componentes/CampoTexto/CampoTexto';
 import { Boton } from '@/kit/componentes/Boton/Boton';
 import { ConfirmDialog } from '@/kit/componentes/ConfirmDialog/ConfirmDialog';
 import { useToast } from '@/kit/componentes/Toast/Toast';
+import { InfoRow } from '@/components/InfoRow';
 import { zIndex } from '@/kit/tokens/layout';
 import type { Cita, EstadoCita, RegistroEntrada } from '@/lib/types';
 
@@ -83,6 +84,10 @@ export function ModalRegistroEntrada({ cita, onClose }: Props) {
         >
           <ModalHeader title={`Registro de entrada — ${cita.folio}`} accentColor="#DC0202" onClose={requestClose} />
           <div style={{ padding: '24px 32px', display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8, paddingBottom: 12, borderBottom: '1px solid #EEEEEE' }}>
+              <InfoRow label="Empresa" value={cita.empresa || 'Sin transportista'} />
+              <InfoRow label="Folio" value={cita.folio} />
+            </div>
             <CampoTexto label="Transportista" value={transportista} onChange={e => setTransportista(e.target.value)} />
             <CampoTexto label="Placas" value={placas} onChange={e => setPlacas(e.target.value)} />
             <CampoTexto label="Número de caja" value={numeroCaja} onChange={e => setNumeroCaja(e.target.value)} />

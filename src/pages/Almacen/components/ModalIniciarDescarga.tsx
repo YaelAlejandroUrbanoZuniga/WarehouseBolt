@@ -7,6 +7,7 @@ import { SelectCatalogo } from '@/kit/componentes/SelectCatalogo/SelectCatalogo'
 import { Boton } from '@/kit/componentes/Boton/Boton';
 import { ConfirmDialog } from '@/kit/componentes/ConfirmDialog/ConfirmDialog';
 import { useToast } from '@/kit/componentes/Toast/Toast';
+import { InfoRow } from '@/components/InfoRow';
 import { zIndex } from '@/kit/tokens/layout';
 import type { Cita } from '@/lib/types';
 
@@ -110,14 +111,5 @@ export function ModalIniciarDescarga({ cita, onClose }: Props) {
         />
       )}
     </>
-  );
-}
-
-function InfoRow({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="flex" style={{ gap: 8 }}>
-      <span style={{ fontSize: 13, fontWeight: 600, color: '#484848', minWidth: 100 }}>{label}:</span>
-      <span style={{ fontSize: 13, color: '#000000' }}>{value}</span>
-    </div>
   );
 }
