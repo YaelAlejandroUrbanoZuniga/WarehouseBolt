@@ -1,0 +1,28 @@
+export const fontFamily = "'Inter', sans-serif";
+
+export const escala = {
+  tituloPantalla: { size: 32, peso: 700, color: '#000000' },
+  subtituloPantalla: { size: 16, peso: 400, color: '#808285' },
+  kpiEtiqueta: { size: 14, peso: 500, color: '#808285' },
+  kpiNumero: { size: 30, peso: 700, color: '#000000' },
+  kpiSubtexto: { size: 11, peso: 400, color: '#808285' },
+  tablaEncabezado: { size: 13, peso: 700, color: '#000000' },
+  tablaCeldaPrincipal: { size: 13, peso: 700, color: '#000000' },
+  tablaCeldaSecundaria: { size: 13, peso: 400, color: '#808285' },
+  sidebarItem: { size: 16, peso: 500 },
+  sidebarUsuario: { size: 15, peso: 600, color: '#FFFFFF' },
+  sidebarRol: { size: 12, peso: 400, color: 'rgba(255,255,255,0.70)' },
+  modalTitulo: { size: 20, peso: 700, color: '#FFFFFF' },
+  modalSubtitulo: { size: 13, peso: 400, color: 'rgba(255,255,255,0.75)' },
+  modalCuerpo: { size: 13, peso: 400, color: '#808285' },
+  estadoTitulo: { size: 15, peso: 700, color: '#000000' },
+  estadoDescripcion: { size: 13, peso: 400, color: '#808285' },
+  toastTitulo: { size: 13, peso: 700, color: '#000000' },
+  toastMensaje: { size: 12, peso: 400, color: '#808285' },
+  botonPrimario: { size: 14, peso: 700, color: '#FFFFFF' },
+  botonSecundario: { size: 13, peso: 600, color: '#000000' },
+  inputTexto: { size: 13, peso: 400, color: '#000000' },
+  labelFormulario: { size: 16, peso: 500, color: '#484848' },
+  mensajeError: { size: 12, peso: 400, color: '#DC0202' },
+  nombreSistemaHeader: { size: 22, peso: 700, color: '#FFFFFF', letterSpacing: '0.12em' },
+} as const;

@@ -1,0 +1,21 @@
+Este proyecto sigue el estándar de UI interno Nexteer v5. Reglas no negociables:
+1. Tailwind SOLO para layout: flex, grid, items-center, justify-between, fixed,
+   absolute, w-full, gap. Todo color, tamaño, padding y medida va en style={{ }}.
+2. Ningún color fuera de src/kit/tokens/colores.ts. El rojo de marca es #DC0202.
+   Prohibidos: #FF0000, #F44336, #CC0000, #3B82F6, #10B981, #6366F1.
+3. Una sola librería de iconos: Font Awesome. Prohibido lucide-react.
+4. Prohibido shadcn/ui, radix, class-variance-authority, tailwind-merge, recharts.
+5. Ningún número de geometría a mano: sale de src/kit/tokens/layout.ts.
+6. Tipografía Inter, aplicada con el selector universal * en index.css.
+7. Hover obligatorio en todo lo clicable, manejado en estado de React.
+8. Confirmación obligatoria con ConfirmDialog antes de todo cambio de estado.
+9. Los tres estados de pantalla siempre: LoadingState -> EmptyState -> datos.
+10. Insignias con borderRadius 4, nunca pill.
+11. Toda animación se apaga bajo prefers-reduced-motion.
+12. src/kit/ es de solo lectura. Si una pantalla no encaja, se acomoda la
+    pantalla, nunca el kit.
+13. Ningún archivo pasa de 400 líneas.
+14. Cero lógica de negocio dentro del JSX: va en useMemo, en un hook o en lib/.
+15. No instales dependencias que no estén pedidas explícitamente.
+16. Este es un proyecto Vite + React puro. No es Next.js. No agregues nada de
+    Next.js (app router, "use client", next/image, next.config.js, etc.).
