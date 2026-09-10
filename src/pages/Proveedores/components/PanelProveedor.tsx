@@ -1,6 +1,7 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { useAtomValue } from 'jotai';
 import { useModalTransition } from '@/kit/hooks/useModalTransition';
+import { useEscape } from '@/kit/hooks/useEscape';
 import { ModalHeader } from '@/kit/componentes/ModalHeader/ModalHeader';
 import { CampoTexto } from '@/kit/componentes/CampoTexto/CampoTexto';
 import { SelectCatalogo } from '@/kit/componentes/SelectCatalogo/SelectCatalogo';
@@ -21,6 +22,7 @@ interface Props {
 export function PanelProveedor({ onClose, onGuardar, proveedor }: Props) {
   const toast = useToast();
   const { requestClose, overlayClass, panelClass } = useModalTransition(onClose);
+  const stableClose = useCallback(() => requestClose(), [requestClose]);
   const transportistas = useAtomValue(transportistasAtom);
 
   const opcionesTransporte = useMemo(
@@ -37,6 +39,7 @@ export function PanelProveedor({ onClose, onGuardar, proveedor }: Props) {
   const [contactoCorreo, setContactoCorreo] = useState(proveedor?.contactoCorreo ?? '');
   const [notas, setNotas] = useState(proveedor?.notas ?? '');
   const [confirmar, setConfirmar] = useState(false);
+  useEscape(!confirmar, stableClose);
   const [errorConflicto, setErrorConflicto] = useState('');
 
   const camposValidos = nombre.trim() && codigo.trim();
@@ -80,6 +83,8 @@ export function PanelProveedor({ onClose, onGuardar, proveedor }: Props) {
         <div
           onClick={e => e.stopPropagation()}
           className={panelClass}
+          role="dialog"
+          aria-modal="true"
           style={{
             backgroundColor: colores.nucleo.superficie, borderRadius: 12,
             boxShadow: '0 8px 24px rgba(0,0,0,0.20)', overflow: 'hidden',

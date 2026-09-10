@@ -110,6 +110,7 @@ export default function CitasPage() {
     <div className="flex items-center" style={{ gap: 8 }}>
       <button
         onClick={semanaAnterior}
+        aria-label="Semana anterior"
         onMouseEnter={() => setHoverBack(true)}
         onMouseLeave={() => setHoverBack(false)}
         style={{
@@ -128,6 +129,7 @@ export default function CitasPage() {
       </span>
       <button
         onClick={semanaSiguiente}
+        aria-label="Semana siguiente"
         onMouseEnter={() => setHoverNext(true)}
         onMouseLeave={() => setHoverNext(false)}
         style={{
@@ -147,6 +149,7 @@ export default function CitasPage() {
   const expandBtn = (
     <button
       onClick={() => setVistaExpandida(!vistaExpandida)}
+      aria-label={vistaExpandida ? 'Contraer tablero' : 'Expandir tablero'}
       onMouseEnter={() => setHoverExpand(true)}
       onMouseLeave={() => setHoverExpand(false)}
       style={{

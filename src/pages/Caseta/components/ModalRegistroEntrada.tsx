@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useAtom, useAtomValue } from 'jotai';
 import { citasAtom, transicionesAtom, usuarioActivoAtom } from '@/lib/store';
 import { useModalTransition } from '@/kit/hooks/useModalTransition';
+import { useEscape } from '@/kit/hooks/useEscape';
 import { ModalHeader } from '@/kit/componentes/ModalHeader/ModalHeader';
 import { CampoTexto } from '@/kit/componentes/CampoTexto/CampoTexto';
 import { Boton } from '@/kit/componentes/Boton/Boton';
@@ -23,12 +24,14 @@ export function ModalRegistroEntrada({ cita, onClose }: Props) {
   const usuarioActivo = useAtomValue(usuarioActivoAtom);
   const toast = useToast();
   const { requestClose, overlayClass, panelClass } = useModalTransition(onClose);
+  const stableClose = useCallback(() => requestClose(), [requestClose]);
 
   const [transportista, setTransportista] = useState('');
   const [placas, setPlacas] = useState('');
   const [numeroCaja, setNumeroCaja] = useState('');
   const [sello, setSello] = useState('');
   const [confirmar, setConfirmar] = useState<'en_caseta' | 'en_planta' | null>(null);
+  useEscape(!confirmar, stableClose);
 
   const camposValidos = transportista.trim() && placas.trim() && numeroCaja.trim() && sello.trim();
 
@@ -77,6 +80,8 @@ export function ModalRegistroEntrada({ cita, onClose }: Props) {
         <div
           onClick={e => e.stopPropagation()}
           className={panelClass}
+          role="dialog"
+          aria-modal="true"
           style={{
             backgroundColor: colores.nucleo.superficie, borderRadius: 12,
             boxShadow: '0 8px 24px rgba(0,0,0,0.20)', overflow: 'hidden',

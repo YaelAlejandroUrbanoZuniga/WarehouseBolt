@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useModalTransition } from '@/kit/hooks/useModalTransition';
+import { useEscape } from '@/kit/hooks/useEscape';
 import { ModalHeader } from '@/kit/componentes/ModalHeader/ModalHeader';
 import { Boton } from '@/kit/componentes/Boton/Boton';
 import { ConfirmDialog } from '@/kit/componentes/ConfirmDialog/ConfirmDialog';
@@ -21,8 +22,10 @@ const OPCIONES: { value: ResultadoAuditoria; label: string }[] = [
 
 export function ModalCerrarDescarga({ cita, onClose, onConfirmar }: Props) {
   const { requestClose, overlayClass, panelClass } = useModalTransition(onClose);
+  const stableClose = useCallback(() => requestClose(), [requestClose]);
   const [resultado, setResultado] = useState<ResultadoAuditoria | null>(null);
   const [confirmar, setConfirmar] = useState(false);
+  useEscape(!confirmar, stableClose);
 
   return (
     <>
@@ -38,6 +41,8 @@ export function ModalCerrarDescarga({ cita, onClose, onConfirmar }: Props) {
         <div
           onClick={e => e.stopPropagation()}
           className={panelClass}
+          role="dialog"
+          aria-modal="true"
           style={{
             backgroundColor: colores.nucleo.superficie, borderRadius: 12,
             boxShadow: '0 8px 24px rgba(0,0,0,0.20)', overflow: 'hidden',

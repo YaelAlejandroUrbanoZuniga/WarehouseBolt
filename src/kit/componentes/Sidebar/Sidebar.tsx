@@ -60,6 +60,7 @@ export function Sidebar({ collapsed, onToggle, items, usuario, onCerrarSesion, a
     >
       <button
         onClick={onToggle}
+        aria-label={collapsed ? 'Expandir menú lateral' : 'Colapsar menú lateral'}
         onMouseEnter={() => setToggleHover(true)}
         onMouseLeave={() => setToggleHover(false)}
         style={{

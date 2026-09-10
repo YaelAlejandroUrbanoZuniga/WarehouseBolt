@@ -1,7 +1,8 @@
-import { useState, type ReactNode } from 'react';
+import { useState, useCallback, type ReactNode } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { useModalTransition } from '@/kit/hooks/useModalTransition';
+import { useEscape } from '@/kit/hooks/useEscape';
 import { ModalHeader } from '@/kit/componentes/ModalHeader/ModalHeader';
 import { zIndex } from '@/kit/tokens/layout';
 
@@ -22,6 +23,8 @@ export function ConfirmDialog({
   confirmColor = '#DC0202', confirmDisabled, children, onCancel, onConfirm,
 }: Props) {
   const { requestClose, overlayClass, panelClass } = useModalTransition(onCancel);
+  const stableClose = useCallback(() => requestClose(), [requestClose]);
+  useEscape(true, stableClose);
   const [cancelHover, setCancelHover] = useState(false);
   const [confirmHover, setConfirmHover] = useState(false);
 

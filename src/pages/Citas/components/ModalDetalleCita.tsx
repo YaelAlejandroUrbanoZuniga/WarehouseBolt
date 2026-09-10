@@ -1,6 +1,7 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useCallback } from 'react';
 import { useAtomValue } from 'jotai';
 import { useModalTransition } from '@/kit/hooks/useModalTransition';
+import { useEscape } from '@/kit/hooks/useEscape';
 import { ModalHeader } from '@/kit/componentes/ModalHeader/ModalHeader';
 import { Tabs } from '@/kit/componentes/Tabs/Tabs';
 import { zIndex } from '@/kit/tokens/layout';
@@ -22,6 +23,8 @@ interface Props {
 
 export function ModalDetalleCita({ cita, onClose, onEditarCita, onCancelarCita, onBorrarCita }: Props) {
   const { requestClose, overlayClass, panelClass } = useModalTransition(onClose);
+  const stableClose = useCallback(() => requestClose(), [requestClose]);
+  useEscape(true, stableClose);
   const [activeTab, setActiveTab] = useState('resumen');
   const allTransiciones = useAtomValue(transicionesAtom);
   const rolActivo = useAtomValue(rolActivoAtom);
@@ -65,6 +68,8 @@ export function ModalDetalleCita({ cita, onClose, onEditarCita, onCancelarCita, 
       <div
         onClick={e => e.stopPropagation()}
         className={panelClass}
+        role="dialog"
+        aria-modal="true"
         style={{
           backgroundColor: colores.nucleo.superficie, borderRadius: 12,
           boxShadow: '0 8px 24px rgba(0,0,0,0.20)', overflow: 'hidden',
