@@ -117,8 +117,8 @@ export default function CitasPage() {
         onMouseEnter={() => setHoverBack(true)}
         onMouseLeave={() => setHoverBack(false)}
         style={{
-          border: `1px solid ${colores.nexteer.borderSoft}`,
-          background: hoverBack ? colores.nexteer.page : colores.superficie.card,
+          border: `1px solid ${colores.superficie.borde}`,
+          background: hoverBack ? colores.nucleo.fondoApp : colores.nucleo.superficie,
           boxShadow: hoverBack ? '0 2px 6px rgba(0,0,0,0.12)' : 'none',
           borderRadius: 6, width: 32, height: 32, cursor: 'pointer',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -135,8 +135,8 @@ export default function CitasPage() {
         onMouseEnter={() => setHoverNext(true)}
         onMouseLeave={() => setHoverNext(false)}
         style={{
-          border: `1px solid ${colores.nexteer.borderSoft}`,
-          background: hoverNext ? colores.nexteer.page : colores.superficie.card,
+          border: `1px solid ${colores.superficie.borde}`,
+          background: hoverNext ? colores.nucleo.fondoApp : colores.nucleo.superficie,
           boxShadow: hoverNext ? '0 2px 6px rgba(0,0,0,0.12)' : 'none',
           borderRadius: 6, width: 32, height: 32, cursor: 'pointer',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -154,8 +154,8 @@ export default function CitasPage() {
       onMouseEnter={() => setHoverExpand(true)}
       onMouseLeave={() => setHoverExpand(false)}
       style={{
-        border: `1px solid ${colores.nexteer.borderSoft}`,
-        background: hoverExpand ? colores.nexteer.page : colores.superficie.card,
+        border: `1px solid ${colores.superficie.borde}`,
+        background: hoverExpand ? colores.nucleo.fondoApp : colores.nucleo.superficie,
         boxShadow: hoverExpand ? '0 2px 6px rgba(0,0,0,0.12)' : 'none',
         borderRadius: 6, width: 32, height: 32, cursor: 'pointer',
         display: 'flex', alignItems: 'center', justifyContent: 'center',

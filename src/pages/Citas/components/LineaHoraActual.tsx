@@ -50,7 +50,7 @@ export function LineaHoraActual({ ahora, diasSemana, rowHeight, headerHeight }: 
                 transform: 'translate(calc(-100% - 8px), -50%)',
                 fontSize: 10,
                 fontWeight: 700,
-                color: colores.status.error,
+                color: colores.nucleo.accion,
                 backgroundColor: '#FFFFFF',
                 padding: '1px 4px',
                 borderRadius: 3,
@@ -66,7 +66,7 @@ export function LineaHoraActual({ ahora, diasSemana, rowHeight, headerHeight }: 
                 width: 8,
                 height: 8,
                 borderRadius: '50%',
-                backgroundColor: colores.status.error,
+                backgroundColor: colores.nucleo.accion,
                 transform: 'translate(-50%, -50%)',
                 top: '50%',
               }}
@@ -75,7 +75,7 @@ export function LineaHoraActual({ ahora, diasSemana, rowHeight, headerHeight }: 
               style={{
                 width: '100%',
                 height: 2,
-                backgroundColor: colores.status.error,
+                backgroundColor: colores.nucleo.accion,
               }}
             />
           </div>

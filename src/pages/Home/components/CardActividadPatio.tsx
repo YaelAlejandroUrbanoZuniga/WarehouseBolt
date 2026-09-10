@@ -53,7 +53,7 @@ export function CardActividadPatio({ enPatio, actividadReciente, ahora }: Props)
                         style={{
                           padding: '12px 4px',
                           cursor: 'pointer',
-                          borderBottom: isLast ? 'none' : `1px solid ${colores.nexteer.border}`,
+                          borderBottom: isLast ? 'none' : `1px solid ${colores.superficie.bordeSuave}`,
                         }}
                       >
                         <div>
@@ -90,7 +90,7 @@ export function CardActividadPatio({ enPatio, actividadReciente, ahora }: Props)
                         className="flex justify-between items-center"
                         style={{
                           padding: '12px 4px',
-                          borderBottom: isLast ? 'none' : `1px solid ${colores.nexteer.border}`,
+                          borderBottom: isLast ? 'none' : `1px solid ${colores.superficie.bordeSuave}`,
                         }}
                       >
                         <div className="flex items-center" style={{ gap: 8 }}>

@@ -38,12 +38,12 @@ export default function HomePage() {
   } = useHome(ahora);
 
   const kpis: KpiDef[] = [
-    { label: 'Citas de hoy', valor: citasHoy, icon: faCalendarDay, color: colores.status.info },
-    { label: 'En patio', valor: enPatio.length, icon: faTruck, color: colores.status.warning },
-    { label: 'Completadas hoy', valor: completadasHoy, icon: faCircleCheck, color: colores.status.active },
-    { label: 'Espera antes de descarga', valor: `${esperaPromedioMin} min`, icon: faClock, color: colores.status.pending },
-    { label: 'Citas esta semana', valor: citasSemana, icon: faCalendarWeek, color: colores.status.info },
-    { label: 'Total histórico', valor: totalCitas, icon: faDatabase, color: colores.nexteer.sidebar },
+    { label: 'Citas de hoy', valor: citasHoy, icon: faCalendarDay, color: colores.libres.info },
+    { label: 'En patio', valor: enPatio.length, icon: faTruck, color: colores.libres.advertencia },
+    { label: 'Completadas hoy', valor: completadasHoy, icon: faCircleCheck, color: colores.libres.exito },
+    { label: 'Espera antes de descarga', valor: `${esperaPromedioMin} min`, icon: faClock, color: colores.libres.pendiente },
+    { label: 'Citas esta semana', valor: citasSemana, icon: faCalendarWeek, color: colores.libres.info },
+    { label: 'Total histórico', valor: totalCitas, icon: faDatabase, color: colores.nucleo.sidebar },
   ];
 
   if (cargando) return <LoadingState mensaje="Cargando inicio..." />;

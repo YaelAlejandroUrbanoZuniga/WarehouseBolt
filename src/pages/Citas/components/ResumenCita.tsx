@@ -212,7 +212,7 @@ export function ResumenCita({ cita, transiciones, onEditarCita, onCancelarCita, 
       </Seccion>
 
       {(puedeCancelar || puedeBorrar) && (
-        <div style={{ borderTop: `1px solid ${colores.nexteer.border}`, paddingTop: 16 }}>
+        <div style={{ borderTop: `1px solid ${colores.superficie.bordeSuave}`, paddingTop: 16 }}>
           <div className="flex" style={{ gap: 12 }}>
             {puedeCancelar && (
               <Boton variante="peligro" onClick={() => setConfirmarCancelar(true)}>

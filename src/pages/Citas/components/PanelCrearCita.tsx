@@ -149,7 +149,7 @@ export function PanelCrearCita({ onClose, onGuardar }: Props) {
               <CampoTexto label="Ventana fin" type="time" value={ventanaFin} onChange={e => { setVentanaFin(e.target.value); setErrorConflicto(''); }} />
             </div>
             {errorConflicto && (
-              <p style={{ fontSize: 13, fontWeight: 600, color: colores.status.error, margin: 0 }}>
+              <p style={{ fontSize: 13, fontWeight: 600, color: colores.nucleo.accion, margin: 0 }}>
                 {errorConflicto}
               </p>
             )}

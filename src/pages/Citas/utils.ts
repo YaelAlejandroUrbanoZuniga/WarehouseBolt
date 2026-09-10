@@ -108,10 +108,10 @@ export function calcularPuntualidad(
 
 export function colorPuntualidad(p: Puntualidad): string {
   switch (p) {
-    case 'a_tiempo': return colores.status.active;
-    case 'antes':   return colores.status.pending;
-    case 'tarde':   return colores.status.error;
-    case 'neutro':  return colores.status.archived;
+    case 'a_tiempo': return colores.libres.exito;
+    case 'antes':   return colores.libres.pendiente;
+    case 'tarde':   return colores.nucleo.accion;
+    case 'neutro':  return colores.libres.archivado;
   }
 }
 

@@ -29,10 +29,10 @@ export function PanelAhora({ data }: Props) {
       </div>
       <div className="grid grid-cols-3" style={{ gap: 20 }}>
         <ColumnaDescarga items={data.enDescarga} puedeNavegar={puedeNavegar} onClic={irACita} />
-        <div style={{ borderLeft: `1px solid ${colores.nexteer.border}`, paddingLeft: 20 }}>
+        <div style={{ borderLeft: `1px solid ${colores.superficie.bordeSuave}`, paddingLeft: 20 }}>
           <ColumnaProxima item={data.proximaCita} puedeNavegar={puedeNavegar} onClic={irACita} />
         </div>
-        <div style={{ borderLeft: `1px solid ${colores.nexteer.border}`, paddingLeft: 20 }}>
+        <div style={{ borderLeft: `1px solid ${colores.superficie.bordeSuave}`, paddingLeft: 20 }}>
           <ColumnaMovimientos items={data.movimientos} puedeNavegar={puedeNavegar} onClic={irACita} />
         </div>
       </div>
@@ -60,7 +60,7 @@ function ColumnaDescarga({ items, puedeNavegar, onClic }: {
               </div>
               <div style={{ textAlign: 'right' }}>
                 <div style={{ fontSize: 12, color: colores.texto.principal }}>{it.rampa}</div>
-                <div style={{ fontSize: 12, fontWeight: 600, color: colores.status.pending }}>{formatMinutos(it.minutos)}</div>
+                <div style={{ fontSize: 12, fontWeight: 600, color: colores.libres.pendiente }}>{formatMinutos(it.minutos)}</div>
               </div>
             </Fila>
           ))}
@@ -91,11 +91,11 @@ function ColumnaProxima({ item, puedeNavegar, onClic }: {
           </div>
           <div style={{ textAlign: 'right' }}>
             {item.minutosFaltantes >= 0 ? (
-              <div style={{ fontSize: 14, fontWeight: 700, color: colores.status.active }}>
+              <div style={{ fontSize: 14, fontWeight: 700, color: colores.libres.exito }}>
                 en {formatMinutos(item.minutosFaltantes)}
               </div>
             ) : (
-              <div style={{ fontSize: 14, fontWeight: 700, color: colores.status.error }}>
+              <div style={{ fontSize: 14, fontWeight: 700, color: colores.nucleo.accion }}>
                 atrasada {formatMinutos(Math.abs(item.minutosFaltantes))}
               </div>
             )}
@@ -127,7 +127,7 @@ function ColumnaMovimientos({ items, puedeNavegar, onClic }: {
                   <div style={{ fontSize: 12, color: colores.texto.secundario }}>{it.cita.empresa}</div>
                 </div>
               </div>
-              <div style={{ fontSize: 12, fontWeight: 600, color: colores.status.pending }}>
+              <div style={{ fontSize: 12, fontWeight: 600, color: colores.libres.pendiente }}>
                 {formatMinutos(it.minutosEnEstado)}
               </div>
             </Fila>

@@ -18,12 +18,12 @@ export function Tabs({ tabs, activeTab, onChange, children }: Props) {
 
   return (
     <div>
-      <div style={{ display: 'flex', borderBottom: `1px solid ${colores.nexteer.border}` }}>
+      <div style={{ display: 'flex', borderBottom: `1px solid ${colores.superficie.bordeSuave}` }}>
         {tabs.map(tab => {
           const isActive = tab.id === activeTab;
           const isHovered = tab.id === hoverTab;
           let textColor: string;
-          if (isActive) textColor = colores.nexteer.red;
+          if (isActive) textColor = colores.nucleo.accion;
           else if (isHovered) textColor = colores.texto.principal;
           else textColor = colores.texto.secundario;
 
@@ -41,7 +41,7 @@ export function Tabs({ tabs, activeTab, onChange, children }: Props) {
                 fontWeight: 600,
                 color: textColor,
                 cursor: isActive ? 'default' : 'pointer',
-                borderBottom: isActive ? `2px solid ${colores.nexteer.red}` : '2px solid transparent',
+                borderBottom: isActive ? `2px solid ${colores.nucleo.accion}` : '2px solid transparent',
                 marginBottom: -1,
                 transition: 'color 0.15s ease-out',
               }}

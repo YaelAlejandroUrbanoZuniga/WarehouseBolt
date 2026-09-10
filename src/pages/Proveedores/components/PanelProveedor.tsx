@@ -112,7 +112,7 @@ export function PanelProveedor({ onClose, onGuardar, proveedor }: Props) {
             </div>
             <CampoTexto label="Correo" value={contactoCorreo} onChange={e => setContactoCorreo(e.target.value)} />
             {errorConflicto && (
-              <p style={{ fontSize: 13, fontWeight: 600, color: colores.status.error, margin: 0 }}>
+              <p style={{ fontSize: 13, fontWeight: 600, color: colores.nucleo.accion, margin: 0 }}>
                 {errorConflicto}
               </p>
             )}
