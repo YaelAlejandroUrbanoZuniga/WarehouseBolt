@@ -76,7 +76,7 @@ export function ModalRegistroSalida({ cita, onClose }: Props) {
             <CampoTexto label="Sello" value={sello} onChange={e => setSello(e.target.value)} />
             <div className="flex justify-end" style={{ gap: 8, marginTop: 8 }}>
               <Boton variante="secundario" onClick={requestClose}>Cancelar</Boton>
-              <Boton disabled={!camposValidos} onClick={() => setConfirmar(true)}>Registrar salida</Boton>
+              <Boton contexto="modal" disabled={!camposValidos} onClick={() => setConfirmar(true)}>Registrar salida</Boton>
             </div>
           </div>
         </div>

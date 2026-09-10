@@ -156,7 +156,7 @@ export function PanelCrearCita({ onClose, onGuardar }: Props) {
             <CampoTexto label="Notas (opcional)" value={notas} onChange={e => setNotas(e.target.value)} />
             <div className="flex justify-end" style={{ gap: 8, marginTop: 8 }}>
               <Boton variante="secundario" onClick={requestClose}>Cancelar</Boton>
-              <Boton disabled={!camposValidos} onClick={() => setConfirmar(true)}>Guardar cita</Boton>
+              <Boton contexto="modal" disabled={!camposValidos} onClick={() => setConfirmar(true)}>Guardar cita</Boton>
             </div>
           </div>
         </div>

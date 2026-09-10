@@ -119,7 +119,7 @@ export function PanelProveedor({ onClose, onGuardar, proveedor }: Props) {
             <CampoTexto label="Notas (opcional)" value={notas} onChange={e => setNotas(e.target.value)} />
             <div className="flex justify-end" style={{ gap: 8, marginTop: 8 }}>
               <Boton variante="secundario" onClick={requestClose}>Cancelar</Boton>
-              <Boton disabled={!camposValidos} onClick={() => setConfirmar(true)}>
+              <Boton contexto="modal" disabled={!camposValidos} onClick={() => setConfirmar(true)}>
                 {esEdicion ? 'Guardar cambios' : 'Crear proveedor'}
               </Boton>
             </div>

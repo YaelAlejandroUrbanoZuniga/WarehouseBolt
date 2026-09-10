@@ -98,7 +98,7 @@ export function ModalRegistroEntrada({ cita, onClose }: Props) {
               <Boton variante="secundario" disabled={!camposValidos} onClick={() => setConfirmar('en_caseta')}>
                 Dejar en caseta
               </Boton>
-              <Boton disabled={!camposValidos} onClick={() => setConfirmar('en_planta')}>
+              <Boton contexto="modal" disabled={!camposValidos} onClick={() => setConfirmar('en_planta')}>
                 Dar acceso a planta
               </Boton>
             </div>

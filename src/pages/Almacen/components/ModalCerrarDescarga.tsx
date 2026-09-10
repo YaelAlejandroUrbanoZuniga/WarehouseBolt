@@ -69,7 +69,7 @@ export function ModalCerrarDescarga({ cita, onClose, onConfirmar }: Props) {
             </p>
             <div className="flex justify-end" style={{ gap: 8, marginTop: 8 }}>
               <Boton variante="secundario" onClick={requestClose}>Cancelar</Boton>
-              <Boton disabled={!resultado} onClick={() => setConfirmar(true)}>Cerrar descarga</Boton>
+              <Boton contexto="modal" disabled={!resultado} onClick={() => setConfirmar(true)}>Cerrar descarga</Boton>
             </div>
           </div>
         </div>

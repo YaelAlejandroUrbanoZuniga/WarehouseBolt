@@ -215,13 +215,13 @@ export function ResumenCita({ cita, transiciones, onEditarCita, onCancelarCita, 
         <div style={{ borderTop: `1px solid ${colores.superficie.bordeSuave}`, paddingTop: 16 }}>
           <div className="flex" style={{ gap: 12 }}>
             {puedeCancelar && (
-              <Boton variante="peligro" onClick={() => setConfirmarCancelar(true)}>
+              <Boton variante="destructivo" onClick={() => setConfirmarCancelar(true)}>
                 <FontAwesomeIcon icon={faBan} style={{ fontSize: 12, marginRight: 6 }} />
                 Cancelar cita
               </Boton>
             )}
             {puedeBorrar && (
-              <Boton variante="peligro" onClick={() => setConfirmarBorrar(true)}>
+              <Boton variante="destructivo" onClick={() => setConfirmarBorrar(true)}>
                 <FontAwesomeIcon icon={faTrash} style={{ fontSize: 12, marginRight: 6 }} />
                 Borrar cita
               </Boton>

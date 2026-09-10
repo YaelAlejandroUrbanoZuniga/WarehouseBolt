@@ -94,7 +94,7 @@ export function ModalIniciarDescarga({ cita, onClose }: Props) {
             </div>
             <div className="flex justify-end" style={{ gap: 8, marginTop: 8 }}>
               <Boton variante="secundario" onClick={requestClose}>Cancelar</Boton>
-              <Boton disabled={!dockSeleccionado} onClick={() => setConfirmar(true)}>
+              <Boton contexto="modal" disabled={!dockSeleccionado} onClick={() => setConfirmar(true)}>
                 Iniciar descarga
               </Boton>
             </div>
