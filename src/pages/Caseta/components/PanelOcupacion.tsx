@@ -52,9 +52,9 @@ export function PanelOcupacion({ ahora }: Props) {
 
   return (
     <div style={{ marginBottom: 32 }}>
-      <h2 style={{ fontSize: 20, fontWeight: 700, color: colores.texto.principal, margin: '0 0 8px' }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: colores.texto.principal, marginBottom: 16 }}>
         Ocupación de rampas ahora
-      </h2>
+      </div>
       <p style={{ fontSize: 12, color: colores.texto.secundario, margin: '0 0 12px' }}>
         Úsalo para decidir si el transporte espera en caseta o pasa a planta.
       </p>

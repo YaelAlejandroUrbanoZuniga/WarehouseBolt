@@ -16,9 +16,9 @@ export function ColumnaEstado({ titulo, citas, renderCita }: Props) {
   return (
     <div style={{ flex: 1, minWidth: 0 }}>
       <div style={{ marginBottom: 12, display: 'flex', alignItems: 'baseline', gap: 8 }}>
-        <h2 style={{ fontSize: 20, fontWeight: 700, color: colores.texto.principal, margin: 0 }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: colores.texto.principal, marginBottom: 12 }}>
           {titulo}
-        </h2>
+        </div>
         <span style={{ fontSize: 14, fontWeight: 500, color: colores.texto.secundario }}>
           ({citas.length})
         </span>

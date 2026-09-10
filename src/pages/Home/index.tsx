@@ -7,6 +7,7 @@ import {
 import type { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { colores } from '@/kit/tokens/colores';
 import { PLANTA_NOMBRE } from '@/lib/constants';
+import { EncabezadoPantalla } from '@/kit/componentes/EncabezadoPantalla/EncabezadoPantalla';
 import { Tarjeta } from '@/kit/componentes/Tarjeta/Tarjeta';
 import { EmptyState } from '@/kit/componentes/EmptyState/EmptyState';
 import { LoadingState } from '@/kit/componentes/LoadingState/LoadingState';
@@ -50,10 +51,7 @@ export default function HomePage() {
 
   return (
     <div>
-      <div style={{ marginBottom: 24 }}>
-        <h1 style={{ fontSize: 32, fontWeight: 700, color: colores.texto.principal, margin: 0 }}>Home</h1>
-        <p style={{ fontSize: 14, color: colores.texto.secundario, margin: '4px 0 0' }}>{PLANTA_NOMBRE}</p>
-      </div>
+      <EncabezadoPantalla titulo="Home" subtitulo={PLANTA_NOMBRE} />
 
       <div style={{ marginBottom: 24 }}>
         <PanelAhora data={panelAhora} />
@@ -86,7 +84,7 @@ export default function HomePage() {
 
       <div style={{ marginBottom: 24 }}>
         <Tarjeta>
-          <div style={{ fontSize: 16, fontWeight: 700, color: colores.texto.principal, margin: '0 0 16px' }}>
+          <div style={{ fontSize: 14, fontWeight: 700, color: colores.texto.principal, margin: '0 0 16px' }}>
             Citas por estado
           </div>
           {totalCitas === 0 ? (

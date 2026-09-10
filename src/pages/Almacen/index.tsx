@@ -8,6 +8,8 @@ import { LoadingState } from '@/kit/componentes/LoadingState/LoadingState';
 import { useToast } from '@/kit/componentes/Toast/Toast';
 import { PanelEscaneo } from '@/components/PanelEscaneo';
 import { colores } from '@/kit/tokens/colores';
+import { PLANTA_NOMBRE } from '@/lib/constants';
+import { EncabezadoPantalla } from '@/kit/componentes/EncabezadoPantalla/EncabezadoPantalla';
 import { ColumnaEstado } from './components/ColumnaEstado';
 import { ModalCerrarDescarga } from './components/ModalCerrarDescarga';
 import { ModalIniciarDescarga } from './components/ModalIniciarDescarga';
@@ -55,6 +57,7 @@ export default function AlmacenPage() {
 
   return (
     <div>
+      <EncabezadoPantalla titulo="Almacén" subtitulo={PLANTA_NOMBRE} />
       <div style={{ marginBottom: 24 }}>
         <PanelEscaneo
           titulo="Iniciar descarga"

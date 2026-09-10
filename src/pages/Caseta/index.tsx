@@ -19,6 +19,8 @@ import { ModalRegistroSalida } from './components/ModalRegistroSalida';
 import { PanelOcupacion } from './components/PanelOcupacion';
 import { formatearDuracion } from '@/lib/tiempo';
 import { colores } from '@/kit/tokens/colores';
+import { PLANTA_NOMBRE } from '@/lib/constants';
+import { EncabezadoPantalla } from '@/kit/componentes/EncabezadoPantalla/EncabezadoPantalla';
 
 const ESTADOS_EN_PATIO: EstadoCita[] = ['en_caseta', 'en_planta', 'en_descarga', 'saliendo'];
 
@@ -108,6 +110,7 @@ export default function CasetaPage() {
 
   return (
     <div>
+      <EncabezadoPantalla titulo="Caseta" subtitulo={PLANTA_NOMBRE} />
       <div style={{ marginBottom: 32 }}>
         <PanelEscaneo
           titulo="Registrar llegada"
@@ -119,9 +122,9 @@ export default function CasetaPage() {
       <PanelOcupacion ahora={ahora} />
 
       <div>
-        <h2 style={{ fontSize: 20, fontWeight: 700, color: colores.texto.principal, margin: '0 0 12px' }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: colores.texto.principal, marginBottom: 16 }}>
           En patio
-        </h2>
+        </div>
         {enPatio.length === 0 ? (
           <EmptyState
             icon={faDoorOpen}

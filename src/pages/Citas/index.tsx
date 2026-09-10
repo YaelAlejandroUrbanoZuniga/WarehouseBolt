@@ -7,6 +7,7 @@ import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { rolActivoAtom } from '@/lib/store';
 import { PLANTA_NOMBRE } from '@/lib/constants';
+import { EncabezadoPantalla } from '@/kit/componentes/EncabezadoPantalla/EncabezadoPantalla';
 import { Boton } from '@/kit/componentes/Boton/Boton';
 import { EmptyState } from '@/kit/componentes/EmptyState/EmptyState';
 import { LoadingState } from '@/kit/componentes/LoadingState/LoadingState';
@@ -95,12 +96,7 @@ export default function CitasPage() {
   if (citas.length === 0) {
     return (
       <div>
-        <div style={{ marginBottom: 24 }}>
-          <h1 style={{ fontSize: 32, fontWeight: 700, color: colores.texto.principal, margin: 0 }}>Citas</h1>
-          <p style={{ fontSize: 16, fontWeight: 400, color: colores.texto.secundario, margin: '4px 0 0' }}>
-            {PLANTA_NOMBRE}
-          </p>
-        </div>
+        <EncabezadoPantalla titulo="Citas" subtitulo={PLANTA_NOMBRE} />
         <EmptyState
           icon={faCalendarDays}
           title="Sin citas registradas"
@@ -173,12 +169,7 @@ export default function CitasPage() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-      <div style={{ marginBottom: 24 }}>
-        <h1 style={{ fontSize: 32, fontWeight: 700, color: colores.texto.principal, margin: 0 }}>Citas</h1>
-        <p style={{ fontSize: 16, fontWeight: 400, color: colores.texto.secundario, margin: '4px 0 0' }}>
-          {PLANTA_NOMBRE}
-        </p>
-      </div>
+      <EncabezadoPantalla titulo="Citas" subtitulo={PLANTA_NOMBRE} />
 
       <div className="flex items-center justify-between" style={{ marginBottom: 16 }}>
         <div className="flex items-center" style={{ gap: 12 }}>

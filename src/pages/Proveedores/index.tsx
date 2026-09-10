@@ -7,6 +7,7 @@ import { EmptyState } from '@/kit/componentes/EmptyState/EmptyState';
 import { LoadingState } from '@/kit/componentes/LoadingState/LoadingState';
 import { ConfirmDialog } from '@/kit/componentes/ConfirmDialog/ConfirmDialog';
 import { PLANTA_NOMBRE } from '@/lib/constants';
+import { EncabezadoPantalla } from '@/kit/componentes/EncabezadoPantalla/EncabezadoPantalla';
 import type { Proveedor } from '@/lib/types';
 import { colores } from '@/kit/tokens/colores';
 import { useProveedores } from './useProveedores';
@@ -55,15 +56,7 @@ export default function ProveedoresPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between" style={{ marginBottom: 24 }}>
-        <div>
-          <h1 style={{ fontSize: 32, fontWeight: 700, color: colores.texto.principal, margin: 0 }}>Proveedores</h1>
-          <p style={{ fontSize: 16, fontWeight: 400, color: colores.texto.secundario, margin: '4px 0 0' }}>
-            {PLANTA_NOMBRE}
-          </p>
-        </div>
-        <Boton onClick={() => setPanelAbierto(true)}>Nuevo proveedor</Boton>
-      </div>
+      <EncabezadoPantalla titulo="Proveedores" subtitulo={PLANTA_NOMBRE} acciones={<Boton onClick={() => setPanelAbierto(true)}>Nuevo proveedor</Boton>} />
 
       {proveedores.length === 0 ? (
         <EmptyState

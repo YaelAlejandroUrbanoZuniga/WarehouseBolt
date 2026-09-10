@@ -26,7 +26,7 @@ export function PanelAhora({ data }: Props) {
 
   return (
     <Tarjeta>
-      <div style={{ fontSize: 16, fontWeight: 700, color: colores.texto.principal, marginBottom: 16 }}>
+      <div style={{ fontSize: 14, fontWeight: 700, color: colores.texto.principal, marginBottom: 16 }}>
         Ahora en patio
       </div>
       <div className="grid grid-cols-3" style={{ gap: 20 }}>
