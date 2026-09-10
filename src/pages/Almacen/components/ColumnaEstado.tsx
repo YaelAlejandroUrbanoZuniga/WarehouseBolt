@@ -4,6 +4,7 @@ import { EmptyState } from '@/kit/componentes/EmptyState/EmptyState';
 import { faBoxesPacking } from '@fortawesome/free-solid-svg-icons';
 import { formatearDuracion } from '@/lib/tiempo';
 import type { Cita } from '@/lib/types';
+import { colores } from '@/kit/tokens/colores';
 
 interface Props {
   titulo: string;
@@ -15,10 +16,10 @@ export function ColumnaEstado({ titulo, citas, renderCita }: Props) {
   return (
     <div style={{ flex: 1, minWidth: 0 }}>
       <div style={{ marginBottom: 12, display: 'flex', alignItems: 'baseline', gap: 8 }}>
-        <h2 style={{ fontSize: 20, fontWeight: 700, color: '#000000', margin: 0 }}>
+        <h2 style={{ fontSize: 20, fontWeight: 700, color: colores.texto.principal, margin: 0 }}>
           {titulo}
         </h2>
-        <span style={{ fontSize: 14, fontWeight: 500, color: '#808285' }}>
+        <span style={{ fontSize: 14, fontWeight: 500, color: colores.texto.secundario }}>
           ({citas.length})
         </span>
       </div>
@@ -33,14 +34,14 @@ export function ColumnaEstado({ titulo, citas, renderCita }: Props) {
           {citas.map(cita => (
             <Tarjeta key={cita.id}>
               <div style={{ marginBottom: 8 }}>
-                <span style={{ fontSize: 15, fontWeight: 700, color: '#000000' }}>{cita.folio}</span>
+                <span style={{ fontSize: 15, fontWeight: 700, color: colores.texto.principal }}>{cita.folio}</span>
               </div>
-              <div style={{ fontSize: 13, color: '#808285', marginBottom: 4 }}>{cita.empresa}</div>
-              <div style={{ fontSize: 13, color: '#808285', marginBottom: 4 }}>
+              <div style={{ fontSize: 13, color: colores.texto.secundario, marginBottom: 4 }}>{cita.empresa}</div>
+              <div style={{ fontSize: 13, color: colores.texto.secundario, marginBottom: 4 }}>
                 Placas: {cita.entrada?.placas ?? '—'}
               </div>
               {cita.entrada && (
-                <div style={{ fontSize: 12, color: '#808285', marginBottom: 12 }}>
+                <div style={{ fontSize: 12, color: colores.texto.secundario, marginBottom: 12 }}>
                   En patio: {formatearDuracion(cita.entrada.timestamp, new Date())}
                 </div>
               )}

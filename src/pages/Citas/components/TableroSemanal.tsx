@@ -5,6 +5,7 @@ import { franjaIndex, getFranjasMediaHora } from '../utils';
 import { CeldaCita } from './CeldaCita';
 import { LineaHoraActual } from './LineaHoraActual';
 import type { Cita } from '@/lib/types';
+import { colores } from '@/kit/tokens/colores';
 
 const NOMBRES_DIA = ['LUN', 'MAR', 'MIÉ', 'JUE', 'VIE', 'SÁB', 'DOM'];
 const ALTURA_HEADER_DIAS = 36;
@@ -63,7 +64,7 @@ export function TableroSemanal({ citas, diasSemana, onCitaClick, alturaDisponibl
         }}
       >
         {/* Header: top-left corner */}
-        <div style={{ gridColumn: 1, gridRow: 1, position: 'sticky', top: 0, zIndex: 2, backgroundColor: '#F7F7F7' }} />
+        <div style={{ gridColumn: 1, gridRow: 1, position: 'sticky', top: 0, zIndex: 2, backgroundColor: colores.superficie.encabezadoTabla }} />
 
         {/* Header: day names */}
         {diasSemana.map((dia, i) => (
@@ -75,13 +76,13 @@ export function TableroSemanal({ citas, diasSemana, onCitaClick, alturaDisponibl
               position: 'sticky',
               top: 0,
               zIndex: 2,
-              backgroundColor: '#F7F7F7',
-              borderBottom: '1px solid #E0E0E0',
+              backgroundColor: colores.superficie.encabezadoTabla,
+              borderBottom: `1px solid ${colores.superficie.bordeSuave}`,
               padding: '8px 4px',
               textAlign: 'center',
               fontSize: 12,
               fontWeight: 700,
-              color: '#000000',
+              color: colores.texto.principal,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -101,14 +102,14 @@ export function TableroSemanal({ citas, diasSemana, onCitaClick, alturaDisponibl
                 gridColumn: 1,
                 gridRow: fIdx + 2,
                 height: rowHeight,
-                borderBottom: '1px solid #F0F0F0',
+                borderBottom: `1px solid ${colores.superficie.separadorInterno}`,
                 padding: '0 4px',
                 fontSize: 11,
-                color: '#808285',
+                color: colores.texto.secundario,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'flex-end',
-                backgroundColor: '#FFFFFF',
+                backgroundColor: colores.nucleo.superficie,
               }}
             >
               {esHora ? franja : ''}
@@ -124,9 +125,9 @@ export function TableroSemanal({ citas, diasSemana, onCitaClick, alturaDisponibl
               style={{
                 gridColumn: dIdx + 2,
                 gridRow: fIdx + 2,
-                borderBottom: '1px solid #F0F0F0',
-                borderLeft: '1px solid #F0F0F0',
-                backgroundColor: '#FFFFFF',
+                borderBottom: `1px solid ${colores.superficie.separadorInterno}`,
+                borderLeft: `1px solid ${colores.superficie.separadorInterno}`,
+                backgroundColor: colores.nucleo.superficie,
               }}
             />
           ))

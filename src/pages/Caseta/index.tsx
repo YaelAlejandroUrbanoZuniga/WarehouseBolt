@@ -16,6 +16,7 @@ import { ModalRegistroEntrada } from './components/ModalRegistroEntrada';
 import { ModalRegistroSalida } from './components/ModalRegistroSalida';
 import { PanelOcupacion } from './components/PanelOcupacion';
 import { formatearDuracion } from '@/lib/tiempo';
+import { colores } from '@/kit/tokens/colores';
 
 const ESTADOS_EN_PATIO: EstadoCita[] = ['en_caseta', 'en_planta', 'en_descarga', 'saliendo'];
 
@@ -116,7 +117,7 @@ export default function CasetaPage() {
       <PanelOcupacion ahora={ahora} />
 
       <div>
-        <h2 style={{ fontSize: 20, fontWeight: 700, color: '#000000', margin: '0 0 12px' }}>
+        <h2 style={{ fontSize: 20, fontWeight: 700, color: colores.texto.principal, margin: '0 0 12px' }}>
           En patio
         </h2>
         {enPatio.length === 0 ? (

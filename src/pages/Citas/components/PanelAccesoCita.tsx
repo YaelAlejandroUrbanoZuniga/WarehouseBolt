@@ -40,7 +40,7 @@ export function PanelAccesoCita({ cita }: Props) {
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
-        <div style={{ padding: 12, backgroundColor: '#FFFFFF', border: '1px solid #E0E0E0', borderRadius: 8 }}>
+        <div style={{ padding: 12, backgroundColor: colores.nucleo.superficie, border: `1px solid ${colores.superficie.bordeSuave}`, borderRadius: 8 }}>
           <QRCodeSVG value={cita.codigoAcceso} size={140} level="M" />
         </div>
         <Boton variante="secundario" onClick={() => window.print()}>

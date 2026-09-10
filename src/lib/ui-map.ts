@@ -16,4 +16,4 @@ export const ESTADO_UI: Record<EstadoCita, { icon: IconDefinition; color: string
   cancelada:       { icon: faBan,              color: colores.libres.archivado },
 };
 
-export const COLOR_RETRASO = '#DC0202';
+export const COLOR_RETRASO = colores.nucleo.accion;

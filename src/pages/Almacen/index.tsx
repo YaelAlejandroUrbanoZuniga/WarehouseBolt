@@ -7,6 +7,7 @@ import { Insignia } from '@/kit/componentes/Insignia/Insignia';
 import { LoadingState } from '@/kit/componentes/LoadingState/LoadingState';
 import { useToast } from '@/kit/componentes/Toast/Toast';
 import { PanelEscaneo } from '@/components/PanelEscaneo';
+import { colores } from '@/kit/tokens/colores';
 import { ColumnaEstado } from './components/ColumnaEstado';
 import { ModalCerrarDescarga } from './components/ModalCerrarDescarga';
 import { ModalIniciarDescarga } from './components/ModalIniciarDescarga';
@@ -64,23 +65,23 @@ export default function AlmacenPage() {
 
       <div className="flex" style={{ gap: 20 }}>
         <ColumnaEstado titulo="En planta" citas={enPlanta} renderCita={() => (
-          <p style={{ fontSize: 12, color: '#808285', margin: 0 }}>
+          <p style={{ fontSize: 12, color: colores.texto.secundario, margin: 0 }}>
             Escanea su código para iniciar la descarga.
           </p>
         )} />
 
         <ColumnaEstado titulo="En descarga" citas={enDescarga} renderCita={cita => (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-            <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', fontSize: 13, color: '#000000' }}>
+            <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', fontSize: 13, color: colores.texto.principal }}>
               <input
                 type="checkbox"
                 checked={!!cita.documentacionRecibida}
                 onChange={() => toggleDocumentacion(cita)}
-                style={{ accentColor: '#DC0202' }}
+                style={{ accentColor: colores.nucleo.accion }}
               />
               Documentación recibida
             </label>
-            <p style={{ fontSize: 12, color: '#808285', margin: 0 }}>
+            <p style={{ fontSize: 12, color: colores.texto.secundario, margin: 0 }}>
               Pendiente de definir con almacén qué documentos aplican.
             </p>
             <Boton onClick={() => setCerrarCita(cita)}>Cerrar descarga</Boton>
@@ -94,7 +95,7 @@ export default function AlmacenPage() {
                 {cita.resultadoAuditoria === 'completo' ? 'Completo' : cita.resultadoAuditoria === 'incompleto' ? 'Incompleto' : 'Dañado'}
               </Insignia>
             )}
-            <p style={{ fontSize: 12, color: '#808285', margin: '8px 0 0' }}>
+            <p style={{ fontSize: 12, color: colores.texto.secundario, margin: '8px 0 0' }}>
               Esperando que vigilancia le dé salida en caseta.
             </p>
           </div>

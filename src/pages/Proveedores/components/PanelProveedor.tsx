@@ -81,12 +81,12 @@ export function PanelProveedor({ onClose, onGuardar, proveedor }: Props) {
           onClick={e => e.stopPropagation()}
           className={panelClass}
           style={{
-            backgroundColor: '#FFFFFF', borderRadius: 12,
+            backgroundColor: colores.nucleo.superficie, borderRadius: 12,
             boxShadow: '0 8px 24px rgba(0,0,0,0.20)', overflow: 'hidden',
             width: 560, maxHeight: '90vh', display: 'flex', flexDirection: 'column',
           }}
         >
-          <ModalHeader title={titulo} accentColor="#DC0202" onClose={requestClose} />
+          <ModalHeader title={titulo} accentColor={colores.nucleo.accion} onClose={requestClose} />
           <div style={{ padding: '24px 32px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 16 }}>
             <div className="grid grid-cols-2" style={{ gap: 16 }}>
               <CampoTexto label="Nombre" value={nombre} onChange={e => { setNombre(e.target.value); setErrorConflicto(''); }} />

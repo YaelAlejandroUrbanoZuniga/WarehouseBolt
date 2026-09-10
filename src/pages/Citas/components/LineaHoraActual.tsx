@@ -51,7 +51,7 @@ export function LineaHoraActual({ ahora, diasSemana, rowHeight, headerHeight }: 
                 fontSize: 10,
                 fontWeight: 700,
                 color: colores.nucleo.accion,
-                backgroundColor: '#FFFFFF',
+                backgroundColor: colores.nucleo.superficie,
                 padding: '1px 4px',
                 borderRadius: 3,
                 whiteSpace: 'nowrap',

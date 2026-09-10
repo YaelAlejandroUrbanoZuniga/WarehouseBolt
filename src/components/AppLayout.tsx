@@ -12,6 +12,7 @@ import {
 import { rolActivoAtom, usuarioActivoAtom } from '@/lib/store';
 import { ROL_ETIQUETA } from '@/lib/constants';
 import type { Rol } from '@/lib/types';
+import { colores } from '@/kit/tokens/colores';
 import { SelectorRol } from './SelectorRol';
 import { RelojActual } from './RelojActual';
 
@@ -62,7 +63,7 @@ export function AppLayout() {
         onCerrarSesion={() => {}}
       />
       <main style={{
-        backgroundColor: '#EEEEEE', minHeight: '100vh',
+        backgroundColor: colores.nucleo.fondoApp, minHeight: '100vh',
         paddingTop: MAIN_PADDING_TOP, paddingLeft: MAIN_PADDING_X,
         paddingRight: MAIN_PADDING_X, paddingBottom: MAIN_PADDING_BOTTOM,
         marginLeft: collapsed ? SIDEBAR_WIDTH_COLLAPSED : SIDEBAR_WIDTH,

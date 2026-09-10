@@ -7,6 +7,7 @@ import type { Cita, TransicionEstado } from '@/lib/types';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { calcularPuntualidad, colorPuntualidad } from '../utils';
+import { colores } from '@/kit/tokens/colores';
 
 interface Props {
   transiciones: TransicionEstado[];
@@ -50,21 +51,21 @@ export function LineaTiempo({ transiciones, cita }: Props) {
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 flexShrink: 0, marginTop: 2,
               }}>
-                <FontAwesomeIcon icon={ESTADO_UI[t.estado].icon} style={{ fontSize: 12, color: '#FFFFFF' }} />
+                <FontAwesomeIcon icon={ESTADO_UI[t.estado].icon} style={{ fontSize: 12, color: colores.texto.sobreOscuro }} />
               </div>
               {!esUltimo && (
                 <div style={{
-                  width: 2, flex: 1, backgroundColor: '#E0E0E0', minHeight: 28,
+                  width: 2, flex: 1, backgroundColor: colores.superficie.bordeSuave, minHeight: 28,
                 }} />
               )}
             </div>
             <div style={{ paddingBottom: esUltimo ? 0 : 20, paddingTop: 4 }}>
-              <div style={{ fontSize: 13, fontWeight: 700, color: '#000000' }}>{nombreEstado}</div>
-              <div style={{ fontSize: 12, fontWeight: 400, color: '#808285' }}>
+              <div style={{ fontSize: 13, fontWeight: 700, color: colores.texto.principal }}>{nombreEstado}</div>
+              <div style={{ fontSize: 12, fontWeight: 400, color: colores.texto.secundario }}>
                 {t.usuarioNombre} · {format(new Date(t.timestamp), "d 'de' MMMM 'de' yyyy, HH:mm", { locale: es })}
               </div>
               {t.nota && (
-                <div style={{ fontSize: 12, color: '#808285', marginTop: 2 }}>{t.nota}</div>
+                <div style={{ fontSize: 12, color: colores.texto.secundario, marginTop: 2 }}>{t.nota}</div>
               )}
             </div>
           </div>

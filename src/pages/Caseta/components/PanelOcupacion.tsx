@@ -7,6 +7,7 @@ import { EmptyState } from '@/kit/componentes/EmptyState/EmptyState';
 import { LoadingState } from '@/kit/componentes/LoadingState/LoadingState';
 import { formatearDuracion } from '@/lib/tiempo';
 import type { TransicionEstado } from '@/lib/types';
+import { colores } from '@/kit/tokens/colores';
 
 interface Props {
   ahora: Date;
@@ -51,33 +52,33 @@ export function PanelOcupacion({ ahora }: Props) {
 
   return (
     <div style={{ marginBottom: 32 }}>
-      <h2 style={{ fontSize: 20, fontWeight: 700, color: '#000000', margin: '0 0 8px' }}>
+      <h2 style={{ fontSize: 20, fontWeight: 700, color: colores.texto.principal, margin: '0 0 8px' }}>
         Ocupación de rampas ahora
       </h2>
-      <p style={{ fontSize: 12, color: '#808285', margin: '0 0 12px' }}>
+      <p style={{ fontSize: 12, color: colores.texto.secundario, margin: '0 0 12px' }}>
         Úsalo para decidir si el transporte espera en caseta o pasa a planta.
       </p>
       <div className="flex" style={{ gap: 12, flexWrap: 'wrap' }}>
         {ocupacion.map(({ dock, cita, tiempoDescarga }) => (
           <Tarjeta key={dock.id} style={{ minWidth: 180, flex: '1 1 0' }}>
-            <div style={{ fontSize: 14, fontWeight: 700, color: '#000000', marginBottom: 8 }}>
+            <div style={{ fontSize: 14, fontWeight: 700, color: colores.texto.principal, marginBottom: 8 }}>
               {dock.nombre}
             </div>
             {cita ? (
               <>
                 <div className="flex items-center" style={{ gap: 6, marginBottom: 4 }}>
-                  <span style={{ width: 10, height: 10, borderRadius: '50%', backgroundColor: '#D6336C', flexShrink: 0 }} />
-                  <span style={{ fontSize: 13, fontWeight: 600, color: '#D6336C' }}>En descarga</span>
+                  <span style={{ width: 10, height: 10, borderRadius: '50%', backgroundColor: colores.libres.descarga, flexShrink: 0 }} />
+                  <span style={{ fontSize: 13, fontWeight: 600, color: colores.libres.descarga }}>En descarga</span>
                 </div>
-                <div style={{ fontSize: 12, color: '#808285' }}>{cita.folio} · {cita.empresa}</div>
+                <div style={{ fontSize: 12, color: colores.texto.secundario }}>{cita.folio} · {cita.empresa}</div>
                 {tiempoDescarga && (
-                  <div style={{ fontSize: 12, color: '#808285', marginTop: 2 }}>{tiempoDescarga}</div>
+                  <div style={{ fontSize: 12, color: colores.texto.secundario, marginTop: 2 }}>{tiempoDescarga}</div>
                 )}
               </>
             ) : (
               <div className="flex items-center" style={{ gap: 6 }}>
-                <span style={{ width: 10, height: 10, borderRadius: '50%', backgroundColor: '#6ABF4B', flexShrink: 0 }} />
-                <span style={{ fontSize: 13, fontWeight: 600, color: '#6ABF4B' }}>Libre</span>
+                <span style={{ width: 10, height: 10, borderRadius: '50%', backgroundColor: colores.libres.exito, flexShrink: 0 }} />
+                <span style={{ fontSize: 13, fontWeight: 600, color: colores.libres.exito }}>Libre</span>
               </div>
             )}
           </Tarjeta>

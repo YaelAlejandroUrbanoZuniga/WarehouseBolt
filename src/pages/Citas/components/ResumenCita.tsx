@@ -127,7 +127,7 @@ export function ResumenCita({ cita, transiciones, onEditarCita, onCancelarCita, 
         <CampoTexto label="Notas (opcional)" value={notas} onChange={e => setNotas(e.target.value)} />
 
         <Seccion titulo="Programacion (solo lectura)">
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px 24px', fontSize: 13, color: '#000000' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px 24px', fontSize: 13, color: colores.texto.principal }}>
             <InfoRow label="Fecha" value={cita.fechaProgramada} />
             <InfoRow label="Ventana" value={`${cita.ventanaInicio} - ${cita.ventanaFin}`} />
           </div>
@@ -183,7 +183,7 @@ export function ResumenCita({ cita, transiciones, onEditarCita, onCancelarCita, 
       </div>
 
       <Seccion titulo="Programacion">
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px 24px', fontSize: 13, color: '#000000' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px 24px', fontSize: 13, color: colores.texto.principal }}>
           <InfoRow label="Fecha" value={cita.fechaProgramada} />
           <InfoRow label="Ventana" value={`${cita.ventanaInicio} - ${cita.ventanaFin}`} />
           <InfoRow label="Rampa" value={dockNombre} />
@@ -195,15 +195,15 @@ export function ResumenCita({ cita, transiciones, onEditarCita, onCancelarCita, 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px 24px' }}>
           {camposAcceso.map(c => (
             <div key={c.label} style={{ fontSize: 13 }}>
-              <span style={{ color: '#808285' }}>{c.label}: </span>
-              <span style={{ color: c.value ? '#000000' : '#808285' }}>{c.value ?? '—'}</span>
+              <span style={{ color: colores.texto.secundario }}>{c.label}: </span>
+              <span style={{ color: c.value ? colores.texto.principal : colores.texto.secundario }}>{c.value ?? '—'}</span>
             </div>
           ))}
         </div>
       </Seccion>
 
       <Seccion titulo="Tiempos">
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px 24px', fontSize: 13, color: '#000000' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px 24px', fontSize: 13, color: colores.texto.principal }}>
           <InfoRow label="Espera antes de descarga" value={tiempos.tiempoCaseta} />
           <InfoRow label="Tiempo de descarga" value={tiempos.tiempoDescarga} />
           <InfoRow label="Tiempo hasta salida" value={tiempos.tiempoSalida} />
@@ -256,7 +256,7 @@ export function ResumenCita({ cita, transiciones, onEditarCita, onCancelarCita, 
 function Seccion({ titulo, children }: { titulo: string; children: React.ReactNode }) {
   return (
     <div>
-      <div style={{ fontSize: 14, fontWeight: 700, color: '#000000', marginBottom: 10 }}>{titulo}</div>
+      <div style={{ fontSize: 14, fontWeight: 700, color: colores.texto.principal, marginBottom: 10 }}>{titulo}</div>
       {children}
     </div>
   );
@@ -265,8 +265,8 @@ function Seccion({ titulo, children }: { titulo: string; children: React.ReactNo
 function InfoRow({ label, value }: { label: string; value: string }) {
   return (
     <div style={{ fontSize: 13 }}>
-      <span style={{ color: '#808285', fontWeight: 500 }}>{label}: </span>
-      <span style={{ color: '#000000' }}>{value}</span>
+      <span style={{ color: colores.texto.secundario, fontWeight: 500 }}>{label}: </span>
+      <span style={{ color: colores.texto.principal }}>{value}</span>
     </div>
   );
 }

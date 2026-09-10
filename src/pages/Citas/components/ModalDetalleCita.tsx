@@ -7,6 +7,7 @@ import { zIndex } from '@/kit/tokens/layout';
 import { ESTADO_UI } from '@/lib/ui-map';
 import { transicionesAtom, rolActivoAtom } from '@/lib/store';
 import type { Cita, CitaEditInput } from '@/lib/types';
+import { colores } from '@/kit/tokens/colores';
 import { ResumenCita } from './ResumenCita';
 import { LineaTiempo } from './LineaTiempo';
 import { PanelAccesoCita } from './PanelAccesoCita';
@@ -65,7 +66,7 @@ export function ModalDetalleCita({ cita, onClose, onEditarCita, onCancelarCita, 
         onClick={e => e.stopPropagation()}
         className={panelClass}
         style={{
-          backgroundColor: '#FFFFFF', borderRadius: 12,
+          backgroundColor: colores.nucleo.superficie, borderRadius: 12,
           boxShadow: '0 8px 24px rgba(0,0,0,0.20)', overflow: 'hidden',
           width: 680, maxHeight: '80vh', display: 'flex', flexDirection: 'column',
         }}

@@ -9,6 +9,7 @@ import { ConfirmDialog } from '@/kit/componentes/ConfirmDialog/ConfirmDialog';
 import { useToast } from '@/kit/componentes/Toast/Toast';
 import { zIndex } from '@/kit/tokens/layout';
 import type { Cita, RegistroSalida } from '@/lib/types';
+import { colores } from '@/kit/tokens/colores';
 
 interface Props {
   cita: Cita;
@@ -64,12 +65,12 @@ export function ModalRegistroSalida({ cita, onClose }: Props) {
           onClick={e => e.stopPropagation()}
           className={panelClass}
           style={{
-            backgroundColor: '#FFFFFF', borderRadius: 12,
+            backgroundColor: colores.nucleo.superficie, borderRadius: 12,
             boxShadow: '0 8px 24px rgba(0,0,0,0.20)', overflow: 'hidden',
             width: 420, maxHeight: '90vh', display: 'flex', flexDirection: 'column',
           }}
         >
-          <ModalHeader title={`Registro de salida — ${cita.folio}`} accentColor="#DC0202" onClose={requestClose} />
+          <ModalHeader title={`Registro de salida — ${cita.folio}`} accentColor={colores.nucleo.accion} onClose={requestClose} />
           <div style={{ padding: '24px 32px', display: 'flex', flexDirection: 'column', gap: 16 }}>
             <CampoTexto label="Número de caja" value={numeroCaja} onChange={e => setNumeroCaja(e.target.value)} />
             <CampoTexto label="Sello" value={sello} onChange={e => setSello(e.target.value)} />

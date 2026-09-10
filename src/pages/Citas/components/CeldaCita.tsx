@@ -4,6 +4,7 @@ import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { ESTADO_UI, COLOR_RETRASO } from '@/lib/ui-map';
 import { ESTADOS } from '@/lib/constants';
 import type { Cita } from '@/lib/types';
+import { colores } from '@/kit/tokens/colores';
 
 interface Props {
   cita: Cita;
@@ -20,8 +21,8 @@ export function CeldaCita({ cita, onCitaClick, gridColumn, gridRow, spanFranjas 
   const colorBase = esRetraso ? COLOR_RETRASO : ESTADO_UI[cita.estado].color;
   const bgColor = esRetraso ? COLOR_RETRASO : `${colorBase}26`;
   const bgHover = esRetraso ? COLOR_RETRASO : `${colorBase}3D`;
-  const textColor = esRetraso ? '#FFFFFF' : '#000000';
-  const iconColor = esRetraso ? '#FFFFFF' : COLOR_RETRASO;
+  const textColor = esRetraso ? colores.texto.sobreOscuro : colores.texto.principal;
+  const iconColor = esRetraso ? colores.texto.sobreOscuro : COLOR_RETRASO;
 
   const multiLinea = spanFranjas > 1;
   const nombreEstado = ESTADOS[cita.estado].nombre;
@@ -33,8 +34,8 @@ export function CeldaCita({ cita, onCitaClick, gridColumn, gridRow, spanFranjas 
     fontWeight: 700,
     padding: '1px 5px',
     letterSpacing: '0.02em',
-    backgroundColor: esRetraso ? '#FFFFFF' : colorBase,
-    color: esRetraso ? COLOR_RETRASO : '#FFFFFF',
+    backgroundColor: esRetraso ? colores.nucleo.superficie : colorBase,
+    color: esRetraso ? COLOR_RETRASO : colores.texto.sobreOscuro,
     lineHeight: '14px',
     verticalAlign: 'middle',
   };

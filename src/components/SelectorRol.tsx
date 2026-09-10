@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useAtom } from 'jotai';
 import { rolActivoAtom } from '@/lib/store';
 import { ROLES, ROL_ETIQUETA } from '@/lib/constants';
+import { colores } from '@/kit/tokens/colores';
 import type { Rol } from '@/lib/types';
 
 export function SelectorRol() {
@@ -22,8 +23,8 @@ export function SelectorRol() {
             style={{
               fontSize: 13, borderRadius: 6, padding: '6px 14px', cursor: 'pointer',
               transition: 'background-color 120ms ease-out',
-              backgroundColor: activo ? '#FFFFFF' : hover ? 'rgba(255,255,255,0.15)' : 'transparent',
-              color: activo ? '#AA0202' : '#FFFFFF',
+              backgroundColor: activo ? colores.nucleo.superficie : hover ? 'rgba(255,255,255,0.15)' : 'transparent',
+              color: activo ? colores.nucleo.header : colores.texto.sobreOscuro,
               fontWeight: activo ? 700 : 500,
               border: activo ? 'none' : '1px solid rgba(255,255,255,0.4)',
             }}

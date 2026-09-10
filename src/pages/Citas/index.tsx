@@ -96,8 +96,8 @@ export default function CitasPage() {
     return (
       <div>
         <div style={{ marginBottom: 24 }}>
-          <h1 style={{ fontSize: 32, fontWeight: 700, color: '#000000', margin: 0 }}>Citas</h1>
-          <p style={{ fontSize: 16, fontWeight: 400, color: '#808285', margin: '4px 0 0' }}>
+          <h1 style={{ fontSize: 32, fontWeight: 700, color: colores.texto.principal, margin: 0 }}>Citas</h1>
+          <p style={{ fontSize: 16, fontWeight: 400, color: colores.texto.secundario, margin: '4px 0 0' }}>
             {PLANTA_NOMBRE}
           </p>
         </div>
@@ -125,9 +125,9 @@ export default function CitasPage() {
           transition: 'background-color 0.15s ease-out, box-shadow 0.15s ease-out',
         }}
       >
-        <FontAwesomeIcon icon={faChevronLeft} style={{ fontSize: 14, color: '#000000' }} />
+        <FontAwesomeIcon icon={faChevronLeft} style={{ fontSize: 14, color: colores.texto.principal }} />
       </button>
-      <span style={{ fontSize: 14, fontWeight: 600, color: '#000000', minWidth: 160, textAlign: 'center' }}>
+      <span style={{ fontSize: 14, fontWeight: 600, color: colores.texto.principal, minWidth: 160, textAlign: 'center' }}>
         {rangoLabel}
       </span>
       <button
@@ -143,7 +143,7 @@ export default function CitasPage() {
           transition: 'background-color 0.15s ease-out, box-shadow 0.15s ease-out',
         }}
       >
-        <FontAwesomeIcon icon={faChevronRight} style={{ fontSize: 14, color: '#000000' }} />
+        <FontAwesomeIcon icon={faChevronRight} style={{ fontSize: 14, color: colores.texto.principal }} />
       </button>
     </div>
   );
@@ -164,7 +164,7 @@ export default function CitasPage() {
     >
       <FontAwesomeIcon
         icon={vistaExpandida ? faCompress : faExpand}
-        style={{ fontSize: 14, color: '#000000' }}
+        style={{ fontSize: 14, color: colores.texto.principal }}
       />
     </button>
   );
@@ -174,8 +174,8 @@ export default function CitasPage() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
       <div style={{ marginBottom: 24 }}>
-        <h1 style={{ fontSize: 32, fontWeight: 700, color: '#000000', margin: 0 }}>Citas</h1>
-        <p style={{ fontSize: 16, fontWeight: 400, color: '#808285', margin: '4px 0 0' }}>
+        <h1 style={{ fontSize: 32, fontWeight: 700, color: colores.texto.principal, margin: 0 }}>Citas</h1>
+        <p style={{ fontSize: 16, fontWeight: 400, color: colores.texto.secundario, margin: '4px 0 0' }}>
           {PLANTA_NOMBRE}
         </p>
       </div>
@@ -210,7 +210,7 @@ export default function CitasPage() {
         <div
           style={{
             position: 'fixed', inset: 0, zIndex: zIndex.panel,
-            backgroundColor: '#FFFFFF',
+            backgroundColor: colores.nucleo.superficie,
             display: 'flex', flexDirection: 'column',
             padding: OVERLAY_PADDING,
             transition: reducedMotion ? 'none' : 'opacity 0.2s ease-out',

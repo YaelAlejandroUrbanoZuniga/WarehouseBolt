@@ -7,6 +7,7 @@ import { Tarjeta } from '@/kit/componentes/Tarjeta/Tarjeta';
 import { Tabs } from '@/kit/componentes/Tabs/Tabs';
 import { CampoTexto } from '@/kit/componentes/CampoTexto/CampoTexto';
 import { Boton } from '@/kit/componentes/Boton/Boton';
+import { colores } from '@/kit/tokens/colores';
 import type { Cita, EstadoCita } from '@/lib/types';
 
 interface Props {
@@ -53,7 +54,7 @@ export function PanelEscaneo({ titulo, estadosValidos, onCitaEncontrada }: Props
 
   return (
     <Tarjeta>
-      <div style={{ fontSize: 20, fontWeight: 700, color: '#000000', marginBottom: 16 }}>
+      <div style={{ fontSize: 20, fontWeight: 700, color: colores.texto.principal, marginBottom: 16 }}>
         {titulo}
       </div>
       <Tabs tabs={TABS} activeTab={tab} onChange={setTab}>
@@ -62,7 +63,7 @@ export function PanelEscaneo({ titulo, estadosValidos, onCitaEncontrada }: Props
             <div className="flex flex-col items-center" style={{ gap: 16 }}>
               <div
                 style={{
-                  width: 240, height: 240, backgroundColor: '#000000',
+                  width: 240, height: 240, backgroundColor: colores.texto.principal,
                   borderRadius: 12, position: 'relative', overflow: 'hidden',
                 }}
               >
@@ -72,10 +73,10 @@ export function PanelEscaneo({ titulo, estadosValidos, onCitaEncontrada }: Props
                 <Corner bottom={0} right={0} borderBottom borderRight />
                 <div className="scan-line" style={{
                   position: 'absolute', left: 0, right: 0, height: 2,
-                  backgroundColor: '#12B886',
+                  backgroundColor: colores.libres.exito,
                 }} />
               </div>
-              <p style={{ fontSize: 13, color: '#808285', textAlign: 'center', margin: 0 }}>
+              <p style={{ fontSize: 13, color: colores.texto.secundario, textAlign: 'center', margin: 0 }}>
                 Apunta la cámara al código QR del transportista.
               </p>
               <Boton variante="secundario" onClick={() => setShowList(!showList)}>
@@ -84,10 +85,10 @@ export function PanelEscaneo({ titulo, estadosValidos, onCitaEncontrada }: Props
               {showList && (
                 <div style={{
                   width: '100%', maxHeight: 200, overflowY: 'auto',
-                  border: '1px solid #D1D3D4', borderRadius: 8,
+                  border: `1px solid ${colores.superficie.borde}`, borderRadius: 8,
                 }}>
                   {citasValidas.length === 0 ? (
-                    <div style={{ padding: 12, fontSize: 13, color: '#808285', textAlign: 'center' }}>
+                    <div style={{ padding: 12, fontSize: 13, color: colores.texto.secundario, textAlign: 'center' }}>
                       No hay citas en estados válidos.
                     </div>
                   ) : citasValidas.map(c => (
@@ -106,7 +107,7 @@ export function PanelEscaneo({ titulo, estadosValidos, onCitaEncontrada }: Props
                 onChange={e => { setCodigo(e.target.value.toUpperCase()); setError(''); }}
               />
               {error && (
-                <p style={{ fontSize: 13, color: '#DC0202', margin: '8px 0 0' }}>{error}</p>
+                <p style={{ fontSize: 13, color: colores.nucleo.accion, margin: '8px 0 0' }}>{error}</p>
               )}
               <div style={{ marginTop: 12 }}>
                 <Boton onClick={buscar} disabled={codigo.trim().length === 0}>
@@ -130,10 +131,10 @@ function Corner({ top, bottom, left, right, borderTop, borderBottom, borderLeft,
       position: 'absolute', width: 32, height: 32,
       top: top ?? undefined, bottom: bottom ?? undefined,
       left: left ?? undefined, right: right ?? undefined,
-      borderTop: borderTop ? '3px solid #12B886' : 'none',
-      borderBottom: borderBottom ? '3px solid #12B886' : 'none',
-      borderLeft: borderLeft ? '3px solid #12B886' : 'none',
-      borderRight: borderRight ? '3px solid #12B886' : 'none',
+      borderTop: borderTop ? `3px solid ${colores.libres.exito}` : 'none',
+      borderBottom: borderBottom ? `3px solid ${colores.libres.exito}` : 'none',
+      borderLeft: borderLeft ? `3px solid ${colores.libres.exito}` : 'none',
+      borderRight: borderRight ? `3px solid ${colores.libres.exito}` : 'none',
     }} />
   );
 }
@@ -147,13 +148,13 @@ function SimRow({ cita, onSelect }: { cita: Cita; onSelect: () => void }) {
       onMouseLeave={() => setHovered(false)}
       style={{
         padding: '8px 12px', cursor: 'pointer', fontSize: 13,
-        backgroundColor: hovered ? '#F5F5F5' : 'transparent',
-        borderBottom: '1px solid #EEEEEE',
+        backgroundColor: hovered ? colores.superficie.hoverFila : 'transparent',
+        borderBottom: `1px solid ${colores.nucleo.fondoApp}`,
       }}
     >
-      <span style={{ fontWeight: 600, color: '#000000' }}>{cita.folio}</span>
-      <span style={{ color: '#808285', margin: '0 8px' }}>·</span>
-      <span style={{ color: '#484848' }}>{cita.empresa}</span>
+      <span style={{ fontWeight: 600, color: colores.texto.principal }}>{cita.folio}</span>
+      <span style={{ color: colores.texto.secundario, margin: '0 8px' }}>·</span>
+      <span style={{ color: colores.texto.formulario }}>{cita.empresa}</span>
     </div>
   );
 }
