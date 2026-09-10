@@ -8,6 +8,7 @@ import type { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { colores } from '@/kit/tokens/colores';
 import { PLANTA_NOMBRE } from '@/lib/constants';
 import { EncabezadoPantalla } from '@/kit/componentes/EncabezadoPantalla/EncabezadoPantalla';
+
 import { Tarjeta } from '@/kit/componentes/Tarjeta/Tarjeta';
 import { EmptyState } from '@/kit/componentes/EmptyState/EmptyState';
 import { LoadingState } from '@/kit/componentes/LoadingState/LoadingState';
@@ -57,28 +58,39 @@ export default function HomePage() {
         <PanelAhora data={panelAhora} />
       </div>
 
-      <div className="flex" style={{ gap: 20, marginBottom: 24 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 16, marginBottom: 24 }}>
         {kpis.map(kpi => (
-          <Tarjeta key={kpi.label} style={{ flex: 1 }}>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+          <div
+            key={kpi.label}
+            style={{
+              background: colores.nucleo.superficie,
+              borderRadius: 8,
+              boxShadow: '0 1px 4px rgba(0,0,0,0.08)',
+              borderLeft: `4px solid ${kpi.color}`,
+              padding: '20px 20px 20px 16px',
+            }}
+          >
+            <div className="flex items-center justify-between">
+              <div>
+                <span style={{ fontSize: 14, fontWeight: 500, color: colores.texto.secundario, display: 'block' }}>
+                  {kpi.label}
+                </span>
+                <span style={{ fontSize: 30, fontWeight: 700, color: colores.texto.principal, marginTop: 4, display: 'block' }}>
+                  {kpi.valor}
+                </span>
+              </div>
               <div
                 style={{
-                  width: 56, height: 56, borderRadius: '50%',
-                  backgroundColor: `${kpi.color}26`,
+                  width: 48, height: 48, borderRadius: '50%',
+                  backgroundColor: `${kpi.color}1F`,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  marginBottom: 12,
+                  flexShrink: 0,
                 }}
               >
-                <FontAwesomeIcon icon={kpi.icon} style={{ color: kpi.color, fontSize: 22 }} />
-              </div>
-              <div style={{ fontSize: 30, fontWeight: 700, color: colores.texto.principal, marginBottom: 4 }}>
-                {kpi.valor}
-              </div>
-              <div style={{ fontSize: 13, fontWeight: 500, color: colores.texto.secundario }}>
-                {kpi.label}
+                <FontAwesomeIcon icon={kpi.icon} style={{ color: kpi.color, fontSize: 20 }} />
               </div>
             </div>
-          </Tarjeta>
+          </div>
         ))}
       </div>
 

@@ -77,7 +77,7 @@ export function ModalDetalleCita({ cita, onClose, onEditarCita, onCancelarCita, 
           onClose={requestClose}
         />
         <Tabs tabs={tabs} activeTab={activeTab} onChange={setActiveTab}>
-          <div style={{ overflowY: 'auto', padding: '20px 32px 24px', flex: 1 }}>
+          <div style={{ overflowY: 'auto', padding: '28px 32px 28px', flex: 1 }}>
             {activeTab === 'resumen' && (
               <ResumenCita
                 cita={cita}

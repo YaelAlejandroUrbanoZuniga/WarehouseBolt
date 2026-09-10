@@ -84,7 +84,7 @@ export function ModalRegistroEntrada({ cita, onClose }: Props) {
           }}
         >
           <ModalHeader title={`Registro de entrada — ${cita.folio}`} accentColor={colores.nucleo.accion} onClose={requestClose} />
-          <div style={{ padding: '24px 32px', display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <div style={{ padding: '28px 32px', display: 'flex', flexDirection: 'column', gap: 16 }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8, paddingBottom: 12, borderBottom: `1px solid ${colores.nucleo.fondoApp}` }}>
               <InfoRow label="Empresa" value={cita.empresa || 'Sin transportista'} />
               <InfoRow label="Folio" value={cita.folio} />

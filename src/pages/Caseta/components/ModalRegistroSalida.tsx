@@ -71,7 +71,7 @@ export function ModalRegistroSalida({ cita, onClose }: Props) {
           }}
         >
           <ModalHeader title={`Registro de salida — ${cita.folio}`} accentColor={colores.nucleo.accion} onClose={requestClose} />
-          <div style={{ padding: '24px 32px', display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <div style={{ padding: '28px 32px', display: 'flex', flexDirection: 'column', gap: 16 }}>
             <CampoTexto label="Número de caja" value={numeroCaja} onChange={e => setNumeroCaja(e.target.value)} />
             <CampoTexto label="Sello" value={sello} onChange={e => setSello(e.target.value)} />
             <div className="flex justify-end" style={{ gap: 8, marginTop: 8 }}>

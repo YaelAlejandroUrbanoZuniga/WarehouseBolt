@@ -115,38 +115,35 @@ export function PanelCrearCita({ onClose, onGuardar }: Props) {
           }}
         >
           <ModalHeader title="Nueva cita" accentColor={colores.nucleo.accion} onClose={requestClose} />
-          <div style={{ padding: '24px 32px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 16 }}>
-            <div className="grid grid-cols-2" style={{ gap: 16 }}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                <label style={{ fontSize: 12, fontWeight: 600, color: colores.texto.formulario }}>Proveedor</label>
-                <SelectCatalogo
-                  value={proveedorNombre}
-                  onChange={handleProveedorChange}
-                  options={opcionesProveedor}
-                  placeholder="Seleccionar proveedor"
-                />
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                <label style={{ fontSize: 12, fontWeight: 600, color: colores.texto.formulario }}>Línea de transporte</label>
-                <SelectCatalogo
-                  value={transporteNombre}
-                  onChange={v => { setTransporteNombre(v); transporteEditado.current = true; }}
-                  options={opcionesTransporte}
-                  placeholder="Seleccionar línea"
-                />
-              </div>
+          <div style={{ padding: '28px 32px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <div className="grid grid-cols-2" style={{ gap: 12 }}>
+              <SelectCatalogo
+                label="Proveedor"
+                obligatorio
+                value={proveedorNombre}
+                onChange={handleProveedorChange}
+                options={opcionesProveedor}
+                placeholder="Seleccionar proveedor"
+              />
+              <SelectCatalogo
+                label="Línea de transporte"
+                value={transporteNombre}
+                onChange={v => { setTransporteNombre(v); transporteEditado.current = true; }}
+                options={opcionesTransporte}
+                placeholder="Seleccionar línea"
+              />
             </div>
-            <div className="grid grid-cols-2" style={{ gap: 16 }}>
+            <div className="grid grid-cols-2" style={{ gap: 12 }}>
               <CampoTexto label="Número de PO" value={poNumero} onChange={e => setPoNumero(e.target.value)} />
-              <CampoTexto label="Fecha programada" type="date" value={fechaProgramada} onChange={e => setFechaProgramada(e.target.value)} />
+              <CampoTexto label="Fecha programada" obligatorio type="date" value={fechaProgramada} onChange={e => setFechaProgramada(e.target.value)} />
             </div>
-            <div className="grid grid-cols-2" style={{ gap: 16 }}>
+            <div className="grid grid-cols-2" style={{ gap: 12 }}>
               <CampoTexto label="Origen" value={origen} onChange={e => { setOrigen(e.target.value); origenEditado.current = true; }} />
               <CampoTexto label="Destino" value={destino} onChange={e => setDestino(e.target.value)} />
             </div>
-            <div className="grid grid-cols-2" style={{ gap: 16 }}>
-              <CampoTexto label="Ventana inicio" type="time" value={ventanaInicio} onChange={e => { setVentanaInicio(e.target.value); setErrorConflicto(''); }} />
-              <CampoTexto label="Ventana fin" type="time" value={ventanaFin} onChange={e => { setVentanaFin(e.target.value); setErrorConflicto(''); }} />
+            <div className="grid grid-cols-2" style={{ gap: 12 }}>
+              <CampoTexto label="Ventana inicio" obligatorio type="time" value={ventanaInicio} onChange={e => { setVentanaInicio(e.target.value); setErrorConflicto(''); }} />
+              <CampoTexto label="Ventana fin" obligatorio type="time" value={ventanaFin} onChange={e => { setVentanaFin(e.target.value); setErrorConflicto(''); }} />
             </div>
             {errorConflicto && (
               <p style={{ fontSize: 13, fontWeight: 600, color: colores.nucleo.accion, margin: 0 }}>

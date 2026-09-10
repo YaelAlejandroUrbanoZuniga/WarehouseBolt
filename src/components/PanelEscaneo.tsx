@@ -154,7 +154,7 @@ function SimRow({ cita, onSelect }: { cita: Cita; onSelect: () => void }) {
     >
       <span style={{ fontWeight: 600, color: colores.texto.principal }}>{cita.folio}</span>
       <span style={{ color: colores.texto.secundario, margin: '0 8px' }}>·</span>
-      <span style={{ color: colores.texto.formulario }}>{cita.empresa}</span>
+      <span style={{ color: colores.texto.secundario }}>{cita.empresa}</span>
     </div>
   );
 }

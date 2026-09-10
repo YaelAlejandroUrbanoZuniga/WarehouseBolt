@@ -101,9 +101,9 @@ export function ResumenCita({ cita, transiciones, onEditarCita, onCancelarCita, 
   if (editando) {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-        <div className="grid grid-cols-2" style={{ gap: 16 }}>
+        <div className="grid grid-cols-2" style={{ gap: 12 }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-            <label style={{ fontSize: 12, fontWeight: 600, color: colores.texto.formulario }}>Proveedor</label>
+            <label style={{ fontSize: 13, fontWeight: 500, color: colores.texto.secundario }}>Proveedor</label>
             <SelectCatalogo
               value={proveedorLabel}
               onChange={setProveedorLabel}
@@ -112,7 +112,7 @@ export function ResumenCita({ cita, transiciones, onEditarCita, onCancelarCita, 
             />
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-            <label style={{ fontSize: 12, fontWeight: 600, color: colores.texto.formulario }}>Línea de transporte</label>
+            <label style={{ fontSize: 13, fontWeight: 500, color: colores.texto.secundario }}>Línea de transporte</label>
             <SelectCatalogo
               value={transportistaLabel}
               onChange={setTransportistaLabel}
@@ -121,7 +121,7 @@ export function ResumenCita({ cita, transiciones, onEditarCita, onCancelarCita, 
             />
           </div>
         </div>
-        <div className="grid grid-cols-2" style={{ gap: 16 }}>
+        <div className="grid grid-cols-2" style={{ gap: 12 }}>
           <CampoTexto label="Número de PO" value={poNumero} onChange={e => setPoNumero(e.target.value)} />
           <CampoTexto label="Origen" value={origen} onChange={e => setOrigen(e.target.value)} />
         </div>

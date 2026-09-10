@@ -92,7 +92,6 @@ export const colores = {
   texto: {
     principal: '#000000',   // = nucleo.textoPrincipal
     secundario: '#808285',  // = nucleo.sidebar
-    formulario: '#484848',  // Labels y textos de apoyo DENTRO del formulario de login (unica pantalla con escala propia)
     leido: '#9CA3AF',       // Notificacion ya leida (mas apagado que el secundario)
     sobreOscuro: '#FFFFFF', // Texto sobre header rojo, sidebar gris, banda de modal
     sobreOscuroSuave: 'rgba(255,255,255,0.70)',      // Rol del usuario en el sidebar
