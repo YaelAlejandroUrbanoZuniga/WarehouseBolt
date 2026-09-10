@@ -91,7 +91,7 @@ export default function AlmacenPage() {
         <ColumnaEstado titulo="Saliendo" citas={saliendo} renderCita={cita => (
           <div>
             {cita.resultadoAuditoria && (
-              <Insignia estado={cita.resultadoAuditoria === 'completo' ? 'active' : cita.resultadoAuditoria === 'incompleto' ? 'warning' : 'error'}>
+              <Insignia color={cita.resultadoAuditoria === 'completo' ? colores.libres.exito : cita.resultadoAuditoria === 'incompleto' ? colores.libres.advertencia : colores.nucleo.accion}>
                 {cita.resultadoAuditoria === 'completo' ? 'Completo' : cita.resultadoAuditoria === 'incompleto' ? 'Incompleto' : 'Dañado'}
               </Insignia>
             )}

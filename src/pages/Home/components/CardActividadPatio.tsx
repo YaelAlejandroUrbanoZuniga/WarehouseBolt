@@ -6,7 +6,9 @@ import { es } from 'date-fns/locale';
 import { colores } from '@/kit/tokens/colores';
 import { Tarjeta } from '@/kit/componentes/Tarjeta/Tarjeta';
 import { Tabs } from '@/kit/componentes/Tabs/Tabs';
-import { InsigniaEstado } from '@/components/InsigniaEstado';
+import { Insignia } from '@/kit/componentes/Insignia/Insignia';
+import { ESTADO_UI } from '@/lib/ui-map';
+import { ESTADOS } from '@/lib/constants';
 import { EmptyState } from '@/kit/componentes/EmptyState/EmptyState';
 import { formatearDuracion } from '@/lib/tiempo';
 import type { Cita, TransicionEstado } from '@/lib/types';
@@ -62,7 +64,7 @@ export function CardActividadPatio({ enPatio, actividadReciente, ahora }: Props)
                         </div>
                         <div className="flex items-center" style={{ gap: 10 }}>
                           <span style={{ fontSize: 12, color: colores.texto.secundario }}>{tiempo}</span>
-                          <InsigniaEstado estado={cita.estado} />
+                          <Insignia color={ESTADO_UI[cita.estado].color}>{ESTADOS[cita.estado].nombre}</Insignia>
                         </div>
                       </div>
                     );
@@ -94,7 +96,7 @@ export function CardActividadPatio({ enPatio, actividadReciente, ahora }: Props)
                         }}
                       >
                         <div className="flex items-center" style={{ gap: 8 }}>
-                          <InsigniaEstado estado={transicion.estado} />
+                          <Insignia color={ESTADO_UI[transicion.estado].color}>{ESTADOS[transicion.estado].nombre}</Insignia>
                           <span style={{ fontSize: 13, fontWeight: 600, color: colores.texto.principal }}>{folio}</span>
                         </div>
                         <div style={{ fontSize: 12, color: colores.texto.secundario }}>

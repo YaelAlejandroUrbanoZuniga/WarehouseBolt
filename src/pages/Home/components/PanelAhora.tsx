@@ -3,7 +3,9 @@ import { useAtomValue } from 'jotai';
 import { useNavigate } from 'react-router-dom';
 import { colores } from '@/kit/tokens/colores';
 import { Tarjeta } from '@/kit/componentes/Tarjeta/Tarjeta';
-import { InsigniaEstado } from '@/components/InsigniaEstado';
+import { Insignia } from '@/kit/componentes/Insignia/Insignia';
+import { ESTADO_UI } from '@/lib/ui-map';
+import { ESTADOS } from '@/lib/constants';
 import { rolActivoAtom } from '@/lib/store';
 import { formatMinutos } from '@/lib/tiempo';
 import type { PanelAhora as PanelAhoraData } from '../useHome';
@@ -121,7 +123,7 @@ function ColumnaMovimientos({ items, puedeNavegar, onClic }: {
           {items.map(it => (
             <Fila key={it.cita.id} clicable={puedeNavegar} onClick={() => onClic(it.cita.id)}>
               <div className="flex items-center" style={{ gap: 8 }}>
-                <InsigniaEstado estado={it.cita.estado} />
+                <Insignia color={ESTADO_UI[it.cita.estado].color}>{ESTADOS[it.cita.estado].nombre}</Insignia>
                 <div>
                   <div style={{ fontSize: 13, fontWeight: 600, color: colores.texto.principal }}>{it.cita.folio}</div>
                   <div style={{ fontSize: 12, color: colores.texto.secundario }}>{it.cita.empresa}</div>

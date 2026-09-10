@@ -5,7 +5,9 @@ import { citasAtom, transicionesAtom, usuarioActivoAtom } from '@/lib/store';
 import type { Cita, EstadoCita } from '@/lib/types';
 import { TablaDatos } from '@/kit/componentes/TablaDatos/TablaDatos';
 import { Boton } from '@/kit/componentes/Boton/Boton';
-import { InsigniaEstado } from '@/components/InsigniaEstado';
+import { Insignia } from '@/kit/componentes/Insignia/Insignia';
+import { ESTADO_UI } from '@/lib/ui-map';
+import { ESTADOS } from '@/lib/constants';
 import { PanelEscaneo } from '@/components/PanelEscaneo';
 import { EmptyState } from '@/kit/componentes/EmptyState/EmptyState';
 import { LoadingState } from '@/kit/componentes/LoadingState/LoadingState';
@@ -67,7 +69,7 @@ export default function CasetaPage() {
       key: 'estado', label: 'Estado', sortable: false, width: '160px',
       render: (row: Record<string, unknown>) => {
         const estado = row.estado as EstadoCita;
-        return <InsigniaEstado estado={estado} />;
+        return <Insignia color={ESTADO_UI[estado].color}>{ESTADOS[estado].nombre}</Insignia>;
       },
     },
     { key: 'tiempoPatio', label: 'Tiempo en patio', sortable: true, width: '130px' },

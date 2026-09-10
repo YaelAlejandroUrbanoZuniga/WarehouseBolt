@@ -30,7 +30,7 @@ export default function ProveedoresPage() {
     {
       key: 'activo', label: 'Estado', width: '0.7fr',
       render: (row: Record<string, unknown>) => (
-        <Insignia estado={row.activo ? 'active' : 'archived'}>
+        <Insignia color={row.activo ? colores.libres.exito : colores.libres.archivado}>
           {row.activo ? 'Activo' : 'Inactivo'}
         </Insignia>
       ),

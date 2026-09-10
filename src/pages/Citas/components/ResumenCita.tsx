@@ -4,7 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faBan, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { TRANSICIONES_PERMITIDAS } from '@/lib/constants';
 import { COLOR_RETRASO } from '@/lib/ui-map';
-import { InsigniaEstado } from '@/components/InsigniaEstado';
+import { Insignia } from '@/kit/componentes/Insignia/Insignia';
+import { ESTADO_UI } from '@/lib/ui-map';
+import { ESTADOS } from '@/lib/constants';
 import { CampoTexto } from '@/kit/componentes/CampoTexto/CampoTexto';
 import { SelectCatalogo } from '@/kit/componentes/SelectCatalogo/SelectCatalogo';
 import { Boton } from '@/kit/componentes/Boton/Boton';
@@ -149,7 +151,7 @@ export function ResumenCita({ cita, transiciones, onEditarCita, onCancelarCita, 
       <div>
         <div className="flex items-center justify-between" style={{ marginBottom: 8 }}>
           <div className="flex items-center" style={{ gap: 10 }}>
-            <InsigniaEstado estado={cita.estado} />
+            <Insignia color={ESTADO_UI[cita.estado].color}>{ESTADOS[cita.estado].nombre}</Insignia>
             {esRetraso && (
               <span style={{ fontSize: 12, fontWeight: 600, color: COLOR_RETRASO }}>
                 Retraso detectado
