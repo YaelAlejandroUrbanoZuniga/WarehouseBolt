@@ -4,7 +4,7 @@ import { citasAtom } from '@/lib/store';
 import { ESTADOS } from '@/lib/constants';
 import { buscarPorCodigo } from '@/lib/codigo-acceso';
 import { Tarjeta } from '@/kit/componentes/Tarjeta/Tarjeta';
-import { Tabs } from '@/kit/componentes/Tabs/Tabs';
+import { Pestanas } from '@/kit/componentes/Pestanas/Pestanas';
 import { CampoTexto } from '@/kit/componentes/CampoTexto/CampoTexto';
 import { Boton } from '@/kit/componentes/Boton/Boton';
 import { colores } from '@/kit/tokens/colores';
@@ -57,7 +57,7 @@ export function PanelEscaneo({ titulo, estadosValidos, onCitaEncontrada }: Props
       <div style={{ fontSize: 20, fontWeight: 700, color: colores.texto.principal, marginBottom: 16 }}>
         {titulo}
       </div>
-      <Tabs tabs={TABS} activeTab={tab} onChange={setTab}>
+      <Pestanas tabs={TABS} activeTab={tab} onChange={setTab}>
         <div style={{ paddingTop: 16 }}>
           {tab === 'qr' && (
             <div className="flex flex-col items-center" style={{ gap: 16 }}>
@@ -117,7 +117,7 @@ export function PanelEscaneo({ titulo, estadosValidos, onCitaEncontrada }: Props
             </div>
           )}
         </div>
-      </Tabs>
+      </Pestanas>
     </Tarjeta>
   );
 }

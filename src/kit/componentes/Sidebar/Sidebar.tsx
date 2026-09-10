@@ -22,7 +22,7 @@ interface Props {
   onToggle: () => void;
   items: SidebarNavItem[];
   usuario: { displayName: string; role: string };
-  onCerrarSesion: () => void;
+  onCerrarSesion?: () => void;
   accionesExtra?: AccionExtra[];
 }
 
@@ -68,7 +68,7 @@ export function Sidebar({ collapsed, onToggle, items, usuario, onCerrarSesion, a
           width: 30, height: 30, borderRadius: '50%',
           backgroundColor: toggleHover ? '#DC0202' : '#AA0202',
           color: '#FFFFFF', border: 'none',
-          boxShadow: '0 2px 6px rgba(0,0,0,0.28)', zIndex: 10, cursor: 'pointer',
+          boxShadow: '0 2px 6px rgba(0,0,0,0.28)', zIndex: zIndex.dropdown, cursor: 'pointer',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
         }}
       >
@@ -132,7 +132,7 @@ export function Sidebar({ collapsed, onToggle, items, usuario, onCerrarSesion, a
           <MenuUsuario
             ref={menuRef}
             accionesExtra={accionesExtra}
-            onCerrarSesion={() => { setMenuAbierto(false); onCerrarSesion(); }}
+            onCerrarSesion={onCerrarSesion ? () => { setMenuAbierto(false); onCerrarSesion(); } : undefined}
             onClose={() => setMenuAbierto(false)}
           />
         )}
@@ -145,7 +145,7 @@ import { forwardRef } from 'react';
 
 interface MenuProps {
   accionesExtra?: AccionExtra[];
-  onCerrarSesion: () => void;
+  onCerrarSesion?: () => void;
   onClose: () => void;
 }
 
@@ -155,7 +155,7 @@ const MenuUsuario = forwardRef<HTMLDivElement, MenuProps>(
 
     const acciones: { label: string; icon: IconDefinition; onClick: () => void; color?: string }[] = [
       ...(accionesExtra ?? []),
-      { label: 'Cerrar sesión', icon: faSignOutAlt, onClick: onCerrarSesion, color: '#DC0202' },
+      ...(onCerrarSesion ? [{ label: 'Cerrar sesión', icon: faSignOutAlt, onClick: onCerrarSesion, color: '#DC0202' }] : []),
     ];
 
     return (
@@ -164,7 +164,7 @@ const MenuUsuario = forwardRef<HTMLDivElement, MenuProps>(
         style={{
           position: 'absolute', bottom: '100%', left: 8, marginBottom: 8,
           borderRadius: 8, boxShadow: '0 8px 24px rgba(0,0,0,0.20)',
-          backgroundColor: '#FFFFFF', minWidth: 180, overflow: 'hidden', zIndex: 10,
+          backgroundColor: '#FFFFFF', minWidth: 180, overflow: 'hidden', zIndex: zIndex.dropdown,
         }}
       >
         {acciones.map((a, i) => (

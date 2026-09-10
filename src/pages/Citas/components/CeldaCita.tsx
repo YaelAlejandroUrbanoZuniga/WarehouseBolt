@@ -30,7 +30,7 @@ export function CeldaCita({ cita, onCitaClick, gridColumn, gridRow, spanFranjas 
   const chipStyle: React.CSSProperties = {
     display: 'inline-block',
     borderRadius: 4,
-    fontSize: 9,
+    fontSize: 11,
     fontWeight: 700,
     padding: '1px 5px',
     letterSpacing: '0.02em',
@@ -38,6 +38,10 @@ export function CeldaCita({ cita, onCitaClick, gridColumn, gridRow, spanFranjas 
     color: esRetraso ? COLOR_RETRASO : colores.texto.sobreOscuro,
     lineHeight: '14px',
     verticalAlign: 'middle',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    maxWidth: '100%',
   };
 
   return (

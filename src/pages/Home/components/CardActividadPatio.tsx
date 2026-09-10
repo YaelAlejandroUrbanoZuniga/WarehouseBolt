@@ -5,7 +5,7 @@ import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { colores } from '@/kit/tokens/colores';
 import { Tarjeta } from '@/kit/componentes/Tarjeta/Tarjeta';
-import { Tabs } from '@/kit/componentes/Tabs/Tabs';
+import { Pestanas } from '@/kit/componentes/Pestanas/Pestanas';
 import { Insignia } from '@/kit/componentes/Insignia/Insignia';
 import { ESTADO_UI } from '@/lib/ui-map';
 import { ESTADOS } from '@/lib/constants';
@@ -30,7 +30,7 @@ export function CardActividadPatio({ enPatio, actividadReciente, ahora }: Props)
 
   return (
     <Tarjeta>
-      <Tabs tabs={tabs} activeTab={activeTab} onChange={setActiveTab}>
+      <Pestanas tabs={tabs} activeTab={activeTab} onChange={setActiveTab}>
         <div style={{ padding: '16px 0 0' }}>
           {activeTab === 'patio' && (
             <>
@@ -110,7 +110,7 @@ export function CardActividadPatio({ enPatio, actividadReciente, ahora }: Props)
             </>
           )}
         </div>
-      </Tabs>
+      </Pestanas>
     </Tarjeta>
   );
 }

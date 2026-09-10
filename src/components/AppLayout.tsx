@@ -60,7 +60,6 @@ export function AppLayout() {
         onToggle={() => setCollapsed(c => !c)}
         items={itemsFiltrados}
         usuario={usuario}
-        onCerrarSesion={() => {}}
       />
       <main style={{
         backgroundColor: colores.nucleo.fondoApp, minHeight: '100vh',

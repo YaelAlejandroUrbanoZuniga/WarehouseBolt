@@ -13,7 +13,7 @@ interface Props {
   children: ReactNode;
 }
 
-export function Tabs({ tabs, activeTab, onChange, children }: Props) {
+export function Pestanas({ tabs, activeTab, onChange, children }: Props) {
   const [hoverTab, setHoverTab] = useState<string | null>(null);
 
   return (
@@ -23,7 +23,7 @@ export function Tabs({ tabs, activeTab, onChange, children }: Props) {
           const isActive = tab.id === activeTab;
           const isHovered = tab.id === hoverTab;
           let textColor: string;
-          if (isActive) textColor = colores.nucleo.accion;
+          if (isActive) textColor = colores.texto.principal;
           else if (isHovered) textColor = colores.texto.principal;
           else textColor = colores.texto.secundario;
 
@@ -37,8 +37,8 @@ export function Tabs({ tabs, activeTab, onChange, children }: Props) {
                 border: 'none',
                 background: 'transparent',
                 padding: '10px 16px',
-                fontSize: 13,
-                fontWeight: 600,
+                fontSize: 14,
+                fontWeight: isActive ? 700 : 400,
                 color: textColor,
                 cursor: isActive ? 'default' : 'pointer',
                 borderBottom: isActive ? `2px solid ${colores.nucleo.accion}` : '2px solid transparent',

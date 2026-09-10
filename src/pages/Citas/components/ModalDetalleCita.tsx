@@ -3,7 +3,7 @@ import { useAtomValue } from 'jotai';
 import { useModalTransition } from '@/kit/hooks/useModalTransition';
 import { useEscape } from '@/kit/hooks/useEscape';
 import { ModalHeader } from '@/kit/componentes/ModalHeader/ModalHeader';
-import { Tabs } from '@/kit/componentes/Tabs/Tabs';
+import { Pestanas } from '@/kit/componentes/Pestanas/Pestanas';
 import { zIndex } from '@/kit/tokens/layout';
 import { ESTADO_UI } from '@/lib/ui-map';
 import { transicionesAtom, rolActivoAtom } from '@/lib/store';
@@ -81,7 +81,7 @@ export function ModalDetalleCita({ cita, onClose, onEditarCita, onCancelarCita, 
           accentColor={accentColor}
           onClose={requestClose}
         />
-        <Tabs tabs={tabs} activeTab={activeTab} onChange={setActiveTab}>
+        <Pestanas tabs={tabs} activeTab={activeTab} onChange={setActiveTab}>
           <div style={{ overflowY: 'auto', padding: '28px 32px 28px', flex: 1 }}>
             {activeTab === 'resumen' && (
               <ResumenCita
@@ -100,7 +100,7 @@ export function ModalDetalleCita({ cita, onClose, onEditarCita, onCancelarCita, 
               <PanelAccesoCita cita={cita} />
             )}
           </div>
-        </Tabs>
+        </Pestanas>
       </div>
     </div>
   );
