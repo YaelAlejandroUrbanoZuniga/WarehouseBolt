@@ -96,8 +96,9 @@ export default function HomePage() {
 
       <div style={{ marginBottom: 24 }}>
         <Tarjeta>
-          <div style={{ fontSize: 14, fontWeight: 700, color: colores.texto.principal, margin: '0 0 16px' }}>
-            Citas por estado
+          <div className="flex items-center" style={{ gap: 8, marginBottom: 16 }}>
+            <FontAwesomeIcon icon={faChartSimple} style={{ fontSize: 14, color: colores.libres.info }} />
+            <span style={{ fontSize: 14, fontWeight: 700, color: colores.texto.principal }}>Citas por estado</span>
           </div>
           {totalCitas === 0 ? (
             <EmptyState

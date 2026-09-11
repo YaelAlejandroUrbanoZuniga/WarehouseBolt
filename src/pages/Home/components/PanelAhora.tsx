@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useAtomValue } from 'jotai';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTruck } from '@fortawesome/free-solid-svg-icons';
 import { colores } from '@/kit/tokens/colores';
 import { Tarjeta } from '@/kit/componentes/Tarjeta/Tarjeta';
 import { Insignia } from '@/kit/componentes/Insignia/Insignia';
@@ -26,8 +28,9 @@ export function PanelAhora({ data }: Props) {
 
   return (
     <Tarjeta>
-      <div style={{ fontSize: 14, fontWeight: 700, color: colores.texto.principal, marginBottom: 16 }}>
-        Ahora en patio
+      <div className="flex items-center" style={{ gap: 8, marginBottom: 16 }}>
+        <FontAwesomeIcon icon={faTruck} style={{ fontSize: 14, color: colores.nucleo.accion }} />
+        <span style={{ fontSize: 14, fontWeight: 700, color: colores.texto.principal }}>Ahora en patio</span>
       </div>
       <div className="grid grid-cols-3" style={{ gap: 20 }}>
         <ColumnaDescarga items={data.enDescarga} puedeNavegar={puedeNavegar} onClic={irACita} />

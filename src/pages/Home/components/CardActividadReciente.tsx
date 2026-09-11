@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faListCheck } from '@fortawesome/free-solid-svg-icons';
+import { faListCheck, faClockRotateLeft } from '@fortawesome/free-solid-svg-icons';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { colores } from '@/kit/tokens/colores';
@@ -21,8 +21,9 @@ function textoMovimiento(folio: string, rolEtiqueta: string, estado: string, esP
 export function CardActividadReciente({ actividadReciente }: Props) {
   return (
     <Tarjeta>
-      <div style={{ fontSize: 14, fontWeight: 700, color: colores.texto.principal, marginBottom: 12 }}>
-        Actividad reciente
+      <div className="flex items-center" style={{ gap: 8, marginBottom: 16 }}>
+        <FontAwesomeIcon icon={faClockRotateLeft} style={{ fontSize: 14, color: colores.libres.link }} />
+        <span style={{ fontSize: 14, fontWeight: 700, color: colores.texto.principal }}>Actividad reciente</span>
       </div>
 
       {actividadReciente.length === 0 ? (
