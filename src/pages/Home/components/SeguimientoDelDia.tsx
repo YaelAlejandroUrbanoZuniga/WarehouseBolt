@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faListCheck, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { colores } from '@/kit/tokens/colores';
 import { Tarjeta } from '@/kit/componentes/Tarjeta/Tarjeta';
+import { Boton } from '@/kit/componentes/Boton/Boton';
 import { ESTADO_UI, COLOR_RETRASO } from '@/lib/ui-map';
 import { ESTADOS } from '@/lib/constants';
 import { rolActivoAtom } from '@/lib/store';
@@ -37,7 +38,10 @@ export function SeguimientoDelDia({ citasEnCasetaHoy, citasEnPatioHoy, citasSema
           {citasEnCasetaHoy.length === 0 ? (
             <TextoVacio>Sin citas el día de hoy</TextoVacio>
           ) : (
-            <ListaFilas items={citasEnCasetaHoy} clicable={puedeNavegar} onClic={irACita} />
+            <>
+              <ListaFilas items={citasEnCasetaHoy.slice(0, 5)} clicable={puedeNavegar} onClic={irACita} />
+              {citasEnCasetaHoy.length > 5 && <VerTodas total={citasEnCasetaHoy.length} onClick={() => navigate('/citas')} />}
+            </>
           )}
         </Bloque>
 
@@ -45,7 +49,10 @@ export function SeguimientoDelDia({ citasEnCasetaHoy, citasEnPatioHoy, citasSema
           {citasEnPatioHoy.length === 0 ? (
             <TextoVacio>Sin citas el día de hoy</TextoVacio>
           ) : (
-            <ListaFilas items={citasEnPatioHoy} clicable={puedeNavegar} onClic={irACita} />
+            <>
+              <ListaFilas items={citasEnPatioHoy.slice(0, 5)} clicable={puedeNavegar} onClic={irACita} />
+              {citasEnPatioHoy.length > 5 && <VerTodas total={citasEnPatioHoy.length} onClick={() => navigate('/citas')} />}
+            </>
           )}
         </Bloque>
 
@@ -53,7 +60,10 @@ export function SeguimientoDelDia({ citasEnCasetaHoy, citasEnPatioHoy, citasSema
           {citasSemanaArr.length === 0 ? (
             <TextoVacio>Sin citas esta semana</TextoVacio>
           ) : (
-            <ListaSemana items={citasSemanaArr} clicable={puedeNavegar} onClic={irACita} />
+            <>
+              <ListaSemana items={citasSemanaArr.slice(0, 5)} clicable={puedeNavegar} onClic={irACita} />
+              {citasSemanaArr.length > 5 && <VerTodas total={citasSemanaArr.length} onClick={() => navigate('/citas')} />}
+            </>
           )}
         </Bloque>
       </div>
@@ -77,6 +87,16 @@ function TextoVacio({ children }: { children: string }) {
     <p style={{ fontSize: 13, color: colores.texto.secundario, margin: 0, textAlign: 'center', padding: '24px 0' }}>
       {children}
     </p>
+  );
+}
+
+function VerTodas({ total, onClick }: { total: number; onClick: () => void }) {
+  return (
+    <div style={{ display: 'flex', justifyContent: 'center', marginTop: 8 }}>
+      <Boton variante="terciario" onClick={onClick} style={{ fontSize: 12 }}>
+        Ver todas ({total})
+      </Boton>
+    </div>
   );
 }
 
