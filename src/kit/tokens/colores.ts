@@ -125,7 +125,7 @@ export const colores = {
     /** Confirmado, completado, delta positivo. */
     exito: '#6ABF4B',
     /** En riesgo, esperando, error de validacion del usuario (toast ambar). */
-    pendiente: '#D4A017',
+    pendiente: '#F3C13F',
     /** Advertencia fuerte, atencion requerida. */
     advertencia: '#E3650B',
     /** Informativo, en proceso. */
@@ -143,7 +143,7 @@ export const colores = {
      *  estados de cita que ya usan colores de arriba (info, pendiente,
      *  exito, archivado). */
     enPlanta: '#7048E8',
-    descarga: '#D6336C',
+    descarga: '#E37120',
     saliendo: '#12B886',
   },
 } as const;
