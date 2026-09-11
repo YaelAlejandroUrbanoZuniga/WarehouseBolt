@@ -1,14 +1,15 @@
 import { useMemo } from 'react';
 import { useAtomValue } from 'jotai';
 import { format, addDays } from 'date-fns';
-import { citasAtom, transicionesAtom, docksAtom } from '@/lib/store';
-import type { Cita, EstadoCita, TransicionEstado } from '@/lib/types';
-import { ESTADOS, FLUJO_PRINCIPAL } from '@/lib/constants';
+import { citasAtom, transicionesAtom, docksAtom, usuariosAtom } from '@/lib/store';
+import type { Cita, EstadoCita, TransicionEstado, Usuario } from '@/lib/types';
+import { ESTADOS, FLUJO_PRINCIPAL, ROL_ETIQUETA } from '@/lib/constants';
 import { ESTADO_UI } from '@/lib/ui-map';
 
 export interface ActividadReciente {
   transicion: TransicionEstado;
   folio: string;
+  rolEtiqueta: string;
 }
 
 export interface ItemDescarga {
@@ -51,6 +52,7 @@ export function useHome(ahora: Date) {
   const citas = useAtomValue(citasAtom);
   const transiciones = useAtomValue(transicionesAtom);
   const docks = useAtomValue(docksAtom);
+  const usuarios = useAtomValue(usuariosAtom);
 
   const hoyStr = useMemo(() => format(ahora, 'yyyy-MM-dd'), [ahora]);
 
@@ -94,10 +96,17 @@ export function useHome(ahora: Date) {
     const totalCitas = citas.length;
 
     const folioMap = new Map(citas.map(c => [c.id, c.folio]));
+    const usuarioRolMap = new Map<string, string>(
+      usuarios.map((u: Usuario) => [u.nombre, ROL_ETIQUETA[u.rol]]),
+    );
     const actividadReciente: ActividadReciente[] = [...transiciones]
       .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
       .slice(0, 8)
-      .map(t => ({ transicion: t, folio: folioMap.get(t.citaId) ?? '—' }));
+      .map(t => ({
+        transicion: t,
+        folio: folioMap.get(t.citaId) ?? '—',
+        rolEtiqueta: usuarioRolMap.get(t.usuarioNombre) ?? t.usuarioNombre,
+      }));
 
     const enDescarga: ItemDescarga[] = citas
       .filter(c => c.estado === 'en_descarga')
@@ -150,5 +159,5 @@ export function useHome(ahora: Date) {
       actividadReciente,
       panelAhora,
     };
-  }, [citas, transiciones, docks, hoyStr, ahora]);
+  }, [citas, transiciones, docks, usuarios, hoyStr, ahora]);
 }

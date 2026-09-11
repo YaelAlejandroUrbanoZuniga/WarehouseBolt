@@ -13,7 +13,7 @@ import { Tarjeta } from '@/kit/componentes/Tarjeta/Tarjeta';
 import { EmptyState } from '@/kit/componentes/EmptyState/EmptyState';
 import { LoadingState } from '@/kit/componentes/LoadingState/LoadingState';
 import { BarraProgreso } from './components/BarraProgreso';
-import { CardActividadPatio } from './components/CardActividadPatio';
+import { CardActividadReciente } from './components/CardActividadReciente';
 import { PanelAhora } from './components/PanelAhora';
 import { useHome } from './useHome';
 
@@ -114,7 +114,7 @@ export default function HomePage() {
         </Tarjeta>
       </div>
 
-      <CardActividadPatio enPatio={enPatio} actividadReciente={actividadReciente} ahora={ahora} />
+      <CardActividadReciente actividadReciente={actividadReciente} />
     </div>
   );
 }
