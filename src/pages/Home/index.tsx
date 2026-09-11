@@ -54,10 +54,6 @@ export default function HomePage() {
     <div>
       <EncabezadoPantalla titulo="Home" subtitulo={PLANTA_NOMBRE} />
 
-      <div style={{ marginBottom: 24 }}>
-        <PanelAhora data={panelAhora} />
-      </div>
-
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 16, marginBottom: 24 }}>
         {kpis.map(kpi => (
           <div
@@ -92,6 +88,10 @@ export default function HomePage() {
             </div>
           </div>
         ))}
+      </div>
+
+      <div style={{ marginBottom: 24 }}>
+        <PanelAhora data={panelAhora} />
       </div>
 
       <div style={{ marginBottom: 24 }}>
