@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCalendarDay, faTruck, faCircleCheck, faClock,
@@ -102,7 +104,14 @@ export default function HomePage() {
         <Tarjeta>
           <div className="flex items-center" style={{ gap: 8, marginBottom: 16 }}>
             <FontAwesomeIcon icon={faChartSimple} style={{ fontSize: 14, color: colores.libres.info }} />
-            <span style={{ fontSize: 14, fontWeight: 700, color: colores.texto.principal }}>Citas por estado</span>
+            <div className="flex items-center" style={{ gap: 8 }}>
+              <span style={{ fontSize: 14, fontWeight: 700, color: colores.texto.principal }}>
+                Citas por estado
+              </span>
+              <span style={{ fontSize: 12, fontWeight: 400, color: colores.texto.secundario }}>
+                · {(() => { const m = format(new Date(), 'MMMM', { locale: es }); return m.charAt(0).toUpperCase() + m.slice(1); })()}
+              </span>
+            </div>
           </div>
           {totalCitas === 0 ? (
             <EmptyState

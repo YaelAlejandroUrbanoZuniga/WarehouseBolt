@@ -80,8 +80,16 @@ export function useHome(ahora: Date) {
       ? 0
       : Math.round(esperas.reduce((a, b) => a + b, 0) / esperas.length);
 
+    const inicioMes = new Date(ahora.getFullYear(), ahora.getMonth(), 1);
+    const finMes = new Date(ahora.getFullYear(), ahora.getMonth() + 1, 0);
+    const inicioMesStr = format(inicioMes, 'yyyy-MM-dd');
+    const finMesStr = format(finMes, 'yyyy-MM-dd');
+    const citasDelMes = citas.filter(c =>
+      c.fechaProgramada >= inicioMesStr && c.fechaProgramada <= finMesStr,
+    );
+
     const conteoPorEstado = new Map<EstadoCita, number>();
-    for (const c of citas) {
+    for (const c of citasDelMes) {
       conteoPorEstado.set(c.estado, (conteoPorEstado.get(c.estado) ?? 0) + 1);
     }
     const citasPorEstado = ORDEN_ESTADOS.map(estado => ({
@@ -91,7 +99,7 @@ export function useHome(ahora: Date) {
       color: ESTADO_UI[estado].color,
     }));
 
-    const totalCitas = citas.length;
+    const totalCitas = citasDelMes.length;
 
     const folioMap = new Map(citas.map(c => [c.id, c.folio]));
     const usuarioRolMap = new Map<string, string>(
