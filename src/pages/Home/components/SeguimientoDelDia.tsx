@@ -39,8 +39,8 @@ export function SeguimientoDelDia({ citasEnCasetaHoy, citasEnPatioHoy, citasSema
             <TextoVacio>Sin citas el día de hoy</TextoVacio>
           ) : (
             <>
-              <ListaFilas items={citasEnCasetaHoy.slice(0, 5)} clicable={puedeNavegar} onClic={irACita} />
-              {citasEnCasetaHoy.length > 5 && <VerTodas total={citasEnCasetaHoy.length} onClick={() => navigate('/citas')} />}
+              <ListaFilas items={citasEnCasetaHoy.slice(0, 3)} clicable={puedeNavegar} onClic={irACita} />
+              {citasEnCasetaHoy.length > 3 && <VerTodas total={citasEnCasetaHoy.length} onClick={() => navigate('/citas')} />}
             </>
           )}
         </Bloque>
@@ -50,8 +50,8 @@ export function SeguimientoDelDia({ citasEnCasetaHoy, citasEnPatioHoy, citasSema
             <TextoVacio>Sin citas el día de hoy</TextoVacio>
           ) : (
             <>
-              <ListaFilas items={citasEnPatioHoy.slice(0, 5)} clicable={puedeNavegar} onClic={irACita} />
-              {citasEnPatioHoy.length > 5 && <VerTodas total={citasEnPatioHoy.length} onClick={() => navigate('/citas')} />}
+              <ListaFilas items={citasEnPatioHoy.slice(0, 3)} clicable={puedeNavegar} onClic={irACita} />
+              {citasEnPatioHoy.length > 3 && <VerTodas total={citasEnPatioHoy.length} onClick={() => navigate('/citas')} />}
             </>
           )}
         </Bloque>
@@ -61,8 +61,8 @@ export function SeguimientoDelDia({ citasEnCasetaHoy, citasEnPatioHoy, citasSema
             <TextoVacio>Sin citas esta semana</TextoVacio>
           ) : (
             <>
-              <ListaSemana items={citasSemanaArr.slice(0, 5)} clicable={puedeNavegar} onClic={irACita} />
-              {citasSemanaArr.length > 5 && <VerTodas total={citasSemanaArr.length} onClick={() => navigate('/citas')} />}
+              <ListaSemana items={citasSemanaArr.slice(0, 3)} clicable={puedeNavegar} onClic={irACita} />
+              {citasSemanaArr.length > 3 && <VerTodas total={citasSemanaArr.length} onClick={() => navigate('/citas')} />}
             </>
           )}
         </Bloque>
