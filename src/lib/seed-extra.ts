@@ -4,6 +4,7 @@ import { PLANTA_ID } from './constants';
 
 function uid(): string { return crypto.randomUUID(); }
 function iso(date: Date): string { return date.toISOString(); }
+function hoy(): string { return format(new Date(), 'yyyy-MM-dd'); }
 function hoyMasDias(n: number): string { return format(addDays(new Date(), n), 'yyyy-MM-dd'); }
 function folioPara(fecha: string, consecutivo: number): string {
   return `DF-${fecha.replace(/-/g, '')}-${String(consecutivo).padStart(3, '0')}`;
@@ -59,7 +60,7 @@ export function generarCitasExtra(ctx: SeedCtx): { citas: Cita[]; transiciones: 
     transportistaId: transportistas[2].id, empresa: transportistas[2].empresa,
     proveedorId: proveedores[2].id, proveedorNombre: proveedores[2].nombre,
     origen: 'Querétaro', destino: 'Almacén 69',
-    fechaProgramada: hoyMasDias(5), ventanaInicio: '07:00', ventanaFin: '10:00',
+    fechaProgramada: hoy(), ventanaInicio: '07:00', ventanaFin: '10:00',
     dockId: null, estado: 'en_caseta', plantaId: PLANTA_ID,
     creadoPorNombre: usuarios[0].nombre,
     entrada: { transportista: 'Mario Ortega', placas: 'QRO-333-G', numeroCaja: 'CJ-907', sello: 'SL-5007', timestamp: iso(c18Entrada) },
@@ -75,7 +76,7 @@ export function generarCitasExtra(ctx: SeedCtx): { citas: Cita[]; transiciones: 
     transportistaId: transportistas[3].id, empresa: transportistas[3].empresa,
     proveedorId: proveedores[3].id, proveedorNombre: proveedores[3].nombre,
     origen: 'Irapuato', destino: 'Almacén 69',
-    fechaProgramada: hoyMasDias(9), ventanaInicio: '10:00', ventanaFin: '12:00',
+    fechaProgramada: hoy(), ventanaInicio: '10:00', ventanaFin: '12:00',
     dockId: null, estado: 'en_caseta', plantaId: PLANTA_ID,
     creadoPorNombre: usuarios[0].nombre,
     entrada: { transportista: 'Sergio Vargas', placas: 'GTO-444-H', numeroCaja: 'CJ-908', sello: 'SL-5008', timestamp: iso(c19Entrada) },
@@ -91,7 +92,7 @@ export function generarCitasExtra(ctx: SeedCtx): { citas: Cita[]; transiciones: 
     transportistaId: transportistas[4].id, empresa: transportistas[4].empresa,
     proveedorId: proveedores[4].id, proveedorNombre: proveedores[4].nombre,
     origen: 'San Luis Potosí', destino: 'Almacén 69',
-    fechaProgramada: hoyMasDias(6), ventanaInicio: '09:00', ventanaFin: '10:00',
+    fechaProgramada: hoy(), ventanaInicio: '09:00', ventanaFin: '10:00',
     dockId: docks[2].id, estado: 'en_descarga', plantaId: PLANTA_ID,
     creadoPorNombre: usuarios[0].nombre,
     entrada: { transportista: 'Andrés Soto', placas: 'SLP-555-J', numeroCaja: 'CJ-909', sello: 'SL-5009', timestamp: iso(c20Caseta) },
@@ -110,7 +111,7 @@ export function generarCitasExtra(ctx: SeedCtx): { citas: Cita[]; transiciones: 
     transportistaId: transportistas[0].id, empresa: transportistas[0].empresa,
     proveedorId: proveedores[0].id, proveedorNombre: proveedores[0].nombre,
     origen: 'Aguascalientes', destino: 'Almacén 69',
-    fechaProgramada: hoyMasDias(7), ventanaInicio: '08:00', ventanaFin: '10:00',
+    fechaProgramada: hoy(), ventanaInicio: '08:00', ventanaFin: '10:00',
     dockId: docks[3].id, estado: 'completada', plantaId: PLANTA_ID,
     creadoPorNombre: usuarios[0].nombre,
     entrada: { transportista: 'Pedro Nava', placas: 'AGS-666-K', numeroCaja: 'CJ-910', sello: 'SL-5011', timestamp: iso(c21Caseta) },
@@ -129,7 +130,7 @@ export function generarCitasExtra(ctx: SeedCtx): { citas: Cita[]; transiciones: 
     transportistaId: transportistas[1].id, empresa: transportistas[1].empresa,
     proveedorId: proveedores[1].id, proveedorNombre: proveedores[1].nombre,
     origen: 'CDMX', destino: 'Almacén 69',
-    fechaProgramada: hoyMasDias(10), ventanaInicio: '11:00', ventanaFin: '13:00',
+    fechaProgramada: hoy(), ventanaInicio: '11:00', ventanaFin: '13:00',
     dockId: null, estado: 'cancelada', plantaId: PLANTA_ID,
     creadoPorNombre: usuarios[0].nombre,
     notas: 'Cancelada por el cliente',

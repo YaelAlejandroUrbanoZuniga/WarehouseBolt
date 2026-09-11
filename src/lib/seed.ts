@@ -287,7 +287,7 @@ export function useSembrarDatos(): void {
       transportistaId: transportistas[4].id, empresa: transportistas[4].empresa,
       proveedorId: proveedores[4].id, proveedorNombre: proveedores[4].nombre,
       origen: 'Toluca', destino: 'Almacén 69',
-      fechaProgramada: hoyMasDias(2), ventanaInicio: '09:00', ventanaFin: '11:00',
+      fechaProgramada: hoy(), ventanaInicio: '09:00', ventanaFin: '11:00',
       dockId: null, estado: 'cancelada', plantaId: PLANTA_ID,
       creadoPorNombre: usuarios[0].nombre,
     });
