@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { useAtomValue } from 'jotai';
-import { format, addDays } from 'date-fns';
+import { format, startOfWeek, endOfWeek } from 'date-fns';
+import { es } from 'date-fns/locale';
 import { citasAtom, transicionesAtom, docksAtom, usuariosAtom } from '@/lib/store';
 import type { Cita, EstadoCita, TransicionEstado, Usuario } from '@/lib/types';
 import { ESTADOS, FLUJO_PRINCIPAL, ROL_ETIQUETA } from '@/lib/constants';
@@ -12,26 +13,14 @@ export interface ActividadReciente {
   rolEtiqueta: string;
 }
 
-export interface ItemDescarga {
-  cita: Cita;
-  rampa: string;
-  minutos: number;
-}
-
-export interface ItemProxima {
-  cita: Cita;
-  minutosFaltantes: number;
-}
-
-export interface ItemMovimiento {
+export interface ItemSeguimiento {
   cita: Cita;
   minutosEnEstado: number;
 }
 
-export interface PanelAhora {
-  enDescarga: ItemDescarga[];
-  proximaCita: ItemProxima | null;
-  movimientos: ItemMovimiento[];
+export interface ItemSemana {
+  cita: Cita;
+  diaEtiqueta: string;
 }
 
 function calcEsperaMin(cita: Cita, transiciones: TransicionEstado[]): number | null {
@@ -44,6 +33,14 @@ function calcEsperaMin(cita: Cita, transiciones: TransicionEstado[]): number | n
   if (candidatos.length === 0) return null;
   const inicio = candidatos.reduce((a, b) => (a < b ? a : b));
   return Math.max(0, Math.round((new Date(tsDescarga).getTime() - new Date(inicio).getTime()) / 60000));
+}
+
+function minutosDesdeEstado(cita: Cita, transiciones: TransicionEstado[], ahora: Date): number {
+  const ts = transiciones
+    .filter(t => t.citaId === cita.id && t.estado === cita.estado)
+    .sort((a, b) => b.timestamp.localeCompare(a.timestamp))[0]?.timestamp;
+  if (!ts) return 0;
+  return Math.max(0, Math.round((ahora.getTime() - new Date(ts).getTime()) / 60000));
 }
 
 const ORDEN_ESTADOS: EstadoCita[] = [...FLUJO_PRINCIPAL, 'cancelada'];
@@ -108,45 +105,29 @@ export function useHome(ahora: Date) {
         rolEtiqueta: usuarioRolMap.get(t.usuarioNombre) ?? t.usuarioNombre,
       }));
 
-    const enDescarga: ItemDescarga[] = citas
-      .filter(c => c.estado === 'en_descarga')
-      .map(c => {
-        const tsDescarga = transiciones
-          .filter(t => t.citaId === c.id && t.estado === 'en_descarga')
-          .sort((a, b) => b.timestamp.localeCompare(a.timestamp))[0]?.timestamp;
-        const minutos = tsDescarga
-          ? Math.max(0, Math.round((ahora.getTime() - new Date(tsDescarga).getTime()) / 60000))
-          : 0;
-        const rampa = c.dockId ? (docks.find(d => d.id === c.dockId)?.nombre ?? '—') : '—';
-        return { cita: c, rampa, minutos };
-      });
-
-    const mananaStr = format(addDays(ahora, 1), 'yyyy-MM-dd');
-    const programadasCercanas = citas
-      .filter(c => c.estado === 'programada' && (c.fechaProgramada === hoyStr || c.fechaProgramada === mananaStr))
-      .map(c => {
-        const ventanaDate = new Date(`${c.fechaProgramada}T${c.ventanaInicio}:00`);
-        const minutosFaltantes = Math.round((ventanaDate.getTime() - ahora.getTime()) / 60000);
-        return { cita: c, minutosFaltantes };
-      })
-      .filter(item => item.minutosFaltantes > -120)
-      .sort((a, b) => a.minutosFaltantes - b.minutosFaltantes);
-    const proximaCita: ItemProxima | null = programadasCercanas[0] ?? null;
-
-    const movimientos: ItemMovimiento[] = citas
-      .filter(c => c.estado === 'en_caseta' || c.estado === 'saliendo')
-      .map(c => {
-        const tsEstado = transiciones
-          .filter(t => t.citaId === c.id && t.estado === c.estado)
-          .sort((a, b) => b.timestamp.localeCompare(a.timestamp))[0]?.timestamp;
-        const minutosEnEstado = tsEstado
-          ? Math.max(0, Math.round((ahora.getTime() - new Date(tsEstado).getTime()) / 60000))
-          : 0;
-        return { cita: c, minutosEnEstado };
-      })
+    const citasEnCasetaHoy: ItemSeguimiento[] = citas
+      .filter(c => c.estado === 'en_caseta' && c.fechaProgramada === hoyStr)
+      .map(c => ({ cita: c, minutosEnEstado: minutosDesdeEstado(c, transiciones, ahora) }))
       .sort((a, b) => b.minutosEnEstado - a.minutosEnEstado);
 
-    const panelAhora: PanelAhora = { enDescarga, proximaCita, movimientos };
+    const citasEnPatioHoy: ItemSeguimiento[] = citas
+      .filter(c =>
+        (c.estado === 'en_planta' || c.estado === 'en_descarga' || c.estado === 'saliendo') &&
+        c.fechaProgramada === hoyStr,
+      )
+      .map(c => ({ cita: c, minutosEnEstado: minutosDesdeEstado(c, transiciones, ahora) }))
+      .sort((a, b) => b.minutosEnEstado - a.minutosEnEstado);
+
+    const inicioSemana = format(startOfWeek(ahora, { locale: es }), 'yyyy-MM-dd');
+    const finSemana = format(endOfWeek(ahora, { locale: es }), 'yyyy-MM-dd');
+    const citasSemanaArr: ItemSemana[] = citas
+      .filter(c => c.fechaProgramada >= inicioSemana && c.fechaProgramada <= finSemana)
+      .sort((a, b) => a.fechaProgramada.localeCompare(b.fechaProgramada))
+      .map(c => {
+        const fecha = new Date(`${c.fechaProgramada}T12:00:00`);
+        const dia = format(fecha, 'EEEE d', { locale: es });
+        return { cita: c, diaEtiqueta: dia.charAt(0).toUpperCase() + dia.slice(1) };
+      });
 
     return {
       citasHoy: citasHoyArr.length,
@@ -157,7 +138,9 @@ export function useHome(ahora: Date) {
       citasPorEstado,
       totalCitas,
       actividadReciente,
-      panelAhora,
+      citasEnCasetaHoy,
+      citasEnPatioHoy,
+      citasSemanaArr,
     };
   }, [citas, transiciones, docks, usuarios, hoyStr, ahora]);
 }

@@ -14,7 +14,7 @@ import { EmptyState } from '@/kit/componentes/EmptyState/EmptyState';
 import { LoadingState } from '@/kit/componentes/LoadingState/LoadingState';
 import { BarraProgreso } from './components/BarraProgreso';
 import { CardActividadReciente } from './components/CardActividadReciente';
-import { PanelAhora } from './components/PanelAhora';
+import { SeguimientoDelDia } from './components/SeguimientoDelDia';
 import { useHome } from './useHome';
 
 interface KpiDef {
@@ -36,7 +36,7 @@ export default function HomePage() {
   const {
     citasHoy, citasSemana, enPatio, completadasHoy,
     esperaPromedioMin, citasPorEstado, totalCitas, actividadReciente,
-    panelAhora,
+    citasEnCasetaHoy, citasEnPatioHoy, citasSemanaArr,
   } = useHome(ahora);
 
   const kpis: KpiDef[] = [
@@ -91,7 +91,11 @@ export default function HomePage() {
       </div>
 
       <div style={{ marginBottom: 24 }}>
-        <PanelAhora data={panelAhora} />
+        <SeguimientoDelDia
+          citasEnCasetaHoy={citasEnCasetaHoy}
+          citasEnPatioHoy={citasEnPatioHoy}
+          citasSemanaArr={citasSemanaArr}
+        />
       </div>
 
       <div style={{ marginBottom: 24 }}>
