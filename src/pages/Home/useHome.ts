@@ -1,7 +1,8 @@
 import { useMemo } from 'react';
 import { useAtomValue } from 'jotai';
-import { format, startOfWeek, endOfWeek } from 'date-fns';
+import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
+import { getInicioSemana, getDiasSemana } from '@/pages/Citas/utils';
 import { citasAtom, transicionesAtom, docksAtom, usuariosAtom } from '@/lib/store';
 import type { Cita, EstadoCita, TransicionEstado, Usuario } from '@/lib/types';
 import { ESTADOS, FLUJO_PRINCIPAL, ROL_ETIQUETA } from '@/lib/constants';
@@ -118,10 +119,11 @@ export function useHome(ahora: Date) {
       .map(c => ({ cita: c, minutosEnEstado: minutosDesdeEstado(c, transiciones, ahora) }))
       .sort((a, b) => b.minutosEnEstado - a.minutosEnEstado);
 
-    const inicioSemana = format(startOfWeek(ahora, { locale: es }), 'yyyy-MM-dd');
-    const finSemana = format(endOfWeek(ahora, { locale: es }), 'yyyy-MM-dd');
-    const citasSemanaArr: ItemSemana[] = citas
-      .filter(c => c.fechaProgramada >= inicioSemana && c.fechaProgramada <= finSemana)
+    const inicioSemana = getInicioSemana(ahora);
+    const diasSemana = getDiasSemana(inicioSemana);
+    const fechasSemanaStr = diasSemana.map(d => format(d, 'yyyy-MM-dd'));
+    const citasSemanaCalendario: ItemSemana[] = citas
+      .filter(c => c.estado === 'programada' && fechasSemanaStr.includes(c.fechaProgramada))
       .sort((a, b) => a.fechaProgramada.localeCompare(b.fechaProgramada))
       .map(c => {
         const fecha = new Date(`${c.fechaProgramada}T12:00:00`);
@@ -140,7 +142,7 @@ export function useHome(ahora: Date) {
       actividadReciente,
       citasEnCasetaHoy,
       citasEnPatioHoy,
-      citasSemanaArr,
+      citasSemanaCalendario,
     };
   }, [citas, transiciones, docks, usuarios, hoyStr, ahora]);
 }

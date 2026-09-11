@@ -181,8 +181,8 @@ function ListaSemana({ items, clicable, onClic }: { items: ItemSemana[]; clicabl
 
 function FilaSemana({ item, clicable, onClick }: { item: ItemSemana; clicable: boolean; onClick: () => void }) {
   const [hover, setHover] = useState(false);
-  const ui = ESTADO_UI[item.cita.estado];
-  const colorBase = ESTADO_UI[item.cita.estado].color;
+  const colorBase = colores.libres.info;
+  const icono = ESTADO_UI.programada.icon;
 
   return (
     <div
@@ -203,7 +203,7 @@ function FilaSemana({ item, clicable, onClick }: { item: ItemSemana; clicable: b
         className="flex items-center justify-center"
         style={{ width: 32, height: 32, borderRadius: '50%', backgroundColor: `${colorBase}26`, flexShrink: 0 }}
       >
-        <FontAwesomeIcon icon={ui.icon} style={{ fontSize: 14, color: colorBase }} />
+        <FontAwesomeIcon icon={icono} style={{ fontSize: 14, color: colorBase }} />
       </div>
 
       <div style={{ flex: 1, minWidth: 0 }}>

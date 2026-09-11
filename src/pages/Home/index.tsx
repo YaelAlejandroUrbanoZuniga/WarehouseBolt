@@ -36,7 +36,7 @@ export default function HomePage() {
   const {
     citasHoy, citasSemana, enPatio, completadasHoy,
     esperaPromedioMin, citasPorEstado, totalCitas, actividadReciente,
-    citasEnCasetaHoy, citasEnPatioHoy, citasSemanaArr,
+    citasEnCasetaHoy, citasEnPatioHoy, citasSemanaCalendario,
   } = useHome(ahora);
 
   const kpis: KpiDef[] = [
@@ -94,7 +94,7 @@ export default function HomePage() {
         <SeguimientoDelDia
           citasEnCasetaHoy={citasEnCasetaHoy}
           citasEnPatioHoy={citasEnPatioHoy}
-          citasSemanaArr={citasSemanaArr}
+          citasSemanaArr={citasSemanaCalendario}
         />
       </div>
 
