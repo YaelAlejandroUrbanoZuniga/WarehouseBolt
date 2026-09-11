@@ -38,6 +38,8 @@ export const ROL_ETIQUETA: Record<Rol, string> = {
 export const ROLES: Rol[] = ['coordinador', 'vigilancia', 'almacen'];
 
 export const MINUTOS_RETRASO = 30;
+export const MINUTOS_RETRASO_DESCARGA = 60;
+export const MINUTOS_RETRASO_SALIENDO = 15;
 
 export function calcularSubEstado(
   cita: Cita,
@@ -70,6 +72,24 @@ export function calcularSubEstado(
     const limite = new Date(new Date(transicionPlanta.timestamp).getTime() + MINUTOS_RETRASO * 60000);
     const tieneDescarga = citaTransiciones.some(t => t.estado === 'en_descarga');
     if (!tieneDescarga && ahora > limite) return 'retraso';
+    return undefined;
+  }
+
+  if (cita.estado === 'en_descarga') {
+    const transicionDescarga = citaTransiciones.find(t => t.estado === 'en_descarga');
+    if (!transicionDescarga) return undefined;
+    const limite = new Date(new Date(transicionDescarga.timestamp).getTime() + MINUTOS_RETRASO_DESCARGA * 60000);
+    const tieneSalida = citaTransiciones.some(t => t.estado === 'saliendo');
+    if (!tieneSalida && ahora > limite) return 'retraso';
+    return undefined;
+  }
+
+  if (cita.estado === 'saliendo') {
+    const transicionSaliendo = citaTransiciones.find(t => t.estado === 'saliendo');
+    if (!transicionSaliendo) return undefined;
+    const limite = new Date(new Date(transicionSaliendo.timestamp).getTime() + MINUTOS_RETRASO_SALIENDO * 60000);
+    const tieneCompletada = citaTransiciones.some(t => t.estado === 'completada');
+    if (!tieneCompletada && ahora > limite) return 'retraso';
     return undefined;
   }
 
